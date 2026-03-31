@@ -49,22 +49,21 @@ export const SecuritySection = () => {
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>Безопасность аккаунта</h2>
+        <h2 className={styles.sectionTitle}>Account Security</h2>
         <p className={styles.sectionDescription}>
-          Контролируйте сессии и пароль — держите безопасность под своим
-          управлением.
+          Manage your sessions and password — keep your account security under
+          control.
         </p>
       </div>
 
-      {/* Блок пароля */}
       <div className={styles.passwordBlock}>
         <div className={styles.passwordHeader}>
-          <p className={styles.passwordTitle}>Пароль</p>
+          <p className={styles.passwordTitle}>Password</p>
           <div
             className={styles.passwordAction}
             onClick={handleVisibleChangePassword}
           >
-            {visibleChangePassword ? "Скрыть" : "Изменить пароль"}
+            {visibleChangePassword ? "Hide" : "Change password"}
           </div>
         </div>
         <AnimatePresence initial={false}>
@@ -74,14 +73,11 @@ export const SecuritySection = () => {
         </AnimatePresence>
       </div>
 
-      {/* Сессии */}
       <div className={styles.sessionsBlock}>
-        <p className={styles.sessionsTitle}>Активные сессии</p>
+        <p className={styles.sessionsTitle}>Active Sessions</p>
         <div className={styles.sessionsList}>
           {sortedSessions?.length === 0 ? (
-            <div className={styles.emptySessions}>
-              Активных сессий не найдено
-            </div>
+            <div className={styles.emptySessions}>No active sessions found</div>
           ) : (
             sortedSessions?.map((session) => {
               const isSessionCurrent = session.id === currentSessionId;
@@ -97,19 +93,18 @@ export const SecuritySection = () => {
         </div>
       </div>
 
-      {/* Удаление аккаунта */}
       <div className={styles.sessionsBlock}>
-        <p className={styles.deleteTitle}>Удаление аккаунта</p>
+        <p className={styles.deleteTitle}>Delete Account</p>
 
         <div className={styles.deleteContainer}>
           <p>
-            После удаления учётной записи восстановить её уже не получится.
-            Пожалуйста, убедитесь, что вы уверены в своём решении.
+            Once your account is deleted, it cannot be restored. Please make
+            sure you are certain before continuing.
           </p>
           <Button
             secondary
             className={styles.deleteAccount}
-            title="Удалить аккаунт"
+            title="Delete account"
             onClick={handleConfirmationDelete}
           />
         </div>
@@ -163,11 +158,11 @@ const SessionCard = ({ session, isSessionCurrent }) => {
             tabIndex={!isSessionCurrent ? 0 : -1}
           >
             {isSessionCurrent ? (
-              <>Текущая</>
+              <>Current</>
             ) : isSessionLoading ? (
               <RingLoader color="#fff" size={10} />
             ) : (
-              <>Завершить</>
+              <>End session</>
             )}
           </div>
         </div>

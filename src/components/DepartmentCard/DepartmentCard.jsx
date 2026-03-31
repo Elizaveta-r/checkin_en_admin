@@ -23,14 +23,13 @@ const DepartmentCard = ({
   const { loadingGetDetails } = useSelector((state) => state?.departments);
 
   const handleIsDefaultChange = (newCheckedValue) => {
-    if (!department || !department.id) return; // Защита от отсутствия данных
+    if (!department || !department.id) return;
 
-    // Вызываем Thunk, который сам управляет оптимистичным обновлением и откатом
     dispatch(
       toggleDepartmentIsDefault({
         department: department,
         newValue: newCheckedValue,
-      })
+      }),
     );
   };
 
@@ -54,15 +53,13 @@ const DepartmentCard = ({
         <p className={styles.description}>
           {department?.description
             ? department?.description
-            : "Описание отсутствует"}
+            : "No description provided"}
         </p>
 
-        {/* Блок с ключевыми данными */}
         <div className={styles.dataGrid}>
-          {/* Время Check-in */}
           <div className={styles.dataItem}>
             <div className={styles.checkInTime}>
-              <span className={styles.dataLabel}>Чекин в:</span>
+              <span className={styles.dataLabel}>Check-in at:</span>
             </div>
 
             <HintWithPortal hintContent={<HintCheckIn />}>
@@ -72,10 +69,9 @@ const DepartmentCard = ({
             </HintWithPortal>
           </div>
 
-          {/* Время Check-out */}
           <div className={styles.dataItem}>
             <div className={styles.checkOutTime}>
-              <span className={styles.dataLabel}>Чекаут с:</span>
+              <span className={styles.dataLabel}>Check-out from:</span>
             </div>
 
             <HintWithPortal hintContent={<HintCheckOut />}>
@@ -86,7 +82,7 @@ const DepartmentCard = ({
           </div>
 
           <div className={styles.dataItem}>
-            <span className={styles.dataLabel}>Часовой пояс:</span>
+            <span className={styles.dataLabel}>Time zone:</span>
 
             <HintWithPortal hintContent={<HintTimeZone />}>
               <span className={styles.dataValue}>
@@ -95,10 +91,9 @@ const DepartmentCard = ({
             </HintWithPortal>
           </div>
 
-          {/* Количество сотрудников */}
           <div className={styles.dataItem}>
             <div className={styles.employeeCount}>
-              <span className={styles.dataLabel}>Сотрудников:</span>
+              <span className={styles.dataLabel}>Employees:</span>
             </div>
 
             <span className={styles.dataValue}>
@@ -107,21 +102,16 @@ const DepartmentCard = ({
           </div>
         </div>
 
-        {/* --- */}
         <div className={styles.isDefault}>
-          <HintWithPortal
-            hintContent={"Использовать по умолчанию"}
-            hasIcon={false}
-          >
+          <HintWithPortal hintContent={"Use as default"} hasIcon={false}>
             <CustomCheckbox
               checked={department.is_default}
               onChange={handleIsDefaultChange}
-              label={"Использовать по умолчанию"}
+              label={"Use as default"}
             />
           </HintWithPortal>
         </div>
 
-        {/* Кнопки с акцентами */}
         <CardActions
           loading={loadingGetDetails === department?.id}
           onDetails={onDetailsClick}

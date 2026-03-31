@@ -106,7 +106,7 @@ export const PageLayout = ({ children }) => {
     allCompleted =
       !!st?.completed &&
       ["departments", "positions", "tasks", "employees"].every(
-        (k) => st.completed[k]
+        (k) => st.completed[k],
       );
   } catch {
     //
@@ -125,7 +125,7 @@ export const PageLayout = ({ children }) => {
           zIndex: 1000,
         }}
       > */}
-      <Snowfall snowflakeCount={300} color="#06B5D46A" />
+      {/* <Snowfall snowflakeCount={300} color="#06B5D46A" /> */}
       {/* </div> */}
 
       {/* <HPModal

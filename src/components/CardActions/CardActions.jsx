@@ -12,7 +12,7 @@ export const CardActions = ({
     <div className={styles.cardActions}>
       <div className={styles.infoBtn} onClick={onDetails}>
         {loading ? <RingLoader color="white" size={14} /> : <Info size={16} />}
-        <p>Подробнее</p>
+        <p>Details</p>
       </div>
       <div className={styles.edit} onClick={onUpdate}>
         <PencilLine size={16} />

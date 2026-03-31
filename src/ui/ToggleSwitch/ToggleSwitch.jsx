@@ -21,7 +21,6 @@ const ToggleSwitch = ({
     <div className={`${styles.switchContainer} ${className || ""}`}>
       {togglePosition === "left" && (
         <label className={styles.switch}>
-          {/* Скрытый чекбокс управляет состоянием */}
           <input
             type="checkbox"
             checked={checked}
@@ -29,7 +28,6 @@ const ToggleSwitch = ({
             onChange={(e) => onChange(e.target.checked)}
             className={styles.switchInput}
           />
-          {/* Визуальный ползунок (Slider) */}
           <span
             className={`${styles.slider} ${checked ? styles.checked : ""}`}
           />
@@ -41,14 +39,12 @@ const ToggleSwitch = ({
 
       {togglePosition === "right" && (
         <label className={styles.switch}>
-          {/* Скрытый чекбокс управляет состоянием */}
           <input
             type="checkbox"
             checked={checked}
             onChange={(e) => onChange(e.target.checked)}
             className={styles.switchInput}
           />
-          {/* Визуальный ползунок (Slider) */}
           <span
             className={`${styles.slider} ${checked ? styles.checked : ""}`}
           />

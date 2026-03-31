@@ -12,7 +12,7 @@ import { toggleIntegration } from "../../store/slices/integrationsSlice";
 import { useMediaQuery } from "react-responsive";
 
 const maskToken = (token) => {
-  if (!token || token.length <= 6) return token; // короткие не трогаем
+  if (!token || token.length <= 6) return token;
   const start = token.slice(0, 4);
   const end = token.slice(-2);
   const middle = "*".repeat(token.length - 6);
@@ -41,10 +41,10 @@ export const IntegrationCard = ({ integration, onUpdate, onDelete }) => {
 
   const handleToggleChange = () => {
     const newStatus = !localActive;
-    setLocalActive(newStatus); // оптимистично
+    setLocalActive(newStatus);
     dispatch(toggleIntegration({ id: integration.id, newStatus }))
       .unwrap()
-      .catch(() => setLocalActive(!newStatus)); // откат при ошибке
+      .catch(() => setLocalActive(!newStatus));
   };
 
   const handleCopy = () => {
@@ -84,20 +84,10 @@ export const IntegrationCard = ({ integration, onUpdate, onDelete }) => {
                 <p className={styles.cardName}>{integration.title}</p>
               </i>
             </div>
-
-            {/* <StatusPill
-          isActive={integration.is_active}
-          className={styles.status}
-        /> */}
           </div>
         </>
       )}
 
-      {/* <p className={styles.description}>
-        {integration.description || "Описание отсутствует"}
-      </p> */}
-
-      {/* <div className={styles.cardInfo}> */}
       <div className={styles.info}>
         {isMobile ? (
           <p className={styles.token}>
@@ -108,7 +98,7 @@ export const IntegrationCard = ({ integration, onUpdate, onDelete }) => {
         ) : (
           <HintWithPortal
             styleHintWrapper={{ width: "max-content" }}
-            hintContent="Ваш токен бота"
+            hintContent="Your bot token"
             isCentered
             hasIcon={false}
           >
@@ -122,7 +112,7 @@ export const IntegrationCard = ({ integration, onUpdate, onDelete }) => {
         <div className={styles.actions}>
           <HintWithPortal
             hasIcon={false}
-            hintContent={`${visibleToken ? "Скрыть" : "Показать"} токен`}
+            hintContent={`${visibleToken ? "Hide" : "Show"} token`}
           >
             <div className={styles.toggleToken} onClick={handleToggleToken}>
               <AnimatePresence mode="wait" initial={false}>
@@ -139,10 +129,7 @@ export const IntegrationCard = ({ integration, onUpdate, onDelete }) => {
               </AnimatePresence>
             </div>
           </HintWithPortal>
-          <HintWithPortal
-            hasIcon={false}
-            hintContent={`Кликните, чтобы скопировать`}
-          >
+          <HintWithPortal hasIcon={false} hintContent={`Click to copy`}>
             <div
               className={styles.toggleToken}
               onClick={() => handleCopy(integration.perpetual_token)}
@@ -163,25 +150,18 @@ export const IntegrationCard = ({ integration, onUpdate, onDelete }) => {
           </HintWithPortal>
         </div>
       </div>
-      {/* <div className={styles.info}>
-          <p className={styles.type}>
-            {getIntegrationTypeLabel(integration.integration_type)}
-          </p>
-          <p className={styles.use}>{getUseTypeLabel(integration.use_type)}</p>
-        </div> */}
-      {/* </div> */}
 
       <div className={styles.cardActions}>
         <HintWithPortal
           hasIcon={isMobile ? true : false}
           hintContent={
             isMobile
-              ? `Когда бот выключен — он не получает и не отвечает на сообщения. \n\n Включите его, чтобы снова принимать обращения пользователей.`
-              : `${isIntegrationActive ? "Выключить" : "Включить"} интеграцию`
+              ? `When the bot is turned off, it does not receive or respond to messages.\n\nTurn it back on to start receiving user requests again.`
+              : `${isIntegrationActive ? "Disable" : "Enable"} integration`
           }
         >
           <ToggleSwitch
-            label={isMobile && (isIntegrationActive ? "Включен" : "Выключен")}
+            label={isMobile && (isIntegrationActive ? "Enabled" : "Disabled")}
             togglePosition="left"
             checked={localActive}
             onChange={handleToggleChange}

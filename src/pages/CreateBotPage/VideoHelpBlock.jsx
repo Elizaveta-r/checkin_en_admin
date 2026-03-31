@@ -10,11 +10,7 @@ export const VideoHelpBlock = () => {
   });
 
   const handleClick = () => {
-    window.open(
-      "https://rutube.ru/plst/1303409",
-      "_blank",
-      "noopener,noreferrer"
-    );
+    window.open("https://youtube.com/", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -34,10 +30,10 @@ export const VideoHelpBlock = () => {
           </div>
 
           <div className={styles.content}>
-            <h3 className={styles.title}>📹 Видеоинструкция на RuTube</h3>
+            <h3 className={styles.title}>📹 Video guide on YouTube</h3>
             <p className={styles.description}>
-              Не понятно по скриншотам? Посмотрите подробное видео с пошаговыми
-              инструкциями
+              Still not clear from the screenshots? Watch the full step-by-step
+              video guide.
             </p>
           </div>
 
@@ -54,10 +50,10 @@ export const VideoHelpBlock = () => {
           </div>
 
           <div className={styles.content}>
-            <h3 className={styles.title}>📹 Видеоинструкция на RuTube</h3>
+            <h3 className={styles.title}>📹 Video guide on YouTube</h3>
             <p className={styles.description}>
-              Не понятно по скриншотам? Посмотрите подробное видео с пошаговыми
-              инструкциями
+              Still not clear from the screenshots? Watch the full step-by-step
+              video guide.
             </p>
           </div>
 
@@ -66,7 +62,7 @@ export const VideoHelpBlock = () => {
               isMobile ? styles.mobileLink : ""
             }`}
           >
-            Перейти в RuTube
+            Open on YouTube
             <ArrowRight />
           </div>
         </div>

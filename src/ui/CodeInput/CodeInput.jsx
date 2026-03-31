@@ -1,9 +1,17 @@
-// CodeInput.jsx
-import React, { useRef, useEffect } from 'react';
-import styles from './CodeInput.module.scss';
+import React, { useRef, useEffect } from "react";
+import styles from "./CodeInput.module.scss";
 
-const CodeInput = ({ length = 6, value = '', onComplete, onChange, loading = false }) => {
-  const values = value.split('').concat(new Array(length).fill('')).slice(0, length);
+const CodeInput = ({
+  length = 6,
+  value = "",
+  onComplete,
+  onChange,
+  loading = false,
+}) => {
+  const values = value
+    .split("")
+    .concat(new Array(length).fill(""))
+    .slice(0, length);
   const inputRefs = useRef([]);
 
   useEffect(() => {
@@ -15,29 +23,29 @@ const CodeInput = ({ length = 6, value = '', onComplete, onChange, loading = fal
 
   const handleChange = (index, inputValue) => {
     if (loading) return; // Блокируем ввод во время загрузки
-    
+
     // Обработка вставки кода
     if (inputValue.length > 1) {
       const pastedCode = inputValue.slice(0, length);
       const newValues = [...values];
-      
+
       for (let i = 0; i < pastedCode.length && i + index < length; i++) {
         newValues[i + index] = pastedCode[i];
       }
-      
+
       // Фокус на следующий инпут после вставки или на последний заполненный
       const nextIndex = Math.min(index + pastedCode.length, length - 1);
       if (inputRefs.current[nextIndex]) {
         inputRefs.current[nextIndex].focus();
       }
-      
+
       // Вызов колбэков
-      const newCode = newValues.join('');
+      const newCode = newValues.join("");
       onChange?.(newCode);
-      if (newValues.every(v => v !== '') && newCode.length === length) {
+      if (newValues.every((v) => v !== "") && newCode.length === length) {
         onComplete?.(newCode);
       }
-      
+
       return;
     }
 
@@ -51,38 +59,38 @@ const CodeInput = ({ length = 6, value = '', onComplete, onChange, loading = fal
     }
 
     // Вызов колбэков
-    const newCode = newValues.join('');
+    const newCode = newValues.join("");
     onChange?.(newCode);
-    if (newValues.every(v => v !== '') && newCode.length === length) {
+    if (newValues.every((v) => v !== "") && newCode.length === length) {
       onComplete?.(newCode);
     }
   };
 
   const handleKeyDown = (index, e) => {
     if (loading) return; // Блокируем клавиши во время загрузки
-    
+
     // Обработка Backspace
-    if (e.key === 'Backspace') {
+    if (e.key === "Backspace") {
       const newValues = [...values];
-      
+
       if (values[index]) {
         // Если есть значение в текущем инпуте, удаляем его
-        newValues[index] = '';
+        newValues[index] = "";
       } else if (index > 0) {
         // Если текущий инпут пустой, переходим к предыдущему и удаляем его значение
-        newValues[index - 1] = '';
+        newValues[index - 1] = "";
         inputRefs.current[index - 1]?.focus();
       }
-      
-      onChange?.(newValues.join(''));
+
+      onChange?.(newValues.join(""));
     }
-    
+
     // Обработка стрелок
-    if (e.key === 'ArrowLeft' && index > 0) {
+    if (e.key === "ArrowLeft" && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
-    
-    if (e.key === 'ArrowRight' && index < length - 1) {
+
+    if (e.key === "ArrowRight" && index < length - 1) {
       inputRefs.current[index + 1]?.focus();
     }
   };
@@ -93,7 +101,7 @@ const CodeInput = ({ length = 6, value = '', onComplete, onChange, loading = fal
   };
 
   return (
-    <div className={`${styles.codeInput} ${loading ? styles.loading : ''}`}>
+    <div className={`${styles.codeInput} ${loading ? styles.loading : ""}`}>
       {values.map((value, index) => (
         <input
           key={index}
@@ -107,8 +115,8 @@ const CodeInput = ({ length = 6, value = '', onComplete, onChange, loading = fal
           onKeyDown={(e) => handleKeyDown(index, e)}
           onFocus={() => handleFocus(index)}
           disabled={loading}
-          className={`${styles.input} ${value ? styles.filled : ''} ${loading ? styles.disabled : ''}`}
-          aria-label={`Код, позиция ${index + 1}`}
+          className={`${styles.input} ${value ? styles.filled : ""} ${loading ? styles.disabled : ""}`}
+          aria-label={`Code, position ${index + 1}`}
         />
       ))}
       {loading && (

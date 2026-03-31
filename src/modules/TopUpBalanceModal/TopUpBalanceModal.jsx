@@ -10,11 +10,22 @@ import { topUpBalance } from "../../utils/api/actions/billing";
 import { toast } from "sonner";
 import { RingLoader } from "react-spinners";
 
-// Минимальная сумма пополнения для валидации
 const MIN_TOP_UP_AMOUNT = 150;
-
-// Быстрые суммы
 const QUICK_AMOUNTS = [500, 1000, 2500, 5000];
+
+const CURRENCY_SYMBOL = "₽";
+const CURRENCY_POSITION = "after"; // "before" | "after"
+
+const formatPrice = (value) => {
+  const formatted =
+    typeof value === "number"
+      ? formatWithSpaces(value.toLocaleString("en-US"))
+      : formatWithSpaces(value);
+
+  return CURRENCY_POSITION === "before"
+    ? `${CURRENCY_SYMBOL}${formatted}`
+    : `${formatted} ${CURRENCY_SYMBOL}`;
+};
 
 /**
  * @param {{isOpen: boolean, onClose: () => void, onSubmit: (amount: number) => Promise<void>}} props
@@ -35,7 +46,7 @@ export default function TopUpBalanceModal({ isOpen, onClose, onSubmit }) {
   const errorMessage = useMemo(() => {
     if (amount === "") return null;
     if (amountNumber > 0 && amountNumber < MIN_TOP_UP_AMOUNT) {
-      return `Минимальная сумма пополнения: ${MIN_TOP_UP_AMOUNT} ₽`;
+      return `Minimum top-up amount: ${formatPrice(MIN_TOP_UP_AMOUNT)}`;
     }
     return null;
   }, [amountNumber, amount]);
@@ -43,7 +54,7 @@ export default function TopUpBalanceModal({ isOpen, onClose, onSubmit }) {
   const handleSubmit = (e) => {
     const amountFloat = parseFloat(String(amountNumber).replace(/\s/g, ""));
     if (!Number.isFinite(amountFloat) || amountFloat <= 0) {
-      toast.warning("Введите сумму пополнения");
+      toast.warning("Enter a top-up amount");
       return;
     }
     let data = {
@@ -72,18 +83,18 @@ export default function TopUpBalanceModal({ isOpen, onClose, onSubmit }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={onClose} title="Пополнение баланса">
+        <Modal isOpen={isOpen} onClose={onClose} title="Top Up Balance">
           <div className={styles.modalContent}>
             <form onSubmit={handleSubmit}>
               <div className={styles.balanceInfo}>
-                <p>Ваш текущий баланс:</p>
+                <p>Your current balance:</p>
                 <p className={styles.currentBalance}>
-                  {formatWithSpaces(currentBalance.toLocaleString("ru-RU"))} ₽
+                  {formatPrice(currentBalance)}
                 </p>
               </div>
 
               <div className={styles.quickSelect}>
-                <p className={styles.label}>Быстрое пополнение:</p>
+                <p className={styles.label}>Quick top-up:</p>
                 <div className={styles.buttonGroup}>
                   {QUICK_AMOUNTS.map((val) => (
                     <button
@@ -92,7 +103,7 @@ export default function TopUpBalanceModal({ isOpen, onClose, onSubmit }) {
                       className={styles.quickButton}
                       onClick={() => handleQuickSelect(val)}
                     >
-                      +{val} ₽
+                      +{formatPrice(val)}
                     </button>
                   ))}
                 </div>
@@ -100,7 +111,7 @@ export default function TopUpBalanceModal({ isOpen, onClose, onSubmit }) {
 
               <div className={styles.inputGroup}>
                 <label htmlFor="amount" className={styles.label}>
-                  Введите сумму пополнения (в ₽):
+                  Enter top-up amount:
                 </label>
                 <CustomInput
                   id="amount"
@@ -131,16 +142,14 @@ export default function TopUpBalanceModal({ isOpen, onClose, onSubmit }) {
                 ) : (
                   <CreditCard size={20} />
                 )}
-                {isLoading ? "Подождите" : "Оплатить"}{" "}
+                {isLoading ? "Please wait" : "Pay"}{" "}
                 {!isLoading &&
-                  (amountNumber > 0
-                    ? `${amountNumber.toLocaleString("ru-RU")} ₽`
-                    : "")}
+                  (amountNumber > 0 ? `${formatPrice(amountNumber)}` : "")}
               </button>
 
               <p className={styles.paymentNote}>
-                <Zap size={14} /> Вы будете перенаправлены на страницу Robokassa
-                для выбора способа оплаты (карты, электронные деньги и др.).
+                <Zap size={14} /> You will be redirected to Robokassa to choose
+                a payment method, such as card or e-wallet.
               </p>
             </form>
           </div>

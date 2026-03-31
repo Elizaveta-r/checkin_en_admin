@@ -25,7 +25,6 @@ export default function TasksPage() {
     data: tasks,
     filteredTasks: filteredTasksFromStore,
     loadingTask,
-    // sort,
     viewMode,
   } = useSelector((state) => state?.tasks);
   const { departments } = useSelector((state) => state?.departments);
@@ -70,11 +69,10 @@ export default function TasksPage() {
     dispatch(setIsEdit(false));
     dispatch(resetDraftTask());
     if (!departments) {
-      toast("Подразделение не найдено", {
-        description:
-          "Для того чтобы продолжить, создайте хотя бы 1 подразделение.",
+      toast("Department not found", {
+        description: "To continue, create at least one department.",
         action: {
-          label: "Создать",
+          label: "Create",
           onClick: () => navigate("/departments?create=true"),
         },
         style: { textAlign: "left" },
@@ -91,7 +89,7 @@ export default function TasksPage() {
   return (
     <div className={styles.container}>
       <PageTitle
-        title={"Задачи"}
+        title={"Tasks"}
         hasButton
         onClick={handleGoToNewTask}
         dataTour={"tasks.add"}
@@ -123,15 +121,14 @@ export default function TasksPage() {
               )
             ) : (
               <div className={styles.empty}>
-                Список задач пуст. <br /> Попробуйте{" "}
-                <strong>изменить фильтры</strong>
+                No tasks found. <br /> Try <strong>changing the filters</strong>
               </div>
             )}
           </div>
         ) : (
           <div className={styles.empty}>
-            Список задач пуст. <br /> Нажмите <strong>"Добавить"</strong>, чтобы
-            создать первую задачу.
+            No tasks yet. <br /> Click <strong>"Add"</strong> to create your
+            first task.
           </div>
         ))}
       {loadingTask && <Loading />}

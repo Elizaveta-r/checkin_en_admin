@@ -26,13 +26,13 @@ import { HintWithPortal } from "../../ui/HintWithPortal/HintWithPortal";
 const getLabelDoneType = (type) => {
   switch (type) {
     case "photo":
-      return "Фото";
+      return "Photo";
     case "text":
-      return "Текст";
+      return "Text";
     case "check_box":
-      return "Чекбокс";
+      return "Checkbox";
     default:
-      return "Фото";
+      return "Photo";
   }
 };
 
@@ -44,17 +44,15 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
 
   const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
 
-  // Определяем бейджи для фото
   const photoBadge = task?.photo_required
     ? styles.badgeMandatory
     : task?.photo_need
-    ? styles.badgeRequired
-    : styles.badgeInfo;
-  const photoText = task?.done_type === "photo" ? "Требуется фото" : "Без фото";
+      ? styles.badgeRequired
+      : styles.badgeInfo;
+  const photoText = task?.done_type === "photo" ? "Photo required" : "No photo";
 
   const PhotoIcon = task?.photo_required ? Zap : Camera;
 
-  // Определяем бейдж для уведомлений
   const notifyBadge = task?.late_push ? styles.badgeAlert : styles.badgeMuted;
 
   const handleDelete = () => {
@@ -92,7 +90,7 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
         isOpen={visibleDeleteModal}
         onClose={() => setVisibleDeleteModal(false)}
         message={<Message taskName={task?.title} />}
-        buttonTitle="Удалить задачу"
+        buttonTitle="Delete task"
         onConfirm={handleDeleteTask}
         buttonIcon={<XCircle size={20} />}
         loading={loadingTask}
@@ -110,12 +108,12 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
 
             <div className={styles.headerActionsContainer}>
               <div className={styles.headerActions}>
-                <HintWithPortal hintContent="Редактировать" hasIcon={false}>
+                <HintWithPortal hintContent="Edit" hasIcon={false}>
                   <div className={styles.edit} onClick={handleUpdate}>
                     <Pencil size={16} />
                   </div>
                 </HintWithPortal>
-                <HintWithPortal hintContent="Удалить" hasIcon={false}>
+                <HintWithPortal hintContent="Delete" hasIcon={false}>
                   <div className={styles.trash} onClick={handleDelete}>
                     <Trash size={16} />
                   </div>
@@ -133,7 +131,6 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
                 {position?.title}
               </div>
             ))}
-            {/* <div className={styles.shadow} /> */}
           </div>
         </div>
       </div>
@@ -148,8 +145,8 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
             <Bell size={14} />{" "}
             <span>
               {task?.late_push
-                ? "Уведомление при просрочке"
-                : "Без уведомлений"}
+                ? "Overdue reminder enabled"
+                : "No notifications"}
             </span>
           </div>
           <div
@@ -158,44 +155,45 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
             }`}
           >
             <CheckSquare size={14} />{" "}
-            <span>{task?.to_report ? "В итоговом отчете" : "Вне отчета"}</span>
+            <span>
+              {task?.to_report
+                ? "Included in final report"
+                : "Not included in report"}
+            </span>
           </div>
           <div className={`${styles.badge} ${styles.badgeTimeType}`}>
             <Clock size={14} />
             <span>
-              {task.time_type === "daily" && "Ежедневно"}
-              {task.time_type === "weekly" && "Еженедельно"}
-              {task.time_type === "monthly" && "Ежемесячно"}
-              {task.time_type === "onetime" && "Единоразово"}
+              {task.time_type === "daily" && "Daily"}
+              {task.time_type === "weekly" && "Weekly"}
+              {task.time_type === "monthly" && "Monthly"}
+              {task.time_type === "onetime" && "One-time"}
             </span>
           </div>
         </div>
       )}
 
-      {/* 3. ОСНОВНЫЕ ДЕТАЛИ (GRID) */}
       {!isViewShort && (
         <div className={`${styles.detailsGrid}`}>
-          {/* Время и Дедлайн (1-й ряд) */}
           <div className={styles.detailItem}>
             <span className={styles.label}>
               <Clock size={16} />{" "}
-              <span className={styles.labelText}>Время начала:</span>
+              <span className={styles.labelText}>Start time:</span>
             </span>
             <span className={styles.value}>{task?.start_time}</span>
           </div>
           <div className={styles.detailItem}>
             <span className={styles.label}>
               <Clock size={16} />{" "}
-              <span className={styles.labelText}>Дедлайн:</span>
+              <span className={styles.labelText}>Deadline:</span>
             </span>
             <span className={styles.valueAccent}>{task?.deadline_time}</span>
           </div>
 
-          {/* Тип подтверждения (2-й ряд) */}
           <div className={styles.detailItem}>
             <span className={styles.label}>
               <CheckSquare size={16} />{" "}
-              <span className={styles.labelText}>Тип подтверждения:</span>
+              <span className={styles.labelText}>Confirmation type:</span>
             </span>
             <span className={styles.value}>
               {getLabelDoneType(task?.done_type)}
@@ -207,8 +205,8 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
               <Building2 size={16} />
               <span className={styles.labelText}>
                 {task?.departments.length > 1
-                  ? "Подразделения: "
-                  : "Подразделение: "}
+                  ? "Departments: "
+                  : "Department: "}
               </span>
             </span>
             {!isFull && task?.departments.length > 1 && (
@@ -216,7 +214,7 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
                 className={styles.viewAllDepartments}
                 onClick={handleGoToDetails}
               >
-                Смотреть все <ArrowRight size={16} />
+                View all <ArrowRight size={16} />
               </span>
             )}
             {isFull &&
@@ -235,12 +233,11 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
         </div>
       )}
 
-      {/* 4. КРИТЕРИЙ ПРИЕМКИ (FOOTER) */}
       {!isViewShort && (
         <div className={styles.criteriaSection}>
-          <p className={styles.criteriaTitle}>Критерий приемки:</p>
+          <p className={styles.criteriaTitle}>Acceptance criteria:</p>
           <p className={`${styles.criteriaText} ${isFull ? styles.full : ""}`}>
-            {task?.ai_prompt ? task?.ai_prompt : "Отсутствует"}
+            {task?.ai_prompt ? task?.ai_prompt : "Not provided"}
           </p>
         </div>
       )}
@@ -251,8 +248,8 @@ export const TaskCard = ({ task, isFull, isViewShort }) => {
 const Message = ({ taskName }) => {
   return (
     <div>
-      <p>Вы действительно хотите удалить задачу?</p> "
-      <strong>{taskName}</strong>"
+      <p>Are you sure you want to delete this task?</p>{" "}
+      <strong>{taskName}</strong>
     </div>
   );
 };

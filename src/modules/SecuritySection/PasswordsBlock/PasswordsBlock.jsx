@@ -16,21 +16,22 @@ const PW_REGEX =
 const validateField = (name, value, allValues) => {
   switch (name) {
     case "currentPwd":
-      if (!value) return "Введите текущий пароль";
+      if (!value) return "Enter your current password";
       if (allValues.newPwd && value === allValues.newPwd) {
-        return "Новый пароль не должен совпадать со старым";
+        return "Your new password must be different from the current one";
       }
       return "";
     case "newPwd":
-      if (!value) return "Введите новый пароль";
-      if (!PW_REGEX.test(value)) return "Минимум 8 символов, буквы и цифры";
+      if (!value) return "Enter a new password";
+      if (!PW_REGEX.test(value))
+        return "At least 8 characters, including letters and numbers";
       if (allValues.currentPwd && value === allValues.currentPwd) {
-        return "Новый пароль не должен совпадать со старым";
+        return "Your new password must be different from the current one";
       }
       return "";
     case "confirmPwd":
-      if (!value) return "Повторите новый пароль";
-      if (value !== allValues.newPwd) return "Пароли не совпадают";
+      if (!value) return "Confirm your new password";
+      if (value !== allValues.newPwd) return "Passwords do not match";
       return "";
     default:
       return "";
@@ -93,8 +94,8 @@ export default function PasswordsBlock({ setVisible }) {
       changePassword(
         { old_password: form.currentPwd, new_password: form.newPwd },
         setPending,
-        setSuccess
-      )
+        setSuccess,
+      ),
     );
   };
 
@@ -111,8 +112,6 @@ export default function PasswordsBlock({ setVisible }) {
       setVisible(false);
     }
   }, [success, setVisible]);
-
-  // animations
 
   const collapse = {
     open: { height: "auto", opacity: 1, marginTop: 12 },
@@ -149,8 +148,8 @@ export default function PasswordsBlock({ setVisible }) {
       exit="collapsed"
       variants={collapse}
       transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-      style={{ overflow: "hidden" }} // <-- важно
-      className={styles.passwordInputsWrapper} // внешний обёртчик (без внутренних паддингов)
+      style={{ overflow: "hidden" }}
+      className={styles.passwordInputsWrapper}
     >
       <motion.div
         className={styles.passwordInputs}
@@ -162,7 +161,7 @@ export default function PasswordsBlock({ setVisible }) {
       >
         <motion.div variants={fadeItem} key="cur">
           <InputAuth
-            label="Текущий пароль"
+            label="Current password"
             type={form.show.currentPwd ? "text" : "password"}
             value={form.currentPwd}
             onChange={handleChange("currentPwd")}
@@ -188,7 +187,7 @@ export default function PasswordsBlock({ setVisible }) {
 
         <motion.div variants={fadeItem} key="new">
           <InputAuth
-            label="Новый пароль"
+            label="New password"
             type={form.show.newPwd ? "text" : "password"}
             value={form.newPwd}
             onChange={handleChange("newPwd")}
@@ -214,7 +213,7 @@ export default function PasswordsBlock({ setVisible }) {
 
         <motion.div variants={fadeItem} key="conf">
           <InputAuth
-            label="Подтверждение пароля"
+            label="Confirm password"
             type={form.show.confirmPwd ? "text" : "password"}
             value={form.confirmPwd}
             onChange={handleChange("confirmPwd")}
@@ -250,7 +249,7 @@ export default function PasswordsBlock({ setVisible }) {
               {pending ? (
                 <RingLoader color="#fff" size={14} />
               ) : (
-                "Сменить пароль"
+                "Change password"
               )}
             </div>
           </div>

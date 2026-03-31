@@ -1,12 +1,25 @@
 import { BadgeInfo } from "lucide-react";
 import styles from "./ImportantInfo.module.scss";
 
+const CURRENCY_SYMBOL = "₽";
+const CURRENCY_POSITION = "after"; // "before" | "after"
+const BILLING_PERIOD = "month";
+const ADDITIONAL_EMPLOYEE_PRICE = 150;
+
+const formatPrice = (value) => {
+  return CURRENCY_POSITION === "before"
+    ? `${CURRENCY_SYMBOL}${value}`
+    : `${value} ${CURRENCY_SYMBOL}`;
+};
+
 const data = [
-  "Вы можете сменить тариф в любое время",
-  "Возврат средств возможен в течение 14 дней",
-  "Оплата списывается ежемесячно автоматически",
-  "Все тарифы включают бесплатные обновления",
-  "Дополнительные сотрудники: 150 ₽/месяц за каждого",
+  "You can change your plan at any time",
+  "Refunds are available within 14 days",
+  "Payments are charged automatically every month",
+  "All plans include free updates",
+  `Additional employees: ${formatPrice(
+    ADDITIONAL_EMPLOYEE_PRICE,
+  )}/${BILLING_PERIOD} per employee`,
 ];
 
 export const ImportantInfo = () => {
@@ -14,7 +27,7 @@ export const ImportantInfo = () => {
     <div className={styles.importantInfo}>
       <div className={styles.header}>
         <BadgeInfo />
-        <p className={styles.title}>Важная информация</p>
+        <p className={styles.title}>Important Information</p>
       </div>
       <div className={styles.info}>
         {data.map((item, index) => (

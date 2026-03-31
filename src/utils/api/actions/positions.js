@@ -10,7 +10,7 @@ export const getPositionsList = (page, pageSize) => {
   return async (dispatch) => {
     try {
       const res = await $authHost.get(
-        `/organization/position/list?page=${page}&page_size=${pageSize}`
+        `/organization/position/list?page=${page}&page_size=${pageSize}`,
       );
       if (res.status === 200) {
         dispatch(setPositions(res.data.positions));
@@ -32,7 +32,7 @@ export const createPosition = (data) => {
       if (res.status === 200) {
         if (res.status === 200) {
           dispatch(getPositionsList(1, 10));
-          toast.success("Должность успешно создана!");
+          toast.success("Position created successfully!");
         }
 
         return res.data;
@@ -54,7 +54,7 @@ export const createPositionWithoutReload = (data) => {
     try {
       const res = await $authHost.post(`/organization/position`, data);
       if (res.status === 200) {
-        toast.success("Должность успешно создана!");
+        toast.success("Position created successfully!");
         return res.data; // возвращаем только созданную должность
       }
       return res;
@@ -74,7 +74,7 @@ export const updatePosition = (data) => {
       const res = await $authHost.put(`/organization/position`, data);
       if (res.status === 200) {
         dispatch(getPositionsList(1, 10));
-        toast.success("Должность успешно обновлена!");
+        toast.success("Position updated successfully!");
         return res.data;
       }
       return res;
@@ -93,11 +93,11 @@ export const deletePosition = (id) => {
     dispatch(setPositionsLoading(true));
     try {
       const res = await $authHost.delete(
-        `/organization/position?position_id=${id}`
+        `/organization/position?position_id=${id}`,
       );
       if (res.status === 200) {
         dispatch(getPositionsList(1, 10));
-        toast.success("Должность успешно удалена!");
+        toast.success("Position deleted successfully!");
         return res.data;
       }
       return res;

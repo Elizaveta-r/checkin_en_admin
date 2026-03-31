@@ -14,7 +14,7 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
   const [emailInput, setEmailInput] = useState("");
   const [phraseInput, setPhraseInput] = useState("");
 
-  const requiredPhrase = "удалить аккаунт";
+  const requiredPhrase = "delete account";
   const isEmailValid =
     emailInput.trim().toLowerCase() === userData?.email?.toLowerCase();
   const isPhraseValid = phraseInput.trim().toLowerCase() === requiredPhrase;
@@ -41,13 +41,12 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
           title={
             <div className={styles.modalTitle}>
               <ShieldAlert size={28} />
-              <span>Удаление аккаунта</span>
+              <span>Delete Account</span>
             </div>
           }
           hideFooter={true}
         >
           <div className={styles.modalContent}>
-            {/* WARNING TEXT */}
             <motion.div
               className={styles.warningText}
               initial={{ opacity: 0 }}
@@ -56,12 +55,11 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
             >
               <AlertTriangle size={20} />
               <p>
-                Удаление аккаунта приведёт к безвозвратной потере всех данных,
-                интеграций и настроек. Это действие нельзя отменить.
+                Deleting your account will permanently remove all data,
+                integrations, and settings. This action cannot be undone.
               </p>
             </motion.div>
 
-            {/* EMAIL INPUT */}
             <motion.div
               className={styles.inputGroup}
               initial={{ opacity: 0, x: -10 }}
@@ -69,13 +67,13 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
               transition={{ delay: 0.3 }}
             >
               <label className={styles.label}>
-                Введите вашу почту для подтверждения
+                Enter your email to confirm
               </label>
               <CustomInput
                 type="text"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
-                placeholder="Введите вашу почту"
+                placeholder="Enter your email"
                 className={
                   emailInput.length > 0 && !isEmailValid
                     ? styles.inputError
@@ -90,13 +88,12 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                   >
-                    Почта не совпадает с {userData?.email}
+                    The email does not match {userData?.email}
                   </motion.span>
                 )}
               </AnimatePresence>
             </motion.div>
 
-            {/* PHRASE INPUT */}
             <motion.div
               className={styles.inputGroup}
               initial={{ opacity: 0, x: -10 }}
@@ -104,14 +101,14 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
               transition={{ delay: 0.4 }}
             >
               <label className={styles.label}>
-                Чтобы продолжить, введите фразу
+                To continue, enter the phrase
                 <span className={styles.phraseBadge}>{requiredPhrase}</span>
               </label>
               <CustomInput
                 type="text"
                 value={phraseInput}
                 onChange={(e) => setPhraseInput(e.target.value)}
-                placeholder="Введите фразу для подтверждения"
+                placeholder="Enter the confirmation phrase"
                 className={
                   phraseInput.length > 0 && !isPhraseValid
                     ? styles.inputError
@@ -126,13 +123,12 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                   >
-                    Фраза введена неверно
+                    The phrase was entered incorrectly
                   </motion.span>
                 )}
               </AnimatePresence>
             </motion.div>
 
-            {/* FINAL WARNING */}
             <motion.div
               className={styles.finalWarning}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -141,12 +137,10 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
             >
               <Trash2 size={18} />
               <span>
-                После удаления восстановить аккаунт будет{" "}
-                <strong>невозможно</strong>
+                Once deleted, your account <strong>cannot be restored</strong>
               </span>
             </motion.div>
 
-            {/* BUTTONS */}
             <motion.div
               className={styles.buttonGroup}
               initial={{ opacity: 0, y: 10 }}
@@ -156,7 +150,7 @@ export const ModalDeleteAccount = ({ isOpen, handleClose, onConfirm }) => {
               <CancelButton onClick={close} />
 
               <Button
-                title="Удалить аккаунт навсегда"
+                title="Delete Account Permanently"
                 onClick={handleConfirm}
                 disabled={!isButtonEnabled}
                 leftIcon={<Trash2 size={18} />}

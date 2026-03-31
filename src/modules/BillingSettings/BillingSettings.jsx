@@ -33,9 +33,9 @@ export const BillingSettings = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <p className={styles.title}>Настройки</p>
+        <p className={styles.title}>Settings</p>
         <p className={styles.description}>
-          Управление параметрами уведомлений и лимитов кошелька.
+          Manage wallet notification settings and balance thresholds.
         </p>
       </div>
 
@@ -43,14 +43,14 @@ export const BillingSettings = () => {
         <div className={styles.toggleContainer}>
           <HintComponent
             hasIcon
-            text={"Уведомлять о низком балансе"}
-            hint={`Вам на почту придёт письмо, если баланс опустится ниже указанной суммы.`}
+            text={"Notify me about a low balance"}
+            hint={`You will receive an email if your balance drops below the specified amount.`}
           />
           <ToggleSwitch
             checked={form.limitBalanceNotify}
             onChange={(v) => dispatch(setLimitBalanceNotify(v))}
             disabled={!settingsId}
-            label={form.limitBalanceNotify ? "Включено" : "Отключено"}
+            label={form.limitBalanceNotify ? "Enabled" : "Disabled"}
           />
         </div>
 
@@ -58,8 +58,8 @@ export const BillingSettings = () => {
           <div className={styles.inputBlock}>
             <HintComponent
               hasIcon
-              text={"Минимальный баланс для уведомления"}
-              hint={`Сумма, при достижении которой будет отправляться письмо.`}
+              text={"Minimum balance for notifications"}
+              hint={`An email will be sent when your balance reaches this amount.`}
             />
             <CustomInput
               type="text"
@@ -81,26 +81,26 @@ export const BillingSettings = () => {
         {/* <div className={`${styles.toggleContainer} ${styles.autoRenewal}`}>
           <HintComponent
             hasIcon
-            text={"Автопродление"}
-            hint={`С вашего баланса автоматически будут списываться средства`}
+            text={"Auto-renewal"}
+            hint={`Funds will be charged automatically from your balance`}
           />
           <ToggleSwitch
             checked={form.autoRenewal}
             onChange={(v) => dispatch(setAutoRenewal(v))}
-            label={form.autoRenewal ? "Включено" : "Отключено"}
+            label={form.autoRenewal ? "Enabled" : "Disabled"}
           />
         </div> */}
         <div className={styles.toggleContainer}>
           <HintComponent
             hasIcon
-            text={"Уведомлять об отрицательном балансе"}
-            hint={`На почту придёт письмо, если баланс станет отрицательным.`}
+            text={"Notify me about a negative balance"}
+            hint={`You will receive an email if your balance becomes negative.`}
           />
           <ToggleSwitch
             checked={form.negativeBalanceNotify}
             onChange={(v) => dispatch(setNegativeBalanceNotify(v))}
             disabled={!settingsId}
-            label={form.negativeBalanceNotify ? "Включено" : "Отключено"}
+            label={form.negativeBalanceNotify ? "Enabled" : "Disabled"}
           />
         </div>
       </div>

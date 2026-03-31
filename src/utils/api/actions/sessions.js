@@ -10,7 +10,7 @@ export const getSessions = () => {
           dispatch(setSessions(res.data.sessions));
           localStorage.setItem(
             "sessions_data",
-            JSON.stringify(res.data.sessions)
+            JSON.stringify(res.data.sessions),
           );
         }
       })
@@ -38,7 +38,7 @@ export const revokeSession = (session_id, setLoading) => {
           dispatch(getSessions());
           return res.data;
         } else {
-          return Promise.reject(new Error("Ошибка при завершении сессии"));
+          return Promise.reject(new Error("Error while ending the session"));
         }
       })
       .catch((err) => {
@@ -48,7 +48,7 @@ export const revokeSession = (session_id, setLoading) => {
         } else {
           if (err.request) {
             console.error(err.request);
-            return Promise.reject("Сервер не ответил");
+            return Promise.reject("The server did not respond");
           } else {
             console.error(err.message);
             return Promise.reject(err.message);

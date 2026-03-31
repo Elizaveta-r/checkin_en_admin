@@ -19,20 +19,20 @@ export const RegPage = () => {
     <div className={styles.container}>
       {step === 2 ? (
         <div className={styles.titleContainer}>
-          <h3 className={styles.title}>Подтвердите почту</h3>
-          <p className={styles.desc}>Введите код, полученный в письме</p>
+          <h3 className={styles.title}>Verify your email</h3>
+          <p className={styles.desc}>Enter the code from the email</p>
         </div>
       ) : (
-        <h1 className={styles.title}>Создание учетной записи</h1>
+        <h1 className={styles.title}>Create an account</h1>
       )}
 
       <RegForm step={step} setStep={setStep} />
 
       {step < 2 && (
         <p className={styles.text}>
-          Уже есть учетная запись?{" "}
+          Already have an account?{" "}
           <span className={styles.link} onClick={handleGoToAuthPage}>
-            Войти
+            Sign in
           </span>
         </p>
       )}

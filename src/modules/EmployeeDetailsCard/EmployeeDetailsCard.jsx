@@ -24,9 +24,9 @@ import { useMediaQuery } from "react-responsive";
 const displayedRole = (role) => {
   switch (role) {
     case "employee":
-      return "Сотрудник";
+      return "Employee";
     case "head":
-      return "Руководитель";
+      return "Manager";
     default:
       return "";
   }
@@ -50,12 +50,12 @@ export default function EmployeeDetailsCard({ employee }) {
   const initials = getInitials(
     employee?.surname,
     employee?.firstname,
-    employee?.patronymic
+    employee?.patronymic,
   );
-  const statusText = employee?.checked_in ? "На работе" : "Нет на работе";
+  const statusText = employee?.checked_in ? "At work" : "Not at work";
   const positions = employee?.positions?.map((position) => position.title);
   const departments = employee?.departments?.map(
-    (department) => department.title
+    (department) => department.title,
   );
 
   const positionsString = positions?.join(", ");
@@ -122,7 +122,6 @@ export default function EmployeeDetailsCard({ employee }) {
           employee={employee}
         />
       )}
-      {/* Аватар и Должность */}
       <div className={styles.profileHeader}>
         <div className={styles.avatar}>{initials}</div>
         <div className={styles.profileText}>
@@ -138,7 +137,6 @@ export default function EmployeeDetailsCard({ employee }) {
         </div>
       </div>
 
-      {/* Основные данные */}
       <div className={styles.dataList}>
         <div className={styles.dataItem}>
           <div className={styles.icon}>
@@ -146,7 +144,7 @@ export default function EmployeeDetailsCard({ employee }) {
           </div>
           <div className={styles.valueContainer}>
             <span className={styles.label}>
-              {employee?.positions?.length > 1 ? "Должности:" : "Должность:"}
+              {employee?.positions?.length > 1 ? "Positions:" : "Position:"}
             </span>
 
             <span className={styles.value}>{positionsString}</span>
@@ -157,7 +155,7 @@ export default function EmployeeDetailsCard({ employee }) {
             <FileBadge2 size={18} className={styles.iconPrimary} />
           </div>
           <div className={styles.valueContainer}>
-            <span className={styles.label}>Роль:</span>
+            <span className={styles.label}>Role:</span>
             <span className={styles.value}>{role}</span>
           </div>
         </div>
@@ -168,15 +166,14 @@ export default function EmployeeDetailsCard({ employee }) {
           <div className={styles.valueContainer}>
             <span className={styles.label}>
               {employee?.departments?.length > 1
-                ? "Подразделения:"
-                : "Подразделение:"}{" "}
+                ? "Departments:"
+                : "Department:"}{" "}
               <span className={styles.value}>{departmentsString}</span>
             </span>
           </div>
         </div>
       </div>
 
-      {/* Кнопки действий */}
       {isMobile ? (
         <ActionsMobile
           handleOpenContactModal={handleOpenContactModal}
@@ -197,9 +194,9 @@ export default function EmployeeDetailsCard({ employee }) {
 const MessageDelete = ({ employeeName }) => {
   return (
     <>
-      Вы уверены, что хотите <strong>удалить</strong> сотрудника <br />
-      <span className={styles.employeeName}>{employeeName}</span>? <br /> Это
-      действие <strong>необратимо</strong>.
+      Are you sure you want to <strong>delete</strong> the employee <br />
+      <span className={styles.employeeName}>{employeeName}</span>? <br /> This
+      action is <strong>irreversible</strong>.
     </>
   );
 };
@@ -212,16 +209,16 @@ const Actions = ({
   return (
     <div className={styles.actions}>
       <button className={styles.contactButton} onClick={handleOpenContactModal}>
-        <Contact size={18} /> Контактные данные
+        <Contact size={18} /> Contact details
       </button>
       <button className={styles.editButton} onClick={handleOpenEditModal}>
-        <Pencil size={18} /> Редактировать
+        <Pencil size={18} /> Edit
       </button>
       <button
         className={styles.deleteButton}
         onClick={handleOpenConfirmDeleteModal}
       >
-        <Trash size={18} /> Удалить
+        <Trash size={18} /> Delete
       </button>
     </div>
   );
@@ -239,18 +236,18 @@ const ActionsMobile = ({
   return (
     <div className={styles.actions}>
       <button className={styles.contactButton} onClick={handleOpenContactModal}>
-        <Contact size={isSmallScreen ? 14 : 18} /> Контактные данные
+        <Contact size={isSmallScreen ? 14 : 18} /> Contact details
       </button>
       <div className={styles.editDelete}>
         <button className={styles.editButton} onClick={handleOpenEditModal}>
           <Pencil size={isSmallScreen ? 14 : 18} />{" "}
-          {isSmallScreen ? "Изменить" : "Редактировать"}
+          {isSmallScreen ? "Edit" : "Edit"}
         </button>
         <button
           className={styles.deleteButton}
           onClick={handleOpenConfirmDeleteModal}
         >
-          <Trash size={isSmallScreen ? 14 : 18} /> Удалить
+          <Trash size={isSmallScreen ? 14 : 18} /> Delete
         </button>
       </div>
     </div>

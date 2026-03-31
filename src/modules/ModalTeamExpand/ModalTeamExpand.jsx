@@ -9,6 +9,17 @@ import { Info, Minus, Plus } from "lucide-react";
 import { pluralizeEmployees } from "../../utils/methods/pluralizeText";
 
 const ADDITIONAL_EMPLOYEE_COST = 150;
+const CURRENCY_SYMBOL = "₽";
+const CURRENCY_POSITION = "after"; // "before" | "after"
+const PER_MONTH_LABEL = "per month";
+
+const formatPrice = (value) => {
+  const formatted = formatWithSpaces(value);
+
+  return CURRENCY_POSITION === "before"
+    ? `${CURRENCY_SYMBOL}${formatted}`
+    : `${formatted} ${CURRENCY_SYMBOL}`;
+};
 
 export const ModalTeamExpand = ({
   isOpen,
@@ -54,28 +65,28 @@ export const ModalTeamExpand = ({
         <Modal
           isOpen={isOpen}
           onClose={handleClose}
-          title={`Расширить команду`}
-          description={"Добавьте дополнительные места для сотрудников"}
+          title={`Expand team`}
+          description={"Add extra employee slots"}
         >
           <div className={styles.wrapper}>
             <div className={styles.content}>
               <div className={styles.tariffInfo}>
                 <div className={styles.tariffInfoItem}>
-                  <p className={styles.tariffInfoTitle}>Тариф</p>
+                  <p className={styles.tariffInfoTitle}>Plan</p>
                   <p className={styles.tariffInfoValue}>
                     {selectedTariff.name}
                   </p>
                 </div>
                 <div className={styles.tariffInfoItem}>
-                  <p className={styles.tariffInfoTitle}>Сотрудников</p>
+                  <p className={styles.tariffInfoTitle}>Employees</p>
                   <p className={styles.tariffInfoValue}>
-                    до {selectedTariff.employees_limit}
+                    up to {selectedTariff.employees_limit}
                   </p>
                 </div>
                 <div className={styles.tariffInfoItem}>
-                  <p className={styles.tariffInfoTitle}>Стоимость / мес.</p>
+                  <p className={styles.tariffInfoTitle}>{PER_MONTH_LABEL}</p>
                   <p className={styles.tariffInfoValue}>
-                    {formatWithSpaces(selectedTariff.base_price)} ₽
+                    {formatPrice(selectedTariff.base_price)}
                   </p>
                 </div>
               </div>
@@ -99,9 +110,9 @@ export const ModalTeamExpand = ({
                 </button>
               </div>
               <p className={styles.totalEmployees}>
-                Всего: {selectedTariff.employees_limit + addedEmployeesCount}{" "}
+                Total: {selectedTariff.employees_limit + addedEmployeesCount}{" "}
                 {pluralizeEmployees(
-                  selectedTariff.employees_limit + addedEmployeesCount
+                  selectedTariff.employees_limit + addedEmployeesCount,
                 )}
               </p>
 
@@ -110,38 +121,39 @@ export const ModalTeamExpand = ({
                   <p className={styles.sumTitle}>
                     {addedEmployeesCount} x {ADDITIONAL_EMPLOYEE_COST}
                   </p>
-                  <p className={styles.sumValue}>{employeePrice} ₽</p>
+                  <p className={styles.sumValue}>
+                    {formatPrice(employeePrice)}
+                  </p>
                 </div>
                 <div className={styles.sumItem}>
                   <p className={styles.sumTitle}>
-                    Тариф "{selectedTariff.name}"
+                    Plan "{selectedTariff.name}"
                   </p>
                   <p className={styles.sumValue}>
-                    {formatWithSpaces(selectedTariff.price)} ₽
+                    {formatPrice(selectedTariff.price)}
                   </p>
                 </div>
 
                 <div className={styles.sumItem}>
-                  <p className={styles.sumTitle}>Итого к оплате</p>
+                  <p className={styles.sumTitle}>Total due</p>
                   <p className={styles.totalSumValue}>
-                    {formatWithSpaces(totalPrice)} ₽ / мес.
+                    {formatPrice(totalPrice)} / {PER_MONTH_LABEL}
                   </p>
                 </div>
               </div>
             </div>
 
             {addedEmployeesCount >= 15 &&
-              selectedTariff.name !== "Стандарт" && (
+              selectedTariff.name !== "Standard" && (
                 <small className={styles.warning}>
-                  Рекомендуем выбрать тариф "Стандарт"
+                  We recommend switching to the "Standard" plan
                 </small>
               )}
 
             <div className={styles.info}>
               <Info color=" #3C82F5" />
               <p className={styles.infoText}>
-                {`Дополнительные места будут добавлены к вашему тарифу. \n Оплата
-                спишется автоматически с баланса.`}
+                {`Additional slots will be added to your current plan.\nPayment will be charged automatically from your balance.`}
               </p>
             </div>
 
@@ -153,7 +165,7 @@ export const ModalTeamExpand = ({
               <Button
                 secondary
                 onClick={handleSubmit}
-                title={`Оплатить ${formatWithSpaces(totalPrice)} ₽`}
+                title={`Pay ${formatPrice(totalPrice)}`}
                 className={styles.submitBtn}
               />
             </div>

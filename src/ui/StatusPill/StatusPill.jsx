@@ -1,5 +1,3 @@
-/* src/ui/StatusPill/StatusPill.jsx */
-
 import React from "react";
 import styles from "./StatusPill.module.scss";
 
@@ -10,7 +8,7 @@ import styles from "./StatusPill.module.scss";
  * @param {string} [props.className] - Дополнительный класс CSS.
  */
 export const StatusPill = ({ isActive, className = "" }) => {
-  const statusText = isActive ? "Активна" : "Не активна";
+  const statusText = isActive ? "Active" : "Inactive";
 
   const pillClass = isActive ? styles.active : styles.inactive;
 

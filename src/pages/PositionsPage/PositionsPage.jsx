@@ -51,7 +51,7 @@ export default function PositionsPage() {
   const handleConfirmDelete = (id) => {
     if (id) {
       const selectedPosition = positions?.find(
-        (position) => position.id === id
+        (position) => position.id === id,
       );
       setSelectedPosition(selectedPosition);
     }
@@ -89,7 +89,7 @@ export default function PositionsPage() {
         isOpen={isConfirmationOpen}
         onClose={handleConfirmDeleteClose}
         onConfirm={handleDelete}
-        buttonTitle="Удалить"
+        buttonTitle="Delete"
         buttonIcon={<PackageMinus size={20} />}
         loading={loading}
       />
@@ -100,7 +100,7 @@ export default function PositionsPage() {
         isNew={isNew}
       />
       <PageTitle
-        title={"Должности"}
+        title={"Positions"}
         hasButton
         onClick={handleOpenCreateModal}
         dataTour="positions.add"
@@ -123,8 +123,8 @@ export default function PositionsPage() {
         ) : (
           <tr>
             <td colSpan="4" className={styles.noData}>
-              Список должностей пуст. <br /> Нажмите <strong>"Добавить"</strong>
-              , чтобы создать первую должность.
+              No positions yet. <br /> Click <strong>"Add"</strong> to create
+              your first position.
             </td>
           </tr>
         )
@@ -142,7 +142,8 @@ export default function PositionsPage() {
 const Message = ({ positionName }) => {
   return (
     <div>
-      Вы действительно хотите удалить должность <strong>{positionName}</strong>?
+      Are you sure you want to delete the position{" "}
+      <strong>{positionName}</strong>?
     </div>
   );
 };

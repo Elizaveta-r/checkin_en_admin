@@ -10,20 +10,20 @@ integrationsListener.startListening({
   matcher: isAnyOf(
     toggleIntegration.pending,
     toggleIntegration.fulfilled,
-    toggleIntegration.rejected
+    toggleIntegration.rejected,
   ),
   effect: async (action) => {
     if (action.type.endsWith("pending")) {
-      toastId = toast.loading("Сохранение…");
+      toastId = toast.loading("Saving…");
     }
 
     if (action.type.endsWith("fulfilled")) {
-      toast.success("Сохранено", { id: toastId, duration: 1200 });
+      toast.success("Saved", { id: toastId, duration: 1200 });
       toastId = null;
     }
 
     if (action.type.endsWith("rejected")) {
-      toast.error("Ошибка сохранения", { id: toastId });
+      toast.error("Save failed", { id: toastId });
       toastId = null;
     }
   },

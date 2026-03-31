@@ -6,6 +6,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { store } from "./store/store";
 import AppRoutes from "./routes/AppRoutes";
 import "driver.js/dist/driver.css";
+import "./phone-international-input.css";
 
 function App() {
   return (

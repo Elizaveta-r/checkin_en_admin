@@ -16,7 +16,7 @@ export const sendMessageSupport = (data, setVisible, setLoading) => {
       const res = await $authHost.post("/user/support", data);
       if (res.status === 200) {
         toast.success(
-          `Сообщение успешно отправлено! \n Мы свяжемся с вами в ближайшее время!`
+          `Message sent successfully!\nWe will get back to you as soon as possible!`,
         );
         setVisible(false);
       }

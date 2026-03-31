@@ -53,7 +53,7 @@ export default function EditPositionModal({
 
   const handleConfirmCreate = () => {
     if (!input.name) {
-      toast.error("Пожалуйста, заполните название должности.");
+      toast.error("Please enter a position name.");
       return;
     }
     window.dispatchEvent(new CustomEvent("tour:position:submit:clicked"));
@@ -61,7 +61,7 @@ export default function EditPositionModal({
       createPosition({
         title: input.name,
         description: input.description,
-      })
+      }),
     )
       .then((res) => {
         if (res.status === 200) {
@@ -78,7 +78,7 @@ export default function EditPositionModal({
 
   const handleConfirmUpdate = () => {
     if (!input.name) {
-      toast.error("Пожалуйста, заполните название должности.");
+      toast.error("Please enter a position name.");
       return;
     }
     dispatch(
@@ -86,7 +86,7 @@ export default function EditPositionModal({
         position_id: position.id,
         title: input.name,
         description: input.description,
-      })
+      }),
     ).then((res) => {
       if (res.status === 200) {
         handleClose();
@@ -100,36 +100,36 @@ export default function EditPositionModal({
         <Modal
           isOpen={isOpen}
           onClose={onClose}
-          title={!isNew ? "Редактирование должности" : "Создание должности"}
+          title={!isNew ? "Edit Position" : "Create Position"}
         >
           <div className={styles.content}>
             <div className={styles.form}>
               <div className={styles.field} data-tour="modal.position.name">
-                <label className={styles.label}>Название:</label>
+                <label className={styles.label}>Name:</label>
                 <CustomInput
                   id="name"
                   name="name"
                   value={input.name}
                   onChange={handleChangeInput}
-                  placeholder={"Введите название должности"}
+                  placeholder={"Enter position name"}
                 />
               </div>
               <div
                 className={styles.field}
                 data-tour="modal.position.description"
               >
-                <label className={styles.label}>Описание:</label>
+                <label className={styles.label}>Description:</label>
                 <CustomTextArea
                   name="description"
                   value={input.description}
                   onChange={handleChangeInput}
-                  placeholder={"Введите описание должности (необязательно)"}
+                  placeholder={"Enter a position description (optional)"}
                 />
               </div>
             </div>
             <div className={styles.actions}>
               <button className={styles.buttonCancel} onClick={handleClose}>
-                Отмена
+                Cancel
               </button>
               <button
                 className={styles.buttonConfirm}
@@ -137,7 +137,7 @@ export default function EditPositionModal({
                 data-tour="modal.position.submit"
               >
                 {loading && <RingLoader color="white" size={12} />}
-                {loading ? "Подождите..." : !isNew ? "Сохранить" : "Создать"}
+                {loading ? "Please wait..." : !isNew ? "Save" : "Create"}
               </button>
             </div>
           </div>

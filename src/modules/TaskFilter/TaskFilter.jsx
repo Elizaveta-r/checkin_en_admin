@@ -20,12 +20,12 @@ import { getTasksWithFilters } from "../../utils/api/actions/tasks";
 const viewOptions = [
   {
     value: "full",
-    label: "Стандартное отображение",
+    label: "Standard view",
     icon: <LayoutList size={12} />,
   },
   {
     value: "short",
-    label: "Упрощённое отображение",
+    label: "Compact view",
     icon: <LayoutGrid size={12} />,
   },
 ];
@@ -67,12 +67,12 @@ export const TaskFilter = () => {
 
   const positionsOptions = useMemo(
     () => formatDataForSelect(positions || []),
-    [positions]
+    [positions],
   );
 
   const departmentsOptions = useMemo(
     () => formatDataForSelect(departments || []),
-    [departments]
+    [departments],
   );
 
   const handleViewModeChange = (option) => {
@@ -84,7 +84,7 @@ export const TaskFilter = () => {
       setTaskFilter({
         key: "searchText",
         value: e.target.value,
-      })
+      }),
     );
   };
 
@@ -92,14 +92,14 @@ export const TaskFilter = () => {
     const normalizedValue = Array.isArray(selectedOption)
       ? selectedOption
       : selectedOption
-      ? [selectedOption]
-      : [];
+        ? [selectedOption]
+        : [];
 
     dispatch(
       setTaskFilter({
         key,
         value: normalizedValue,
-      })
+      }),
     );
 
     dispatch(getTasksWithFilters(1, 100));
@@ -110,7 +110,7 @@ export const TaskFilter = () => {
       {isSmallDesktop && !isMobile && !isTablet && (
         <div className={styles.filtersMobile}>
           <SearchInput
-            placeholder={"Поиск по задачам..."}
+            placeholder={"Search tasks..."}
             value={searchText}
             onChange={handleSearchChange}
           />
@@ -122,12 +122,12 @@ export const TaskFilter = () => {
               }
               value={position_ids}
               options={positionsOptions}
-              placeholder="Выберите должности"
+              placeholder="Select positions"
             />
 
             <CustomSelect
               options={departmentsOptions}
-              placeholder="Выберите отделы"
+              placeholder="Select departments"
               value={department_ids}
               isMulti
               onChange={(selectedOption) =>
@@ -148,7 +148,7 @@ export const TaskFilter = () => {
         <div className={styles.filtersMobile}>
           <div className={styles.inputs}>
             <SearchInput
-              placeholder={isSmallMobile ? "Поиск..." : "Поиск по задачам..."}
+              placeholder={isSmallMobile ? "Search..." : "Search tasks..."}
               value={searchText}
               onChange={handleSearchChange}
             />
@@ -173,12 +173,12 @@ export const TaskFilter = () => {
                 }
                 value={position_ids}
                 options={positionsOptions}
-                placeholder="Выберите должности"
+                placeholder="Select positions"
               />
 
               <CustomSelect
                 options={departmentsOptions}
-                placeholder="Выберите отделы"
+                placeholder="Select departments"
                 value={department_ids}
                 isMulti
                 onChange={(selectedOption) =>
@@ -193,7 +193,7 @@ export const TaskFilter = () => {
       {isBigScreen && (
         <>
           <SearchInput
-            placeholder={"Поиск по задачам..."}
+            placeholder={"Search tasks..."}
             value={searchText}
             onChange={handleSearchChange}
           />
@@ -204,12 +204,12 @@ export const TaskFilter = () => {
             }
             value={position_ids}
             options={positionsOptions}
-            placeholder="Выберите должности"
+            placeholder="Select positions"
           />
 
           <CustomSelect
             options={departmentsOptions}
-            placeholder="Выберите отделы"
+            placeholder="Select departments"
             value={department_ids}
             isMulti
             onChange={(selectedOption) =>
@@ -234,7 +234,7 @@ export const TaskFilter = () => {
             dispatch(getTasksWithFilters(1, 100));
           }}
         >
-          Очистить фильтры
+          Clear filters
         </button>
       )}
     </div>
@@ -277,18 +277,16 @@ const Sorting = ({ viewMode, options, onChange, isSmallDesktop }) => {
     };
   }, []);
 
-  // 💡 Определяем текущую иконку для отображения в заголовке
   const CurrentIcon = viewMode?.value ? getSortIcon(viewMode.value) : Eye;
 
   return (
     <div className={styles.sort} ref={sortRef}>
       <HintWithPortal
         hasIcon={false}
-        hintContent={"Тип отображения"}
+        hintContent={"Display mode"}
         position={isSmallDesktop ? "right" : "top"}
       >
         <div className={styles.sortHeader} onClick={handleToggle}>
-          {/* 💡 Отображаем ТОЛЬКО иконку текущего типа сортировки */}
           <CurrentIcon size={18} className={styles.sortIcon} />
         </div>
       </HintWithPortal>
@@ -304,8 +302,6 @@ const Sorting = ({ viewMode, options, onChange, isSmallDesktop }) => {
               }`}
             >
               <div className={styles.icon}>{option.icon}</div>
-
-              {/* Отображаем полный текст опции */}
               <p className={styles.option}>{option.label}</p>
             </div>
           ))}

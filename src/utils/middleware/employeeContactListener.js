@@ -16,9 +16,9 @@ employeeContactListener.startListening({
   matcher: isAnyOf(triggerContactAutosave),
 
   effect: async (action, api) => {
-    const contactData = action.payload; // Получаем данные для сохранения
+    const contactData = action.payload;
 
-    if (!toastId) toastId = toast.loading("Сохранение контакта...");
+    if (!toastId) toastId = toast.loading("Saving contact...");
 
     if (timer) clearTimeout(timer);
 
@@ -31,7 +31,7 @@ employeeContactListener.startListening({
         } else if (contactData.employee_id) {
           thunkToDispatch = createEmployeeContact;
         } else {
-          toast.error("Невозможно сохранить: отсутствует ID сотрудника.", {
+          toast.error("Unable to save: employee ID is missing.", {
             id: toastId,
           });
           return;
@@ -40,7 +40,7 @@ employeeContactListener.startListening({
         const resultPromise = api.dispatch(thunkToDispatch(contactData));
         await resultPromise;
 
-        toast.success("Контакт сохранен", { id: toastId, duration: 1200 });
+        toast.success("Contact saved", { id: toastId, duration: 1200 });
       } catch (e) {
         console.error("employeeContactListener", e);
         toast.error(e.response.data.message, { id: toastId });

@@ -1,11 +1,11 @@
-export function formatMoneyDynamic(input, currency = "RUB") {
+export function formatMoneyDynamic(input, currency = "USD", locale = "en-US") {
   const value =
-    typeof input === "number" ? input : Number(input.replace(",", "."));
+    typeof input === "number" ? input : Number(String(input).replace(",", "."));
 
   if (!isFinite(value)) return "—";
 
   if (value === 0) {
-    return new Intl.NumberFormat("ru-RU", {
+    return new Intl.NumberFormat(locale, {
       style: "currency",
       currency,
       minimumFractionDigits: 2,
@@ -27,7 +27,7 @@ export function formatMoneyDynamic(input, currency = "RUB") {
 
   const rounded = Number(value.toFixed(dynamicPrecision));
 
-  return new Intl.NumberFormat("ru-RU", {
+  return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
     minimumFractionDigits: dynamicPrecision,

@@ -14,41 +14,41 @@ import {
 } from "lucide-react";
 
 const renderItemsData = [
-  { name: "Обзор", path: "/", icon: <Home size={18} /> },
-  { name: "Отчеты", path: "/reports", icon: <FileBarChart size={18} /> },
-  // { name: "Биллинг", path: "/billing", icon: <CreditCard size={18} /> },
+  { name: "Overview", path: "/", icon: <Home size={18} /> },
+  { name: "Reports", path: "/reports", icon: <FileBarChart size={18} /> },
+  // { name: "Billing", path: "/billing", icon: <CreditCard size={18} /> },
   {
-    name: "Штатное расписание",
+    name: "Staff Schedule",
     path: "/staffing-table",
     icon: <Calendar1 size={18} />,
   },
 
   {
-    name: "Задачи",
+    name: "Tasks",
     path: "/tasks",
     icon: <AlarmClockCheck size={18} />,
     dataTour: "menu.tasks",
   },
   {
-    name: "Должности",
+    name: "Positions",
     path: "/positions",
     icon: <Briefcase size={18} />,
     dataTour: "menu.positions",
   },
   {
-    name: "Сотрудники",
+    name: "Employees",
     path: "/employees",
     dataTour: "menu.employees",
     icon: <IdCardLanyard size={18} />,
   },
   {
-    name: "Интеграции",
+    name: "Integrations",
     path: "/integrations",
     icon: <Cable size={18} />,
     dataTour: "menu.integrations",
   },
   {
-    name: "Подразделения",
+    name: "Departments",
     path: "/departments",
     dataTour: `menu.departments`,
     icon: <Building2 size={18} />,
@@ -81,7 +81,7 @@ export const LeftMenu = () => {
   };
 
   return (
-    <nav className={styles.leftMenu} aria-label="Главное меню">
+    <nav className={styles.leftMenu} aria-label="Main menu">
       <div className={styles.navItems}>
         {renderItemsData?.map((item, index) => {
           return (
@@ -103,8 +103,8 @@ export const LeftMenu = () => {
                   <span className={styles.label}>{item.name}</span>
                 </div>
               </div>
-              {/* {item.name === "Биллинг" && <div className={styles.line} />} */}
-              {item.name === "Штатное расписание" && (
+              {/* {item.name === "Billing" && <div className={styles.line} />} */}
+              {item.name === "Staff Schedule" && (
                 <div className={styles.line} />
               )}
             </div>
@@ -121,7 +121,7 @@ export const LeftMenu = () => {
         <div className={styles.icon}>
           <GraduationCap size={18} />
         </div>{" "}
-        <span className={styles.label}>Пройти обучение</span>
+        <span className={styles.label}>Take the tour</span>
       </div>
     </nav>
   );

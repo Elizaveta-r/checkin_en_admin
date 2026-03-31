@@ -3,7 +3,7 @@ import CustomSelect from "../../../ui/CustomSelect/CustomSelect";
 import DaysGrid from "../../../components/DaysGrid/DaysGrid";
 import { Calendar } from "react-date-range";
 import CustomInput from "../../../ui/CustomInput/CustomInput";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setDeadlineTime,
@@ -15,20 +15,20 @@ import {
 import { HintWithPortal } from "../../../ui/HintWithPortal/HintWithPortal";
 
 const frequency = [
-  { value: "daily", label: "Ежедневно" },
-  { value: "weekly", label: "Еженедельно" },
-  { value: "monthly", label: "Ежемесячно" },
-  { value: "onetime", label: "Единоразово" },
+  { value: "daily", label: "Daily" },
+  { value: "weekly", label: "Weekly" },
+  { value: "monthly", label: "Monthly" },
+  { value: "onetime", label: "One-time" },
 ];
 
 const weekDays = [
-  { value: 1, label: "Понедельник" },
-  { value: 2, label: "Вторник" },
-  { value: 3, label: "Среда" },
-  { value: 4, label: "Четверг" },
-  { value: 5, label: "Пятница" },
-  { value: 6, label: "Суббота" },
-  { value: 7, label: "Воскресенье" },
+  { value: 1, label: "Monday" },
+  { value: 2, label: "Tuesday" },
+  { value: 3, label: "Wednesday" },
+  { value: 4, label: "Thursday" },
+  { value: 5, label: "Friday" },
+  { value: 6, label: "Saturday" },
+  { value: 7, label: "Sunday" },
 ];
 
 export const FrequencySelector = () => {
@@ -40,14 +40,14 @@ export const FrequencySelector = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.section} data-tour="form.tasks.frequency">
-        <HintWithPortal hintContent="Установите, как часто должна повторяться задача: каждый день, по определенным дням недели, раз в месяц или единоразово">
-          <p className={styles.label}>Периодичность</p>
+        <HintWithPortal hintContent="Set how often the task should repeat: every day, on specific weekdays, once a month, or one time only">
+          <p className={styles.label}>Frequency</p>
         </HintWithPortal>
         <CustomSelect
           options={frequency}
           value={task_type}
           onChange={(selectedOption) => dispatch(setTimeType(selectedOption))}
-          placeholder="Выберите периодичность"
+          placeholder="Select frequency"
           dataTourHeader="form.tasks.frequency.header"
           dataTourId="form.tasks.frequency"
         />
@@ -63,7 +63,7 @@ export const FrequencySelector = () => {
             data-tour="form.tasks.weekdays"
             data-selected={week_days?.length > 0 ? "true" : "false"}
           >
-            <p className={styles.label}>Выберите дни недели</p>
+            <p className={styles.label}>Select weekdays</p>
             <div className={styles.weekDays}>
               {weekDays?.map((day) => (
                 <div
@@ -80,13 +80,13 @@ export const FrequencySelector = () => {
                   key={day.value}
                   onClick={() => {
                     const exists = week_days?.some(
-                      (d) => d.value === day.value
+                      (d) => d.value === day.value,
                     );
                     if (exists) {
                       dispatch(
                         setWeekDays(
-                          week_days.filter((d) => d.value !== day.value)
-                        )
+                          week_days.filter((d) => d.value !== day.value),
+                        ),
                       );
                     } else {
                       dispatch(setWeekDays([...(week_days || []), day]));
@@ -102,7 +102,7 @@ export const FrequencySelector = () => {
 
         {task_type.value === "monthly" && (
           <div className={styles.section} data-tour="form.tasks.monthdays">
-            <p className={styles.label}>Выберите дни месяца</p>
+            <p className={styles.label}>Select days of the month</p>
             <DaysGrid />
           </div>
         )}
@@ -113,41 +113,41 @@ export const FrequencySelector = () => {
             data-tour="form.tasks.onetime.calendar"
             data-has-value={onetime_date ? "true" : "false"}
           >
-            <p className={styles.label}>Выберите дату выполнения</p>
+            <p className={styles.label}>Select the execution date</p>
             <Calendar
               date={onetime_date}
               onChange={(date) => {
                 const dateUTC = new Date(
-                  Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+                  Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
                 );
                 dispatch(setDisposableDate(dateUTC.toISOString()));
               }}
               minDate={new Date()}
-              locale={ru}
+              locale={enUS}
               color={"#16a34a"}
-              dateDisplayFormat="dd.MM.yyyy"
+              dateDisplayFormat="MM/dd/yyyy"
             />
           </div>
         )}
         <div className={styles.section} data-tour="form.tasks.start-time">
-          <p className={styles.label}>Время начала задачи</p>
+          <p className={styles.label}>Task start time</p>
           <CustomInput
             type="time"
             name="startTime"
-            placeholder="Время задачи"
+            placeholder="Task start time"
             value={start_time}
             onChange={(e) => dispatch(setStartTime(e.target.value))}
           />
         </div>
 
         <div className={styles.section} data-tour="form.tasks.deadline-time">
-          <HintWithPortal hintContent="Время, до которого должна быть выполнена задача">
-            <p className={styles.label}>Дедлайн задачи</p>
+          <HintWithPortal hintContent="The time by which the task must be completed">
+            <p className={styles.label}>Task deadline</p>
           </HintWithPortal>
           <CustomInput
             type="time"
             name="deadline"
-            placeholder="Дедлайн задачи"
+            placeholder="Task deadline"
             value={deadline_time}
             onChange={(e) => dispatch(setDeadlineTime(e.target.value))}
           />

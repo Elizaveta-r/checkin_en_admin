@@ -1,4 +1,4 @@
-const RU_WEEK = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+const EN_WEEK = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export const parseYMD = (s) => {
   // "2025-12-19" -> local date 00:00
@@ -27,16 +27,15 @@ export const buildWeekChartData = (day_stats) => {
 
   const monday = startOfWeekMonday(today);
 
-  // базовая неделя Пн..Вс с нулями
   const week = Array.from({ length: 7 }, (_, i) => {
     const dt = new Date(monday);
     dt.setDate(monday.getDate() + i);
 
     return {
       date: toYMD(dt),
-      name: RU_WEEK[i],
-      Выполнено: 0,
-      Проблемные: 0,
+      name: EN_WEEK[i],
+      Completed: 0,
+      Issues: 0,
     };
   });
 
@@ -45,13 +44,12 @@ export const buildWeekChartData = (day_stats) => {
   (day_stats ?? []).forEach((item) => {
     if (!item?.date) return;
 
-    // выкидываем “будущее” относительно сегодня
     if (item.date > todayYMD) return;
 
     const idx = idxByDate.get(item.date);
-    if (idx == null) return; // не текущая неделя
+    if (idx == null) return;
 
-    const key = item.is_done ? "Выполнено" : "Проблемные";
+    const key = item.is_done ? "Completed" : "Issues";
     week[idx][key] += 1;
   });
 

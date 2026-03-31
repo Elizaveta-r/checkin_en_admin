@@ -26,14 +26,14 @@ export const BillingPage = () => {
   return (
     <div className={styles.container}>
       <PageTitle
-        title={"Биллинг"}
+        title={"Billing"}
         hasButton
-        buttonTitle="Пополнить"
+        buttonTitle="Top up"
         onClick={handleOpenBalanceModal}
       />
       <Overview openBalanceModal={handleOpenBalanceModal} />
       <div className={styles.history}>
-        <p>История операций:</p>
+        <p>Transaction history:</p>
         <History />
       </div>
 

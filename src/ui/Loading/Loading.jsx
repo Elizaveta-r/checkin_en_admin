@@ -8,7 +8,7 @@ export const Loading = () => {
         <RingLoader size={48} color="#16a34a" />
       </div>
       <div className={styles.loaderText}>
-        Подождите, пожалуйста, идет загрузка
+        Please wait, content is loading
         <span className={styles.loaderDots}>
           <span className={styles.loaderDot} />
           <span className={styles.loaderDot} />

@@ -19,7 +19,7 @@ export const getEmployeesList = (page, pageSize) => {
   return async (dispatch) => {
     try {
       const res = await $authHost.get(
-        `/organization/employee/list?page=${page}&page_size=${pageSize}`
+        `/organization/employee/list?page=${page}&page_size=${pageSize}`,
       );
       if (res.status === 200) {
         dispatch(setEmployees(res.data.employees));
@@ -51,12 +51,11 @@ export const getFilteredEmployeesList = (page, pageSize, filters = {}) => {
       }
 
       if (role) {
-        // имя параметра подгони под бэк: role / roles / employee_role и т.п.
         params.set("role", role);
       }
 
       const res = await $authHost.get(
-        `/organization/employee/list?${params.toString()}`
+        `/organization/employee/list?${params.toString()}`,
       );
 
       if (res.status === 200) {
@@ -75,7 +74,7 @@ export const getEmployeesByDepartmentAndRole = (departmentId, role) => {
   return async (dispatch) => {
     try {
       const res = await $authHost.get(
-        `/organization/employee/list?page=1&page_size=200&departments=${departmentId}&role=${role}`
+        `/organization/employee/list?page=1&page_size=200&departments=${departmentId}&role=${role}`,
       );
       if (res.status === 200) {
         if (role === "head") {
@@ -99,7 +98,7 @@ export const createEmployee = (data) => {
       const res = await $authHost.post(`/organization/employee`, data);
       if (res.status === 200) {
         dispatch(getEmployeesList(1, 1000));
-        toast.success("Сотрудник успешно создан!");
+        toast.success("Employee created successfully!");
       }
       return res;
     } catch (error) {
@@ -119,7 +118,7 @@ export const updateEmployee = (data) => {
       if (res.status === 200) {
         dispatch(getEmployeesList(1, 1000));
         dispatch(getEmployeeWithHistory(data.employee_id, 1, 1000));
-        toast.success("Сотрудник успешно обновлен!");
+        toast.success("Employee updated successfully!");
       }
       return res;
     } catch (error) {
@@ -146,7 +145,7 @@ export const updateEmployeeContact = (data) => {
       if (res.status === 200) {
         dispatch(getEmployeesList(1, 200));
         dispatch(getEmployeeById(data.employee_id));
-        toast.success("Контактные данные сотрудника были успешно обновлены!");
+        toast.success("Employee contact details were updated successfully!");
       }
       return res;
     } catch (error) {
@@ -166,7 +165,7 @@ export const createEmployeeContact = (data) => {
       if (res.status === 200) {
         dispatch(getEmployeesList(1, 200));
         dispatch(getEmployeeById(data.employee_id));
-        toast.success("Контактные данные сотрудника были успешно созданы!");
+        toast.success("Employee contact details were created successfully!");
       }
       return res;
     } catch (error) {
@@ -183,7 +182,7 @@ export const getEmployeeById = (id) => {
     dispatch(setLoadingGetEmployee(id));
     try {
       const res = await $authHost.get(
-        `/organization/employee?employee_id=${id}`
+        `/organization/employee?employee_id=${id}`,
       );
       if (res.status === 200) {
         dispatch(setEmployee(res.data.employee));
@@ -203,11 +202,11 @@ export const deleteEmployee = (id) => {
     dispatch(setEmployeesLoading(true));
     try {
       const res = await $authHost.delete(
-        `/organization/employee?employee_id=${id}`
+        `/organization/employee?employee_id=${id}`,
       );
       if (res.status === 200) {
         dispatch(getEmployeesList(1, 1000));
-        toast.success("Сотрудник успешно удален!");
+        toast.success("Employee deleted successfully!");
       }
       return res;
     } catch (error) {
@@ -251,7 +250,7 @@ export const getEmployeeWithHistory = (
   page,
   pageSize,
   startDate = "",
-  endDate = ""
+  endDate = "",
 ) => {
   return async (dispatch) => {
     dispatch(setLoadingGetEmployee(employeeId));
@@ -267,7 +266,7 @@ export const getEmployeeWithHistory = (
       if (endDate) params.append("created_to", endDate);
 
       const res = await $authHost.get(
-        `/workflow/event/list?${params.toString()}`
+        `/workflow/event/list?${params.toString()}`,
       );
 
       if (res.status === 200) {
@@ -289,22 +288,20 @@ export const getAllEmployeesWithHistory = (
   page = 1,
   pageSize = 1000,
   startDate = "",
-  endDate = ""
+  endDate = "",
 ) => {
   return async (dispatch) => {
     try {
-      // 1️⃣ Получаем список сотрудников
       const listRes = await dispatch(getEmployeesList(page, pageSize));
 
       if (listRes?.status === 200 && listRes.data?.employees) {
         const employees = listRes.data.employees;
 
-        // 2️⃣ Загружаем историю для каждого сотрудника (с учётом диапазона)
         const results = await Promise.all(
           employees.map(async (emp) => {
             try {
               const histRes = await dispatch(
-                getEmployeeWithHistory(emp.id, 1, 100, startDate, endDate)
+                getEmployeeWithHistory(emp.id, 1, 100, startDate, endDate),
               );
 
               return {
@@ -314,15 +311,14 @@ export const getAllEmployeesWithHistory = (
             } catch {
               return { ...emp, employee_history: [] };
             }
-          })
+          }),
         );
 
-        // 3️⃣ Сохраняем итог в Redux
         dispatch(setEmployeesWithHistory(results));
         return results;
       }
     } catch (error) {
-      console.error("Ошибка при получении сотрудников с историей:", error);
+      console.error("Error while loading employees with history:", error);
     }
   };
 };
@@ -331,7 +327,7 @@ export const getEventHistory = (event_id, page, pageSize) => {
   return async (dispatch) => {
     try {
       return $authHost.get(
-        `/workflow/event/history?event_id=${event_id}&page=${page}&page_size=${pageSize}`
+        `/workflow/event/history?event_id=${event_id}&page=${page}&page_size=${pageSize}`,
       );
     } catch (error) {
       logPostError(error);

@@ -24,20 +24,16 @@ export function SliderWithImageAndText({ mode, steps, className = "" }) {
   };
 
   const paginate = (newDirection) => {
-    // Если нажали "вперёд"
     if (newDirection > 0) {
-      // Последний слайд + повторный клик → скроллим
       if (mode === "commands" && index === steps.length - 1) {
         scrollToTokenInput();
         return;
       } else if (mode === "interface" && index === steps.length - 1) {
-        // Последний слайд + повторный клик → скроллим
         scrollToTokenInput();
         return;
       }
     }
 
-    // Обычное поведение
     setPage([page + newDirection, newDirection]);
   };
 
@@ -99,23 +95,21 @@ export function SliderWithImageAndText({ mode, steps, className = "" }) {
         photoUrl={selectedImage}
       />
 
-      {/* Кнопки */}
       <button
         onClick={() => paginate(-1)}
         className={`${styles.navButton} ${styles.leftButton}`}
-        aria-label="Предыдущий шаг"
+        aria-label="Previous step"
       >
         <ChevronLeft className={styles.icon} />
       </button>
       <button
         onClick={() => paginate(1)}
         className={`${styles.navButton} ${styles.rightButton}`}
-        aria-label="Следующий шаг"
+        aria-label="Next step"
       >
         <ChevronRight className={styles.icon} />
       </button>
 
-      {/* Пагинация */}
       <div className={styles.pagination}>
         {steps.map((_, i) => (
           <div

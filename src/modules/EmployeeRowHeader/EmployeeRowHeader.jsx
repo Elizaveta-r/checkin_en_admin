@@ -6,18 +6,18 @@ export default function EmployeeRowHeader() {
     <div className={`${styles.dataItem} ${styles.headerRow}`}>
       <div className={styles.nameCell}>
         <div className={`${styles.avatar} ${styles.empty}`}></div>
-        <p className={styles.nameEmp}>ФИО</p>
+        <p className={styles.nameEmp}>FULL NAME</p>
       </div>
 
-      <p className={styles.positionCol}>ДОЛЖНОСТЬ(-И)</p>
+      <p className={styles.positionCol}>POSITION(S)</p>
 
-      <p className={styles.roleCol}>РОЛЬ</p>
+      <p className={styles.roleCol}>ROLE</p>
 
-      <p className={styles.department}>ПОДРАЗДЕЛЕНИЕ(-Я)</p>
+      <p className={styles.department}>DEPARTMENT(S)</p>
 
       <div className={`${styles.statusIndicator}`}>
-        <HintWithPortal hintContent="Отметился ли сотрудник о приходе на работу">
-          <p className={styles.status}>ЧЕКИН</p>
+        <HintWithPortal hintContent="Whether the employee has checked in at work">
+          <p className={styles.status}>CHECK-IN</p>
         </HintWithPortal>
       </div>
 

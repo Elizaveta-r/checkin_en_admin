@@ -12,7 +12,7 @@ export const getTasksList = (page, pageSize) => {
   return async (dispatch) => {
     try {
       const res = await $authHost.get(
-        `/organization/task/list?page=${page}&page_size=${pageSize}`
+        `/organization/task/list?page=${page}&page_size=${pageSize}`,
       );
       if (res.status === 200) {
         dispatch(setTasks(res.data.tasks));
@@ -31,7 +31,7 @@ export const getFilteredTasks = (page, pageSize, filterTitle, filterValue) => {
     dispatch(setLoadingTask(true));
     try {
       const res = await $authHost.get(
-        `/organization/task/list?page=${page}&page_size=${pageSize}&${filterTitle}=${filterValue}`
+        `/organization/task/list?page=${page}&page_size=${pageSize}&${filterTitle}=${filterValue}`,
       );
       if (res.status === 200) {
         dispatch(setTasks(res.data.tasks));
@@ -57,24 +57,18 @@ export const getTasksWithFilters = (page = 1, pageSize = 100) => {
       params.set("page", page);
       params.set("page_size", pageSize);
 
-      // текстовый поиск
       if (taskFilters.searchText) {
         params.set("search", taskFilters.searchText);
       }
 
-      // 👇 мульти-подразделения
       if (
         Array.isArray(taskFilters.department_ids) &&
         taskFilters.department_ids.length
       ) {
         const ids = taskFilters.department_ids.map((d) => d.value);
-        // Вариант с запятой: department_ids=1,2,3
         params.set("departments", ids.join(","));
-        // Если бэк ждёт другой формат (department_id[]=1&department_id[]=2),
-        // нужно вместо params.set перебрать params.append.
       }
 
-      // 👇 мульти-должности
       if (
         Array.isArray(taskFilters.position_ids) &&
         taskFilters.position_ids.length
@@ -84,7 +78,7 @@ export const getTasksWithFilters = (page = 1, pageSize = 100) => {
       }
 
       const res = await $authHost.get(
-        `/organization/task/list?${params.toString()}`
+        `/organization/task/list?${params.toString()}`,
       );
 
       if (res.status === 200) {
@@ -109,7 +103,7 @@ export const createTask = (data) => {
       const res = await $authHost.post(`/organization/task`, data);
       if (res.status === 200) {
         dispatch(getTasksList(1, 1000));
-        toast.success("Задача успешно создана!");
+        toast.success("Task created successfully!");
       }
       return res;
     } catch (error) {
@@ -128,7 +122,7 @@ export const updateTask = (data) => {
       const res = await $authHost.put(`/organization/task`, data);
       if (res.status === 200) {
         dispatch(getTasksList(1, 1000));
-        toast.success("Задача успешно обновлена!");
+        toast.success("Task updated successfully!");
       }
       return res;
     } catch (error) {
@@ -162,7 +156,7 @@ export const deleteTask = (id) => {
       const res = await $authHost.delete(`/organization/task?task_id=${id}`);
       if (res.status === 200) {
         dispatch(getTasksList(1, 1000));
-        toast.success("Задача успешно удалена!");
+        toast.success("Task deleted successfully!");
       }
       return res;
     } catch (error) {

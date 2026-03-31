@@ -22,8 +22,8 @@ import {
 import { createPosition } from "../../utils/api/actions/positions";
 
 const roles = [
-  { value: "employee", label: "Сотрудник" },
-  { value: "head", label: "Руководитель" },
+  { value: "employee", label: "Employee" },
+  { value: "head", label: "Manager" },
 ];
 
 export default function EditEmployeeModal({
@@ -40,14 +40,13 @@ export default function EditEmployeeModal({
   const { positions: allPositions } = useSelector((state) => state.positions);
   const { loadingEmployee } = useSelector((state) => state?.employees);
 
-  // ✅ мемоизируем, чтобы не менять ссылки на каждом рендере
   const departmentsOptions = useMemo(
     () => formatDataForSelect(departments || []),
-    [departments]
+    [departments],
   );
   const positionsOptions = useMemo(
     () => formatDataForSelect(allPositions || []),
-    [allPositions]
+    [allPositions],
   );
 
   const getRoleValue = (role) =>
@@ -90,7 +89,7 @@ export default function EditEmployeeModal({
       setDepartment(
         defaultDepartment
           ? { value: defaultDepartment.id, label: defaultDepartment.title }
-          : null
+          : null,
       );
       setTimeZone(null);
       return;
@@ -121,13 +120,13 @@ export default function EditEmployeeModal({
         label: d.title,
       }));
       setDepartment(
-        emp.role === "head" ? initialDepartments : initialDepartments[0]
+        emp.role === "head" ? initialDepartments : initialDepartments[0],
       );
     } else {
       setDepartment(
         departments?.[0]
           ? { value: departments[0]?.id, label: departments[0]?.title }
-          : null
+          : null,
       );
     }
 
@@ -145,7 +144,6 @@ export default function EditEmployeeModal({
     if (isOpen) {
       initializeState(isNew ? null : employee);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, employee, isNew, departmentsOptions, positionsOptions]);
 
   const handleChangeInput = (e) => {
@@ -186,7 +184,7 @@ export default function EditEmployeeModal({
     }
 
     const preserved = prevContacts.filter(
-      (c) => c.type !== "telegram_id" && c.type !== "telegram_username"
+      (c) => c.type !== "telegram_id" && c.type !== "telegram_username",
     );
 
     return [...contacts, ...preserved];
@@ -198,8 +196,8 @@ export default function EditEmployeeModal({
     const departmentsArray = Array.isArray(department)
       ? department
       : department
-      ? [department]
-      : [];
+        ? [department]
+        : [];
     const departmentIds = mapSelectOptionsToIds(departmentsArray);
 
     const contacts = buildContacts();
@@ -222,12 +220,12 @@ export default function EditEmployeeModal({
 
   const validateName = () => {
     if (!input.name) {
-      toast.error("Пожалуйста, заполните ФИО сотрудника.");
+      toast.error("Please enter the employee's full name.");
       return false;
     }
     const { surname } = parseFullName(input.name);
     if (!surname) {
-      toast.error("Пожалуйста, введите как минимум фамилию");
+      toast.error("Please enter at least a last name");
       return false;
     }
     return true;
@@ -265,30 +263,24 @@ export default function EditEmployeeModal({
   useEffect(() => {
     if (!allPositions?.length) return;
 
-    // 1️⃣ превращаем redux-список в формат {value, label}
     const newOptions = formatDataForSelect(allPositions);
 
-    // 2️⃣ фильтруем и восстанавливаем прежние выбранные по label или id
     const restoredPositions = lastSelectedPositionsRef.current
       .map(
         (old) =>
           newOptions.find(
-            (opt) => opt.value === old.value || opt.label === old.label
-          ) || old // если новой опции пока нет — оставляем старую
+            (opt) => opt.value === old.value || opt.label === old.label,
+          ) || old,
       )
-      // на случай дублей / undefined
       .filter(Boolean);
 
-    // 3️⃣ если реально что-то поменялось — обновляем
     setPosition(restoredPositions);
   }, [allPositions]);
 
   useEffect(() => {
-    // определяем ID активного подразделения
     let activeDepartmentId = null;
 
     if (Array.isArray(department) && department.length > 0) {
-      // если мультиселект — берём первое подразделение
       activeDepartmentId = department[0].value;
     } else if (department?.value) {
       activeDepartmentId = department.value;
@@ -296,7 +288,6 @@ export default function EditEmployeeModal({
 
     if (!activeDepartmentId) return;
 
-    // пропускаем автофилл при инициализации
     if (skipAutoFillRef.current) {
       skipAutoFillRef.current = false;
       return;
@@ -305,16 +296,14 @@ export default function EditEmployeeModal({
     const depFull = departments.find((d) => d.id === activeDepartmentId);
     if (!depFull) return;
 
-    // таймзона
     const depTz = depFull.timezone
       ? timeZoneOptions.find((t) => t.value === depFull.timezone) || null
       : null;
 
     setTimeZone((prev) =>
-      depTz && depTz.value !== prev?.value ? depTz : prev
+      depTz && depTz.value !== prev?.value ? depTz : prev,
     );
 
-    // чекин/чекаут
     const newIn = depFull.check_in_time || "09:00";
     const newOut = depFull.check_out_time || "18:00";
 
@@ -332,7 +321,7 @@ export default function EditEmployeeModal({
         <Modal
           isOpen={isOpen}
           onClose={handleClose}
-          title={`${isNew ? "Создание" : "Редактирование"} сотрудника`}
+          title={`${isNew ? "Create" : "Edit"} Employee`}
         >
           <div className={styles.content}>
             <div className={styles.formGrid}>
@@ -341,9 +330,9 @@ export default function EditEmployeeModal({
                   className={styles.formItem}
                   data-tour="modal.employee.name"
                 >
-                  <p className={styles.formLabel}>ФИО</p>
+                  <p className={styles.formLabel}>Full name</p>
                   <CustomInput
-                    placeholder="Введите ФИО..."
+                    placeholder="Enter full name..."
                     value={input.name}
                     name="name"
                     onChange={handleChangeInput}
@@ -353,7 +342,7 @@ export default function EditEmployeeModal({
                   className={styles.formItem}
                   data-tour="modal.employee.role"
                 >
-                  <p className={styles.formLabel}>Роль</p>
+                  <p className={styles.formLabel}>Role</p>
                   <CustomSelect
                     options={roles}
                     value={role}
@@ -365,26 +354,26 @@ export default function EditEmployeeModal({
                             ? prev
                             : prev
                           : Array.isArray(prev)
-                          ? prev?.[0] ?? null
-                          : prev
+                            ? (prev?.[0] ?? null)
+                            : prev,
                       );
                     }}
                     dataTourHeader="modal.employee.role.header"
                     dataTourId="modal.employee.role"
-                    placeholder="Выберите роль..."
+                    placeholder="Select a role..."
                   />
                 </div>
               </div>
 
               <div className={styles.formItem} data-tour="modal.employee.dep">
                 <p className={styles.formLabel}>
-                  {department?.length > 1 ? "Подразделения" : "Подразделение"}
+                  {department?.length > 1 ? "Departments" : "Department"}
                 </p>
                 <CustomSelect
                   options={departmentsOptions}
                   value={department}
                   onChange={setDepartment}
-                  placeholder="Выберите подразделение..."
+                  placeholder="Select a department..."
                   isSearchable
                   dataTourHeader="modal.employee.dep.header"
                   dataTourId="modal.employee.dep"
@@ -397,13 +386,13 @@ export default function EditEmployeeModal({
                   className={styles.formItem}
                   data-tour="modal.employee.position"
                 >
-                  <p className={styles.formLabel}>Должность</p>
+                  <p className={styles.formLabel}>Position</p>
                   <CustomSelect
                     isMulti
                     options={positionsOptions}
                     value={position}
                     onChange={setPosition}
-                    placeholder="Выберите должность..."
+                    placeholder="Select a position..."
                     isSearchable
                     isCreatable
                     onCreate={handleCreatePosition}
@@ -419,18 +408,16 @@ export default function EditEmployeeModal({
                   data-tour="modal.employee.timezone"
                 >
                   <HintWithPortal
-                    hintContent={
-                      <HintTimeZone text={"работает ваш сотрудник"} />
-                    }
+                    hintContent={<HintTimeZone text={"your employee works"} />}
                     minWidth="500px"
                   >
                     <p className={styles.formLabel} style={{ marginBottom: 0 }}>
-                      Часовой пояс
+                      Time zone
                     </p>
                   </HintWithPortal>
 
                   <CustomSelect
-                    placeholder="Выберите часовой пояс"
+                    placeholder="Select a time zone"
                     options={timeZoneOptions}
                     onChange={setTimeZone}
                     value={timeZone}
@@ -453,7 +440,7 @@ export default function EditEmployeeModal({
                         className={styles.formLabel}
                         style={{ marginBottom: 0 }}
                       >
-                        Чекин (в)
+                        Check-in (at)
                       </p>
                     </HintWithPortal>
                     <CustomInput
@@ -474,7 +461,7 @@ export default function EditEmployeeModal({
                         className={styles.formLabel}
                         style={{ marginBottom: 0 }}
                       >
-                        Чекаут (с)
+                        Check-out (from)
                       </p>
                     </HintWithPortal>
                     <CustomInput
@@ -493,9 +480,9 @@ export default function EditEmployeeModal({
                   className={styles.formItem}
                   data-tour="modal.employee.telegram-id"
                 >
-                  <p className={styles.formLabel}>Телеграм ID</p>
+                  <p className={styles.formLabel}>Telegram ID</p>
                   <CustomInput
-                    placeholder="Например: 000012345"
+                    placeholder="For example: 000012345"
                     value={input.telegramId}
                     name="telegramId"
                     type="number"
@@ -506,7 +493,7 @@ export default function EditEmployeeModal({
                   className={styles.formItem}
                   data-tour="modal.employee.telegram-name"
                 >
-                  <p className={styles.formLabel}>Имя пользователя</p>
+                  <p className={styles.formLabel}>Username</p>
                   <CustomInput
                     placeholder="@user_name"
                     value={input.telegramName}
@@ -519,14 +506,14 @@ export default function EditEmployeeModal({
 
             <div className={styles.actions}>
               <Button
-                title="Отмена"
+                title="Cancel"
                 onClick={handleClose}
                 className={styles.buttonCancel}
                 secondary
               />
               <Button
                 className={styles.button}
-                title={isNew ? "Создать" : "Сохранить"}
+                title={isNew ? "Create" : "Save"}
                 onClick={isNew ? handleConfirm : handleUpdate}
                 loading={loadingEmployee}
                 dataTour="modal.employee.submit"

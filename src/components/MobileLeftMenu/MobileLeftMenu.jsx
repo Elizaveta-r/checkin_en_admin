@@ -24,28 +24,28 @@ import { revokeSession } from "../../utils/api/actions/sessions";
 import { logout } from "../../store/slices/userSlice";
 
 const mainMenuItems = [
-  { name: "Задачи", path: "/tasks", icon: <AlarmClockCheck size={18} /> },
-  { name: "Сотрудники", path: "/employees", icon: <IdCardLanyard size={20} /> },
-  { name: "Обзор", path: "/", icon: <Home size={20} /> },
-  { name: "Отчеты", path: "/reports", icon: <FileBarChart size={20} /> },
+  { name: "Tasks", path: "/tasks", icon: <AlarmClockCheck size={18} /> },
+  { name: "Employees", path: "/employees", icon: <IdCardLanyard size={20} /> },
+  { name: "Overview", path: "/", icon: <Home size={20} /> },
+  { name: "Reports", path: "/reports", icon: <FileBarChart size={20} /> },
 ];
 
 const burgerMenuItems = [
-  // { name: "Биллинг", path: "/billing", icon: <CreditCard size={18} /> },
-  { name: "Интеграции", path: "/integrations", icon: <Cable size={20} /> },
-  { name: "Должности", path: "/positions", icon: <Briefcase size={18} /> },
+  // { name: "Billing", path: "/billing", icon: <CreditCard size={18} /> },
+  { name: "Integrations", path: "/integrations", icon: <Cable size={20} /> },
+  { name: "Positions", path: "/positions", icon: <Briefcase size={18} /> },
   {
-    name: "Подразделения",
+    name: "Departments",
     path: "/departments",
     icon: <Building2 size={18} />,
   },
   {
-    name: "Штатное расписание",
+    name: "Staff Schedule",
     path: "/staffing-table",
     icon: <Calendar1 size={18} />,
   },
   {
-    name: "Настройки",
+    name: "Settings",
     path: "/settings",
     icon: <Settings size={18} />,
   },
@@ -60,7 +60,6 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
 
   const sessionId = userData?.session?.id;
 
-  // const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const isParentActive = (item) =>
@@ -87,7 +86,7 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
     try {
       await dispatch(revokeSession(sessionId, setLoading));
     } catch (error) {
-      console.warn("Сессия уже завершена или не найдена:", error);
+      console.warn("Session already ended or not found:", error);
     } finally {
       localStorage.clear();
       sessionStorage.clear();
@@ -96,7 +95,6 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
     }
   };
 
-  // Закрытие меню при изменении размера окна
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -106,10 +104,8 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Блокировка скролла при открытом меню
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -124,12 +120,10 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
 
   return (
     <>
-      {/* Мобильное меню */}
       <div className={styles.mobileMenuWrapper}>
         <AnimatePresence>
           {isOpen && (
             <>
-              {/* Оверлей */}
               <motion.div
                 className={styles.overlay}
                 onClick={() => setIsOpen(false)}
@@ -140,19 +134,18 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
                 aria-hidden="true"
               />
 
-              {/* Бургер-меню */}
               <motion.nav
                 className={styles.burgerMenu}
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                aria-label="Дополнительное меню"
+                aria-label="More menu"
               >
                 <button
                   className={styles.closeButton}
                   onClick={() => setIsOpen(false)}
-                  aria-label="Закрыть меню"
+                  aria-label="Close menu"
                 >
                   <X size={24} />
                 </button>
@@ -192,7 +185,7 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
                   className={styles.logoutContainer}
                 >
                   <Button
-                    title="Выйти"
+                    title="Log out"
                     className={styles.logout}
                     leftIcon={<LogOut size={16} />}
                     onClick={handleLogout}
@@ -204,8 +197,7 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
           )}
         </AnimatePresence>
 
-        {/* Нижнее меню */}
-        <nav className={styles.bottomMenu} aria-label="Главная навигация">
+        <nav className={styles.bottomMenu} aria-label="Main navigation">
           {mainMenuItems?.map((item, index) => (
             <div
               key={`bottom-menu-${item.name}-${index}`}
@@ -222,7 +214,6 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
             </div>
           ))}
 
-          {/* Кнопка бургер-меню */}
           <div
             role="button"
             tabIndex={0}
@@ -234,13 +225,13 @@ export const MobileLeftMenu = ({ isOpen, setIsOpen }) => {
                 toggleMenu();
               }
             }}
-            aria-label="Открыть меню"
+            aria-label="Open menu"
             aria-expanded={isOpen}
           >
             <div className={styles.bottomIcon}>
               <Menu size={20} />
             </div>
-            <span className={styles.bottomLabel}>Еще</span>
+            <span className={styles.bottomLabel}>More</span>
           </div>
         </nav>
       </div>

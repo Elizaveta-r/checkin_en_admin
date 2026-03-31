@@ -21,7 +21,7 @@ export const EmployeeCard = ({
   onEdit,
 }) => {
   const allDepartments = useSelector(
-    (state) => state?.departments?.departments
+    (state) => state?.departments?.departments,
   );
   const allPositions = useSelector((state) => state?.positions?.positions);
   const { loadingGetEmployee } = useSelector((state) => state?.employees);
@@ -32,20 +32,20 @@ export const EmployeeCard = ({
   const getRoleName = () => {
     switch (role) {
       case "employee":
-        return "Сотрудник";
+        return "Employee";
       case "head":
-        return "Руководитель";
+        return "Manager";
       default:
         return "";
     }
   };
 
   const departmentsForEmployee = allDepartments?.filter((department) =>
-    employeeDepartmentIdsSet.has(department.id)
+    employeeDepartmentIdsSet.has(department.id),
   );
 
   const positionsForEmployee = allPositions?.filter((position) =>
-    employeePositionIdsSet.has(position.id)
+    employeePositionIdsSet.has(position.id),
   );
 
   const fullName = `${surname} ${firstname} ${patronymic}`;
@@ -76,40 +76,42 @@ export const EmployeeCard = ({
       <div className={styles.info}>
         <div className={styles.positions}>
           <p className={styles.positionsTitle}>
-            {`Должност${positionsForEmployee?.length > 1 ? "и" : "ь"}`}:
+            {positionsForEmployee?.length > 1 ? "Positions:" : "Position:"}
           </p>
           <div className={styles.positionCol}>
             {positionsForEmployee?.length > 0
               ? positionsForEmployee.map((pos, i) => (
                   <span key={i}>
-                    {pos?.title || "Должность не назначена"}
+                    {pos?.title || "No position assigned"}
                     {i !== positionsForEmployee.length - 1 && ", "}
                   </span>
                 ))
-              : "Должность не назначена"}
+              : "No position assigned"}
           </div>
         </div>
 
         <div className={styles.role}>
-          <p className={styles.roleTitle}>Роль:</p>
+          <p className={styles.roleTitle}>Role:</p>
           <p className={styles.roleCol}>{getRoleName()}</p>
         </div>
 
         <div className={styles.departments}>
-          <p className={styles.departmentsTitle}>{`Подразделени${
-            departmentsForEmployee?.length > 1 ? "я" : "е"
-          }:`}</p>
+          <p className={styles.departmentsTitle}>
+            {departmentsForEmployee?.length > 1
+              ? "Departments:"
+              : "Department:"}
+          </p>
           <p className={styles.department}>
             {departmentsForEmployee?.length > 0
               ? departmentsForEmployee.map((dep) => dep?.title).join(", ")
-              : "Отдел не назначен"}
+              : "No department assigned"}
           </p>
         </div>
       </div>
 
       <div className={styles.actions}>
         <HintWithPortal
-          hintContent="Посмотреть контактные данные"
+          hintContent="View contact details"
           hasIcon={false}
           isMaxWidth
         >
@@ -117,17 +119,17 @@ export const EmployeeCard = ({
             <Contact size={16} />
           </div>
         </HintWithPortal>
-        {/* <HintWithPortal hintContent="Переместить сотрудника" hasIcon={false}>
+        {/* <HintWithPortal hintContent="Move employee" hasIcon={false}>
           <div className={styles.move} onClick={onMove}>
             <Shuffle size={16} />
           </div>
         </HintWithPortal> */}
-        <HintWithPortal hintContent="Редактировать" hasIcon={false} isMaxWidth>
+        <HintWithPortal hintContent="Edit" hasIcon={false} isMaxWidth>
           <div className={styles.edit} onClick={onEdit}>
             <Pencil size={16} />
           </div>{" "}
         </HintWithPortal>
-        <HintWithPortal hintContent="Удалить" hasIcon={false} isMaxWidth>
+        <HintWithPortal hintContent="Delete" hasIcon={false} isMaxWidth>
           <div className={styles.trash} onClick={onDelete}>
             <Trash size={16} />
           </div>{" "}

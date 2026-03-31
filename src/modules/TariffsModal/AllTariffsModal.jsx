@@ -17,9 +17,9 @@ const mapTariffToUi = (t, currentCode) => ({
   isCurrent: currentCode ? t?.code === currentCode : false,
 
   features: [
-    { text: "ИИ-анализ фотоотчетов", included: Boolean(t?.enabled_ai) },
-    { text: `Лимит сотрудников: до ${t?.employees_limit}`, included: true },
-    { text: `Длительность: ${t?.duration_days} дней`, included: true },
+    { text: "AI photo report analysis", included: Boolean(t?.enabled_ai) },
+    { text: `Employee limit: up to ${t?.employees_limit}`, included: true },
+    { text: `Duration: ${t?.duration_days} days`, included: true },
   ],
 });
 
@@ -40,7 +40,7 @@ export default function AllTariffsModal({ isOpen, onClose }) {
   const subscription = wallet?.subscription;
 
   const currentTariff = tariffs?.find(
-    (tariff) => tariff?.id === subscription?.tariff_id
+    (tariff) => tariff?.id === subscription?.tariff_id,
   );
 
   const currentCode = currentTariff?.code;
@@ -79,11 +79,10 @@ export default function AllTariffsModal({ isOpen, onClose }) {
         <Modal
           isOpen={isOpen}
           onClose={onClose}
-          title={`Тарифные планы`}
-          description={"Выберите подходящий тариф для вашего бизнеса"}
+          title={`Pricing Plans`}
+          description={"Choose the right plan for your business"}
           className={styles.modalTariff}
         >
-          {/* Content */}
           <div className={styles.content}>
             <div className={styles.tariffGrid}>
               {uiTariffs.map((tariff) => (

@@ -10,7 +10,7 @@ export const getIntegrationsList = (page, page_size) => {
   return async (dispatch) => {
     try {
       const res = await $authHost.get(
-        `/integration/list?page=${page}&page_size=${page_size}`
+        `/integration/list?page=${page}&page_size=${page_size}`,
       );
       if (res.status === 200) {
         dispatch(setIntegrationsList(res.data.integrations));
@@ -38,7 +38,7 @@ export const createIntegration = (data) => {
       const res = await $authHost.post(`/integration`, data);
       if (res.status === 200) {
         dispatch(getIntegrationsList(1, 200));
-        toast.success("Интеграция успешно создана!");
+        toast.success("Integration created successfully!");
       }
       return res;
     } catch (error) {
@@ -55,17 +55,15 @@ export const toggleIntegrationStatus = (integration_id, status) => {
     dispatch(setIsIntegrationLoading(true));
     try {
       const res = await $authHost.put(
-        `/integration/enabled?integration_id=${integration_id}&enabled=${status}`
+        `/integration/enabled?integration_id=${integration_id}&enabled=${status}`,
       );
       if (res.status === 200) {
         dispatch(getIntegrationsList(1, 200));
-        // toast.success("Интеграция успешно обновлена!");
         return true;
       }
       return false;
     } catch (error) {
       logPostError("toggleIntegrationStatus", error);
-      // toast.error("Не удалось сохранить изменения");
       return false;
     } finally {
       dispatch(setIsIntegrationLoading(false));
@@ -89,7 +87,7 @@ export const updateIntegration = (data) => {
       const res = await $authHost.put(`/integration`, data);
       if (res.status === 200) {
         dispatch(getIntegrationsList(1, 200));
-        toast.success("Интеграция успешно обновлена!");
+        toast.success("Integration updated successfully!");
       }
       return res;
     } catch (error) {
@@ -120,7 +118,7 @@ export const deleteIntegration = (id) => {
       const res = await $authHost.delete(`/integration?integration_id=${id}`);
       if (res.status === 200) {
         dispatch(getIntegrationsList(1, 200));
-        toast.success("Интеграция успешно удалена!");
+        toast.success("Integration deleted successfully!");
       }
       return res;
     } catch (error) {

@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { RingLoader } from "react-spinners";
 import styles from "./Button.module.scss";
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "framer-motion";
 
 export const Button = ({
@@ -36,7 +36,7 @@ export const Button = ({
             transition={{ duration: 0.2 }}
           >
             <RingLoader size={18} color="#fff" />
-            <p>Подождите</p>
+            <p>Please wait</p>
           </motion.div>
         ) : (
           <motion.div

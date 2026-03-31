@@ -14,6 +14,17 @@ import { pluralizeEmployees } from "../../utils/methods/pluralizeText";
 import formatWithSpaces from "../../utils/methods/formatNumberWithSpaces";
 
 const ADDITIONAL_EMPLOYEE_COST = 150;
+const CURRENCY_SYMBOL = "₽";
+const CURRENCY_POSITION = "after"; // "before" | "after"
+const PER_MONTH_LABEL = "per month";
+
+const formatPrice = (value) => {
+  const formatted = formatWithSpaces(value);
+
+  return CURRENCY_POSITION === "before"
+    ? `${CURRENCY_SYMBOL}${formatted}`
+    : `${formatted} ${CURRENCY_SYMBOL}`;
+};
 
 export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
   const { wallet, tariffs } = useSelector((state) => state?.billing);
@@ -22,7 +33,7 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
   const currentPlus = Number(subscription?.employees_plus) || 0;
 
   const currentTariff = tariffs?.find(
-    (tariff) => tariff?.id === subscription?.tariff_id
+    (tariff) => tariff?.id === subscription?.tariff_id,
   );
 
   const [additionalCount, setAdditionalCount] = useState(currentPlus);
@@ -63,9 +74,9 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
   };
 
   const benefits = [
-    "Места активируются мгновенно",
-    "Автоматическое списание с баланса",
-    "Отмена в любое время",
+    "Slots are activated instantly",
+    "Automatic charge from your balance",
+    "Cancel anytime",
   ];
 
   return (
@@ -78,12 +89,11 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
       }}
     >
       <div className={styles.modal} onMouseDown={(e) => e.stopPropagation()}>
-        {/* Кнопка закрытия */}
         <button
           type="button"
           className={styles.closeBtn}
           onClick={onClose}
-          aria-label="Закрыть"
+          aria-label="Close"
         >
           <X size={18} />
         </button>
@@ -93,8 +103,8 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
               <Users size={28} strokeWidth={2.5} />
             </div>
             <div className={styles.headerText}>
-              <h2 className={styles.title}>Расширить команду</h2>
-              <p className={styles.subtitle}>Добавьте новых сотрудников</p>
+              <h2 className={styles.title}>Expand your team</h2>
+              <p className={styles.subtitle}>Add more employees</p>
             </div>
           </div>
         </div>
@@ -102,7 +112,7 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
         <div className={styles.currentPlanCard}>
           <div className={styles.planInfo}>
             <div>
-              <div className={styles.planLabel}>Текущий тариф</div>
+              <div className={styles.planLabel}>Current plan</div>
               <div className={styles.planName}>{currentTariff?.name}</div>
             </div>
             <div className={styles.employeesCount}>
@@ -116,7 +126,7 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
           <div className={styles.progressIndicator}>
             <TrendingUp size={18} />
             <span>
-              После добавления: <strong>{newTotalEmployees}</strong>{" "}
+              After adding: <strong>{newTotalEmployees}</strong>{" "}
               {pluralizeEmployees(newTotalEmployees)}
             </span>
           </div>
@@ -125,7 +135,7 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
         <div className={styles.content}>
           <div className={styles.employeeCounter}>
             <div className={styles.counterLabel}>
-              Количество дополнительных мест
+              Number of additional slots
             </div>
 
             <div className={styles.counterControls}>
@@ -139,7 +149,7 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
 
               <div className={styles.counterDisplay}>
                 <div className={styles.counterNumber}>{additionalCount}</div>
-                <div className={styles.counterText}>новых мест</div>
+                <div className={styles.counterText}>new slots</div>
               </div>
 
               <button
@@ -152,36 +162,36 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
 
             {additionalCount > 0 && (
               <div className={styles.calculation}>
-                {additionalCount} × {ADDITIONAL_EMPLOYEE_COST} ₽ ={" "}
-                <strong>{formatWithSpaces(additionalCost)} ₽</strong>
+                {additionalCount} × {formatPrice(ADDITIONAL_EMPLOYEE_COST)} ={" "}
+                <strong>{formatPrice(additionalCost)}</strong>
               </div>
             )}
           </div>
 
           <div className={styles.priceSummary}>
             <div className={styles.priceRow}>
-              <span className={styles.priceLabel}>Базовый тариф</span>
+              <span className={styles.priceLabel}>Base plan</span>
               <span className={styles.priceValue}>
-                {formatWithSpaces(currentTariff?.base_price)} ₽
+                {formatPrice(currentTariff?.base_price)}
               </span>
             </div>
 
             {additionalCount > 0 && (
               <div className={styles.priceRow}>
-                <span className={styles.priceLabel}>Дополнительные места</span>
+                <span className={styles.priceLabel}>Additional slots</span>
                 <span className={styles.priceValue}>
-                  +{formatWithSpaces(additionalCost)} ₽
+                  +{formatPrice(additionalCost)}
                 </span>
               </div>
             )}
 
             <div className={styles.priceTotal}>
-              <span className={styles.totalLabel}>Итого к оплате</span>
+              <span className={styles.totalLabel}>Total due</span>
               <div className={styles.totalAmount}>
                 <div className={styles.totalPrice}>
-                  {formatWithSpaces(totalPrice)} ₽
+                  {formatPrice(totalPrice)}
                 </div>
-                <div className={styles.totalPeriod}>в месяц</div>
+                <div className={styles.totalPeriod}>{PER_MONTH_LABEL}</div>
               </div>
             </div>
           </div>
@@ -197,9 +207,9 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
             ))}
           </div>
 
-          {additionalCount >= 15 && currentTariff?.name !== "Стандарт" && (
+          {additionalCount >= 15 && currentTariff?.name !== "Standard" && (
             <div className={styles.warning}>
-              Рекомендуем выбрать тариф "Стандарт"
+              We recommend switching to the "Standard" plan
             </div>
           )}
 
@@ -208,7 +218,7 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
               className={`${styles.button} ${styles.buttonSecondary}`}
               onClick={onClose}
             >
-              Отмена
+              Cancel
             </button>
             <button
               className={`${styles.button} ${styles.buttonPrimary}`}
@@ -217,9 +227,7 @@ export const AddEmployeesModal = ({ isOpen, onClose, onConfirm }) => {
             >
               <CreditCard size={18} strokeWidth={2.5} />
               <span>
-                {additionalCount > currentPlus
-                  ? "Добавить места"
-                  : "Уменьшить места"}
+                {additionalCount > currentPlus ? "Add slots" : "Reduce slots"}
               </span>
             </button>
           </div>

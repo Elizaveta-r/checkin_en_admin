@@ -5,23 +5,15 @@ import { AnimatePresence } from "framer-motion";
 import Modal from "../../ui/Modal/Modal";
 import { RingLoader } from "react-spinners";
 
-/**
- * Компонент модального окна для подтверждения удаления.
- * * @param {boolean} isOpen - Флаг открытия/закрытия модалки.
- * @param {function} onClose - Функция закрытия модалки (при отмене).
- * @param {function} onConfirm - Функция, вызываемая при подтверждении удаления.
- * @param {string} employeeName - Имя сотрудника, которого нужно удалить.
- */
 export default function DeleteConfirmationModal({
   isOpen,
   onClose,
   onConfirm,
   message,
-  buttonTitle = "Удалить сотрудника",
+  buttonTitle = "Delete employee",
   buttonIcon = <UserMinus size={20} />,
   loading = false,
 }) {
-  // Обработчик подтверждения
   const handleConfirm = () => {
     onConfirm();
   };
@@ -29,25 +21,22 @@ export default function DeleteConfirmationModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={onClose} title="Подтверждение удаления">
+        <Modal isOpen={isOpen} onClose={onClose} title="Confirm deletion">
           <div className={styles.content}>
             <div className={styles.iconContainer}>
-              {/* Иконка-предупреждение */}
               <AlertTriangle size={48} className={styles.warningIcon} />
             </div>
 
             <div className={styles.message}>{message}</div>
 
             <div className={styles.actions}>
-              {/* Кнопка "Отмена" (второстепенная, использует стиль из карточки) */}
               <button className={styles.buttonCancel} onClick={onClose}>
-                Отмена
+                Cancel
               </button>
 
-              {/* Кнопка "Удалить" (основная, красная) */}
               <button className={styles.buttonConfirm} onClick={handleConfirm}>
                 {loading ? <RingLoader color="white" size={12} /> : buttonIcon}
-                {loading ? "Удаление..." : buttonTitle}
+                {loading ? "Deleting..." : buttonTitle}
               </button>
             </div>
           </div>

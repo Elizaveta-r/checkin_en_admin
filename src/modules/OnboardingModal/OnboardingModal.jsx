@@ -17,50 +17,46 @@ export const OnboardingModal = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={onClose} title="Отлично! 🎉">
+        <Modal isOpen={isOpen} onClose={onClose} title="Great! 🎉">
           <div className={styles.contentWrapper}>
             <div className={styles.content}>
               <p className={styles.text}>
-                Теперь бот готов принимать отчёты от ваших сотрудников —{" "}
-                <strong>текст</strong>, <strong>фото</strong> и{" "}
-                <strong>отметки о выполнении задач</strong>. Он сможет
-                автоматически проверять их с помощью{" "}
-                <strong>искусственного интеллекта</strong>.
+                Your bot is now ready to receive reports from your employees —
+                <strong> text</strong>, <strong>photos</strong>, and{" "}
+                <strong>task completion confirmations</strong>. It can also
+                review them automatically using{" "}
+                <strong>artificial intelligence</strong>.
               </p>
               <div className={styles.steps}>
-                <p className={styles.title}>
-                  Осталось сделать всего несколько простых шагов:
-                </p>
+                <p className={styles.title}>Just a few simple steps left:</p>
                 <ol className={styles.list}>
                   <li className={styles.item}>
-                    Добавить <strong>задачи</strong> для сотрудников.
+                    Add <strong>tasks</strong> for your employees.
                   </li>
                   <li className={styles.item}>
-                    При необходимости добавить <strong>подразделения</strong>{" "}
-                    вашего бизнеса — отделы, филиалы или команды.
+                    If needed, add <strong>departments</strong> to represent
+                    your business structure — teams, branches, or locations.
                   </li>
-                  <li className={styles.item}>
-                    Распределить задачи между ними.
-                  </li>
+                  <li className={styles.item}>Assign tasks to them.</li>
                 </ol>
               </div>
 
               <p className={styles.text}>
-                Чтобы быстрее разобраться, как это работает, мы подготовили
-                <strong>короткое обучение</strong>. Вы можете пройти его прямо
-                сейчас — или пропустить и начать работу самостоятельно. 🚀
+                To help you get started faster, we’ve prepared a
+                <strong> short onboarding guide</strong>. You can go through it
+                now — or skip it and start using the platform on your own. 🚀
               </p>
               {isMobile && (
                 <p className={`${styles.text} ${styles.warn}`}>
-                  Обучение доступно только на компьютере или планшете. 📱❌
-                  Пожалуйста, зайдите с другого устройства.
+                  The onboarding guide is only available on desktop or tablet.
+                  📱❌ Please open it on another device.
                 </p>
               )}
             </div>
             {!isMobile && (
               <div className={styles.actions}>
                 <Button
-                  title={"Начать обучение"}
+                  title={"Start onboarding"}
                   className={styles.confirm}
                   onClick={onConfirm}
                   secondary
@@ -69,7 +65,7 @@ export const OnboardingModal = ({
 
                 <Button
                   secondary
-                  title={"Разберусь сам(-а)"}
+                  title={"I’ll figure it out myself"}
                   className={styles.cancel}
                   onClick={onClose}
                 />

@@ -12,13 +12,13 @@ export const getDepartmentsList = (page, page_size) => {
   return async (dispatch) => {
     try {
       const res = await $authHost.get(
-        `/organization/department/list?page=${page}&page_size=${page_size}`
+        `/organization/department/list?page=${page}&page_size=${page_size}`,
       );
       if (res.status === 200) {
         dispatch(setDepartments(res.data.departments));
         sessionStorage.setItem(
           "departments",
-          JSON.stringify(res.data.departments)
+          JSON.stringify(res.data.departments),
         );
       }
       return res;
@@ -34,7 +34,7 @@ export const getDepartmentById = (id) => {
     dispatch(setDepartmentsLoading(true));
     try {
       const res = await $authHost.get(
-        `/organization/department?department_id=${id}`
+        `/organization/department?department_id=${id}`,
       );
       if (res.status === 200) {
         dispatch(setDepartment(res.data.department));
@@ -58,7 +58,7 @@ export const createDepartment = (data) => {
       const res = await $authHost.post(`/organization/department`, data);
       if (res.status === 200) {
         dispatch(getDepartmentsList(1, 10));
-        toast.success("Подразделение успешно создано!");
+        toast.success("Department created successfully!");
       }
       return res;
     } catch (error) {
@@ -76,7 +76,7 @@ export const updateDepartment = (data) => {
       const res = await $authHost.put(`/organization/department`, data);
       if (res.status === 200) {
         dispatch(getDepartmentsList(1, 10));
-        toast.success("Подразделение успешно обновлено!");
+        toast.success("Department updated successfully!");
       }
       return res;
     } catch (error) {
@@ -92,11 +92,11 @@ export const deleteDepartment = (id) => {
     dispatch(setDepartmentsLoading(true));
     try {
       const res = await $authHost.delete(
-        `/organization/department?department_id=${id}`
+        `/organization/department?department_id=${id}`,
       );
       if (res.status === 200) {
         dispatch(getDepartmentsList(1, 10));
-        toast.success("Подразделение успешно удалено!");
+        toast.success("Department deleted successfully!");
       }
       return res;
     } catch (error) {

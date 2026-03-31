@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  CheckCircle, // Выполнено
-  Clock, // Просрочено
-  AlertTriangle, // Проблемные задачи
-  TrendingUp, // График
-  ArrowRight, // Быстрые ссылки
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  TrendingUp,
+  ArrowRight,
   ThumbsUp,
-  ChevronDown, // Провалено
+  ChevronDown,
 } from "lucide-react";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import styles from "./HomePage.module.scss";
@@ -29,10 +29,10 @@ import { KpiCardMobile } from "./components/KPICardMobile";
 import { IsProblemEvent } from "./components/IsProblemEvent";
 
 const quickLinks = [
-  { title: "Список сотрудников", path: "/employees" },
-  { title: "Создать задачу", path: "/tasks/new" },
-  { title: "Создать должность", path: "/positions?action=create" },
-  { title: "Аналитические отчеты", path: "/reports" },
+  { title: "Employee list", path: "/employees" },
+  { title: "Create task", path: "/tasks/new" },
+  { title: "Create position", path: "/positions?action=create" },
+  { title: "Analytics reports", path: "/reports" },
 ];
 
 export default function HomePage() {
@@ -54,7 +54,7 @@ export default function HomePage() {
     not_done_tasks,
   } = useSelector((state) => state.dashboard);
 
-  const [scrollPosition, setScrollPosition] = useState("top"); // 'top', 'middle', 'bottom'
+  const [scrollPosition, setScrollPosition] = useState("top");
 
   const isAtBottom = scrollPosition === "bottom";
   const scrollDirection = isAtBottom ? "up" : "down";
@@ -94,22 +94,21 @@ export default function HomePage() {
   return (
     <div className={styles.dashboardPage}>
       <PageTitle
-        title={"Дашборд"}
-        hint={"Информация отображается за текущий день"}
+        title={"Dashboard"}
+        hint={"Information is shown for the current day"}
       />
 
-      {/* 1. СВОДКА KPI (ВЕРХНИЙ БЛОК) */}
       <div className={styles.kpiGrid}>
         {isMobile ? (
           <KpiCardMobile
-            title="Задач выполнено"
+            title="Tasks completed"
             value={done_tasks}
             icon={CheckCircle}
             colorClass="green"
           />
         ) : (
           <KpiCard
-            title="Задач выполнено"
+            title="Tasks completed"
             value={done_tasks}
             icon={CheckCircle}
             colorClass="green"
@@ -117,14 +116,14 @@ export default function HomePage() {
         )}
         {isMobile ? (
           <KpiCardMobile
-            title="Задач не выполнено"
+            title="Tasks not completed"
             value={not_done_tasks}
             icon={Clock}
             colorClass="red"
           />
         ) : (
           <KpiCard
-            title="Задач не выполнено"
+            title="Tasks not completed"
             value={not_done_tasks}
             icon={Clock}
             colorClass="red"
@@ -132,28 +131,25 @@ export default function HomePage() {
         )}
         {isMobile ? (
           <KpiCardMobile
-            title="Успешность AI-проверок"
+            title="AI verification success rate"
             value={`${Number(ai_success_rate?.toFixed(0))}%`}
             icon={ThumbsUp}
             colorClass="gradient"
           />
         ) : (
           <KpiCard
-            title="Успешность AI-проверок"
+            title="AI verification success rate"
             value={`${Number(ai_success_rate?.toFixed(0))}%`}
             icon={ThumbsUp}
             colorClass="gradient"
           />
         )}
-        {/* Отдельная карточка для прогресса сотрудников */}
         <div className={`${styles.kpiCard} ${styles.blue}`}>
           <div className={styles.content}>
             <span className={styles.kpiValue}>
-              {checked_in_count} из {employees_count}
+              {checked_in_count} of {employees_count}
             </span>
-            <span className={styles.kpiTitle}>
-              Сотрудников на рабочем месте
-            </span>
+            <span className={styles.kpiTitle}>Employees currently at work</span>
           </div>
           <div className={styles.progressBar}>
             <div
@@ -164,21 +160,18 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 2. ОСНОВНОЙ КОНТЕНТ (2 КОЛОНКИ: Проблемы и Аналитика/Ссылки) */}
       <div className={styles.mainContentGrid}>
-        {/* 2.1. ЛЕВЫЙ БЛОК: Проблемные задачи (Требуется внимание) */}
         <div className={styles.problemTasksSection}>
           <h2 className={styles.sectionTitle}>
             <AlertTriangle size={20} className={styles.alertIcon} />
-            Требуется внимание ({is_problem?.length ? is_problem?.length : 0})
+            Needs attention ({is_problem?.length ? is_problem?.length : 0})
           </h2>
 
           <div className={styles.tableWrapper}>
-            {/* Заголовки вынесены отдельно для sticky */}
             <div className={styles.tableHeader}>
-              <span>Задача</span>
-              <span>Сотрудник</span>
-              <span>Статус</span>
+              <span>Task</span>
+              <span>Employee</span>
+              <span>Status</span>
             </div>
 
             <div
@@ -191,7 +184,7 @@ export default function HomePage() {
                   <IsProblemEvent key={task.event_id} task={task} />
                 ))
               ) : (
-                <p>Нет проблемных событий</p>
+                <p>No problem events</p>
               )}
             </div>
 
@@ -224,9 +217,7 @@ export default function HomePage() {
                   el.scrollTo({ top: target, behavior: "smooth" });
                 }}
                 aria-label={
-                  scrollDirection === "down"
-                    ? "Прокрутить вниз"
-                    : "Прокрутить вверх"
+                  scrollDirection === "down" ? "Scroll down" : "Scroll up"
                 }
               >
                 <ChevronDown size={28} strokeWidth={3} />
@@ -235,12 +226,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 2.2. ПРАВЫЙ БЛОК: Аналитика и Ссылки */}
         <div className={styles.analyticsSection}>
-          {/* А. Блок быстрого обзора (График - тут будет заглушка) */}
           <div className={styles.analyticsCard}>
             <h2 className={styles.sectionTitle}>
-              <TrendingUp size={20} /> Динамика выполнения (7 дней)
+              <TrendingUp size={20} /> Completion trend (7 days)
             </h2>
             <div className={styles.chartContainer}>
               <ResponsiveContainer width="100%" height={220}>
@@ -268,12 +257,12 @@ export default function HomePage() {
                     iconType="circle"
                   />
                   <Bar
-                    dataKey="Выполнено"
+                    dataKey="Completed"
                     fill="#16a34a"
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
-                    dataKey="Проблемные"
+                    dataKey="Problematic"
                     fill="#dc2626"
                     radius={[4, 4, 0, 0]}
                   />
@@ -282,9 +271,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Б. Блок быстрых ссылок */}
           <div className={styles.linksCard}>
-            <h2 className={styles.sectionTitle}>Быстрые ссылки</h2>
+            <h2 className={styles.sectionTitle}>Quick links</h2>
             <div className={styles.linkList}>
               {quickLinks?.map((link) => (
                 <a

@@ -1,0 +1,98 @@
+/* Стили для react-international-phone */
+.react-international-phone-input-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1f2937;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  outline: none;
+
+  transition:
+    border-color 0.25s ease-in-out,
+    box-shadow 0.25s ease-in-out;
+}
+
+.react-international-phone-input-container:focus-within {
+  border-color: #16a34a;
+  box-shadow:
+    0 0 0 3px rgba(22, 163, 74, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.react-international-phone-input-container input {
+  padding: 10px 8px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #1f2937;
+  font-family: "Nunito";
+}
+
+.react-international-phone-input-container input::placeholder {
+  color: #6b7280;
+  opacity: 0.8;
+}
+
+.react-international-phone-input-container:hover:not(:focus-within) {
+  border-color: #d1d5db;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.react-international-phone-input-container
+  .react-international-phone-country-selector-button {
+  border: none;
+  margin: 2px;
+  padding: 8px 5px;
+  border-radius: 10px;
+}
+
+.react-international-phone-input-container
+  .react-international-phone-country-selector
+  .react-international-phone-country-selector-button {
+  border-radius: 6px;
+  height: auto;
+}
+
+.react-international-phone-country-selector
+  .react-international-phone-country-selector-dropdown {
+  background: white;
+  border-radius: 8px;
+  outline: none;
+  margin-top: 6px;
+}
+
+.react-international-phone-country-selector
+  .react-international-phone-country-selector-dropdown
+  .react-international-phone-country-selector-dropdown__list-item {
+  cursor: pointer;
+
+  transition: background-color 0.2s;
+}
+
+.react-international-phone-country-selector
+  .react-international-phone-country-selector-dropdown
+  .react-international-phone-country-selector-dropdown__list-item:hover {
+  background-color: #f9fafb;
+}
+
+.react-international-phone-country-selector
+  .react-international-phone-country-selector-dropdown
+  .react-international-phone-country-selector-dropdown__list-item
+  .react-international-phone-country-selector-dropdown__list-item-country-name {
+  color: #1f2937;
+  font-family: "Nunito";
+}
+
+.react-international-phone-country-selector
+  .react-international-phone-country-selector-dropdown
+  .react-international-phone-country-selector-dropdown__list-item
+  .react-international-phone-country-selector-dropdown__list-item-dial-code {
+  color: #9ca3af;
+}

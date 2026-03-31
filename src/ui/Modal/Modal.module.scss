@@ -47,7 +47,7 @@
   font-size: 1.3rem;
   font-weight: 700;
   color: v.$color-text-main;
-  white-space: pre-line;
+  // white-space: pre-line;
   width: 100%;
   text-align: center;
 
@@ -78,7 +78,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 
   & svg {
     flex-shrink: 0;

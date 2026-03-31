@@ -6,26 +6,26 @@ const JobTitleTable = ({ positions, onEdit, onDelete }) => {
   return (
     <div className={styles.tableContainer}>
       <table className={styles.jobTable}>
-        {/* Заголовок таблицы */}
         {positions && (
           <thead>
             <tr>
-              <th>Название должности</th>
-              <th>Описание</th>
-              <th>Сотрудников</th>
-              <th className={styles.actionsHeader}>Действия</th>
+              <th>Position Title</th>
+              <th>Description</th>
+              <th>Employees</th>
+              <th className={styles.actionsHeader}>Actions</th>
             </tr>
           </thead>
         )}
 
-        {/* Тело таблицы */}
         <tbody>
           {positions ? (
             positions?.map((job) => (
               <tr key={job.id}>
                 <td className={styles.jobName}>{job.title}</td>
                 <td className={styles.jobDescription}>
-                  {job.description ? job.description : "Описание отсутствует"}
+                  {job.description
+                    ? job.description
+                    : "No description provided"}
                 </td>
                 <td>
                   <div className={styles.employeeCell}>
@@ -34,11 +34,10 @@ const JobTitleTable = ({ positions, onEdit, onDelete }) => {
                   </div>
                 </td>
 
-                {/* Кнопки действий */}
                 <td>
                   <div className={styles.actionsCell}>
                     <HintWithPortal
-                      hintContent="Редактировать"
+                      hintContent="Edit"
                       hasIcon={false}
                       isMaxWidth
                     >
@@ -47,7 +46,7 @@ const JobTitleTable = ({ positions, onEdit, onDelete }) => {
                       </div>{" "}
                     </HintWithPortal>
                     <HintWithPortal
-                      hintContent="Удалить"
+                      hintContent="Delete"
                       hasIcon={false}
                       isMaxWidth
                     >
@@ -65,8 +64,8 @@ const JobTitleTable = ({ positions, onEdit, onDelete }) => {
           ) : (
             <tr>
               <td colSpan="4" className={styles.noData}>
-                Список должностей пуст. <br /> Нажмите{" "}
-                <strong>"Добавить"</strong>, чтобы создать первую должность.
+                No positions have been added yet. <br /> Click{" "}
+                <strong>"Add"</strong> to create your first position.
               </td>
             </tr>
           )}
@@ -74,8 +73,8 @@ const JobTitleTable = ({ positions, onEdit, onDelete }) => {
           {positions?.length === 0 && (
             <tr>
               <td colSpan="4" className={styles.noData}>
-                Список должностей пуст. <br /> Нажмите{" "}
-                <strong>"Добавить"</strong>, чтобы создать первую должность.
+                No positions have been added yet. <br /> Click{" "}
+                <strong>"Add"</strong> to create your first position.
               </td>
             </tr>
           )}

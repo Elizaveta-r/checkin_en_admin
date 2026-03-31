@@ -26,14 +26,14 @@ export const signUp = (setLoading, navigate, data) => {
             const message = err.response.data?.message;
 
             if (message?.includes("email")) {
-              toast.error(`Пользователь "${data.email}" уже существует.`, {
+              toast.error(`User "${data.email}" already exists.`, {
                 action: {
-                  label: "Авторизоваться",
+                  label: "Sign in",
                   onClick: () => navigate("/auth", { replace: true }),
                 },
               });
             } else {
-              toast.error(message || "Произошёл конфликт данных");
+              toast.error(message || "A data conflict occurred");
             }
           }
         } else {
@@ -60,9 +60,9 @@ export const codeVerify = (navigate, data, setSuccess = null) => {
       .then((res) => {
         if (res.status === 200) {
           setSuccess(true);
-          toast.success("Почта подтверждена!", {
+          toast.success("Email verified!", {
             action: {
-              label: "Авторизоваться",
+              label: "Sign in",
               onClick: () => navigate("/auth", { replace: true }),
             },
           });
@@ -75,12 +75,12 @@ export const codeVerify = (navigate, data, setSuccess = null) => {
 
           if (message?.includes("Invalid code")) {
             toast.error(
-              `Неверный код! \n Попробуйте ещё раз или запросите новый.`,
+              `Invalid code!\nPlease try again or request a new one.`,
               {
                 style: {
                   whiteSpace: "pre-line",
                 },
-              }
+              },
             );
           }
         } else {
@@ -103,7 +103,7 @@ export const getNewCode = (data) => {
     await $host
       .post("/user/code", data)
       .then((res) => {
-        toast.success("Новый код отправлен!");
+        toast.success("A new code has been sent!");
         return res.data;
       })
       .catch((err) => {
@@ -143,7 +143,6 @@ export const signIn = (setLoading, navigate, data) => {
             }
           }
         });
-        // получение необходимых данных для селектов
         dispatch(getPositionsList(1, 10));
         dispatch(getDepartmentsList(1, 10));
         navigate("/", { replace: true });
@@ -151,7 +150,7 @@ export const signIn = (setLoading, navigate, data) => {
       })
       .catch((err) => {
         if (err.response) {
-          toast.error("Произошла ошибка! Попробуйте ещё раз.");
+          toast.error("Something went wrong. Please try again.");
 
           const message = err.response.data?.message;
 
@@ -160,16 +159,16 @@ export const signIn = (setLoading, navigate, data) => {
             err.response.status === 404 ||
             err.response.status === 401
           ) {
-            toast.error(message || "Произошёл конфликт данных");
+            toast.error(message || "A data conflict occurred");
             return;
           }
 
           if (message === "Вы не подтвердили почту.") {
             const email = data.email;
 
-            toast.error(`Ваша почта не подтверждена.`, {
+            toast.error(`Your email is not verified.`, {
               action: {
-                label: "Подтвердить",
+                label: "Verify",
                 onClick: () => {
                   dispatch(getNewCode({ email }));
                   navigate("/code-verify", { replace: true });
@@ -179,15 +178,15 @@ export const signIn = (setLoading, navigate, data) => {
           }
 
           if (message?.toLowerCase().includes("not found")) {
-            toast.error("Пользователь не существует!");
+            toast.error("User does not exist!");
           }
 
           if (message?.toLowerCase().includes("not verified")) {
             const email = data.email;
 
-            toast.error(`Ваша почта не подтверждена.`, {
+            toast.error(`Your email is not verified.`, {
               action: {
-                label: "Подтвердить",
+                label: "Verify",
                 onClick: () => {
                   dispatch(getNewCode({ email }));
                   navigate("/code-verify", { replace: true });
@@ -197,10 +196,10 @@ export const signIn = (setLoading, navigate, data) => {
           }
         } else {
           if (err.request) {
-            toast.error("Произошла ошибка! Попробуйте ещё раз.");
+            toast.error("Something went wrong. Please try again.");
             console.error(err.request);
           } else {
-            toast.error("Произошла ошибка! Попробуйте ещё раз.");
+            toast.error("Something went wrong. Please try again.");
             console.error(err.message);
           }
         }
@@ -222,7 +221,7 @@ export const updateUserName = (data, setLoading, setSuccess) => {
         if (res.status === 200) {
           dispatch(setUser_data(res.data.user));
           setSuccess(true);
-          toast.success("Имя успешно изменено");
+          toast.success("Name updated successfully");
         }
       })
       .catch((err) => {
@@ -249,7 +248,7 @@ export const forgotPassword = (data) => {
       .post("/user/password/reset", data)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Новый пароль был отправлен на почту!");
+          toast.success("A new password has been sent to your email!");
         }
       })
       .catch((err) => {
@@ -274,7 +273,7 @@ export const changePassword = (data, setLoading, setSuccess) => {
       .then((res) => {
         if (res.status === 200) {
           setSuccess(true);
-          toast.success("Пароль успешно изменён!");
+          toast.success("Password changed successfully!");
         }
       })
       .catch((err) => {

@@ -37,14 +37,14 @@ export const ModalChangeUsername = ({ isOpen, onClose }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <Modal isOpen={isOpen} onClose={handleClose} title={"Изменение имени"}>
+        <Modal isOpen={isOpen} onClose={handleClose} title={"Change Name"}>
           <div className={styles.form}>
             <div className={styles.formItem}>
-              <p className={styles.formLabel}>Имя</p>
+              <p className={styles.formLabel}>Name</p>
               <CustomInput
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder={"Введите новое имя"}
+                placeholder={"Enter a new name"}
               />
             </div>
 
@@ -55,7 +55,7 @@ export const ModalChangeUsername = ({ isOpen, onClose }) => {
               />
               <Button
                 secondary={true}
-                title={"Сохранить"}
+                title={"Save"}
                 loading={loading}
                 onClick={handleSendData}
                 className={styles.saveButton}

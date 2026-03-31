@@ -33,7 +33,7 @@ const stepsCommands = [
   {
     title: (
       <>
-        Шаг 1. Найдите{" "}
+        Step 1. Find{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather
         </a>
@@ -41,23 +41,23 @@ const stepsCommands = [
     ),
     text: (
       <>
-        Откройте Телеграм и найдите официального бота{" "}
+        Open Telegram and find the official bot{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather
         </a>
-        . Это официальный инструмент для создания новых ботов.
+        . This is the official tool for creating new bots.
       </>
     ),
     image: SearchFatherCommand,
   },
   {
-    title: "Шаг 2. Создайте нового бота",
-    text: "Нажмите /newbot и следуйте инструкциям: введите имя и уникальный username, который должен заканчиваться на 'bot'.",
+    title: "Step 2. Create a new bot",
+    text: "Type /newbot and follow the instructions: enter a name and a unique username that must end with 'bot'.",
     image: CommandCreate,
   },
   {
-    title: "Шаг 3. Получите токен доступа",
-    text: "После создания BotFather пришлёт вам токен API — скопируйте его и вставьте в поле ниже. С ним ваш бот сможет подключаться к системе.",
+    title: "Step 3. Get your access token",
+    text: "After creation, BotFather will send you an API token. Copy it and paste it into the field below. This token allows your bot to connect to the system.",
     image: TokenCommand,
   },
 ];
@@ -66,7 +66,7 @@ const stepsCommandMobile = [
   {
     title: (
       <>
-        Шаг 1. Найдите{" "}
+        Step 1. Find{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather
         </a>
@@ -74,23 +74,23 @@ const stepsCommandMobile = [
     ),
     text: (
       <>
-        Откройте Телеграм и найдите официального бота{" "}
+        Open Telegram and find the official bot{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather{" "}
         </a>
-        . Это официальный инструмент для создания новых ботов.
+        . This is the official tool for creating new bots.
       </>
     ),
     image: SearchFatherMobile,
   },
   {
-    title: "Шаг 2. Создайте нового бота",
-    text: "Нажмите /newbot и следуйте инструкциям: введите имя и уникальный username, который должен заканчиваться на 'bot'.",
+    title: "Step 2. Create a new bot",
+    text: "Type /newbot and follow the instructions: enter a name and a unique username that must end with 'bot'.",
     image: CommandsMobile,
   },
   {
-    title: "Шаг 3. Получите токен доступа",
-    text: "После создания BotFather пришлёт вам токен API — скопируйте его и вставьте в поле ниже. С ним ваш бот сможет подключаться к системе.",
+    title: "Step 3. Get your access token",
+    text: "After creation, BotFather will send you an API token. Copy it and paste it into the field below. This token allows your bot to connect to the system.",
     image: TokenMobile,
   },
 ];
@@ -99,7 +99,7 @@ const stepsInterface = [
   {
     title: (
       <>
-        Шаг 1. Откройте{" "}
+        Step 1. Open{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather
         </a>
@@ -107,42 +107,42 @@ const stepsInterface = [
     ),
     text: (
       <>
-        Откройте Телеграм и найдите официальный бот{" "}
+        Open Telegram and find the official bot{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather{" "}
         </a>
-        . Справа от имени нажмите кнопку <b>“Открыть”</b>.
+        . Tap the <b>“Open”</b> button next to the bot name.
       </>
     ),
     image: SearchFatherInterface,
   },
   {
-    title: "Шаг 2. Создайте бота",
+    title: "Step 2. Create a bot",
     text: (
       <>
-        В списке ваших ботов нажмите кнопку <b>“Create a New Bot”</b>.
+        In the list of your bots, click <b>“Create a New Bot”</b>.
       </>
     ),
     image: CreateInterface,
   },
   {
-    title: "Шаг 3. Укажите информацию о боте",
+    title: "Step 3. Enter your bot details",
     text: (
       <>
-        Введите название вашего бота (например, “Бот компании”) и придумайте
-        уникальный username, который должен заканчиваться на <b>bot</b> —
-        например, <b>mycompany_bot</b>. После этого нажмите <b>“Create Bot”</b>.
+        Enter your bot name (for example, “Company Bot”) and choose a unique
+        username that must end with <b>bot</b> — for example,{" "}
+        <b>mycompany_bot</b>. Then click <b>“Create Bot”</b>.
       </>
     ),
     image: InfoInterface,
   },
   {
-    title: "Шаг 4. Скопируйте токен доступа",
+    title: "Step 4. Copy the access token",
     text: (
       <>
-        После создания бота BotFather покажет страницу с настройками. Нажмите
-        кнопку <b>“Copy”</b> рядом с токеном — скопируйте его и вставьте в поле
-        ниже.
+        After the bot is created, BotFather will show the settings page. Click
+        the <b>“Copy”</b> button next to the token, then paste it into the field
+        below.
       </>
     ),
     image: TokenInterface,
@@ -153,7 +153,7 @@ const stepsInterfaceMobile = [
   {
     title: (
       <>
-        Шаг 1. Откройте{" "}
+        Step 1. Open{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather
         </a>
@@ -161,42 +161,42 @@ const stepsInterfaceMobile = [
     ),
     text: (
       <>
-        Откройте Телеграм и найдите официальный бот{" "}
+        Open Telegram and find the official bot{" "}
         <a href="https://t.me/BotFather" target="_blank">
           @BotFather{" "}
         </a>
-        . Справа от имени нажмите кнопку <b>“Открыть”</b>.
+        . Tap the <b>“Open”</b> button next to the bot name.
       </>
     ),
     image: SearchFatherMobile,
   },
   {
-    title: "Шаг 2. Создайте бота",
+    title: "Step 2. Create a bot",
     text: (
       <>
-        В списке ваших ботов нажмите кнопку <b>“Create a New Bot”</b>.
+        In the list of your bots, tap <b>“Create a New Bot”</b>.
       </>
     ),
     image: CreateInterfaceMobile,
   },
   {
-    title: "Шаг 3. Укажите информацию о боте",
+    title: "Step 3. Enter your bot details",
     text: (
       <>
-        Введите название вашего бота (например, “Бот компании”) и придумайте
-        уникальный username, который должен заканчиваться на <b>bot</b> —
-        например, <b>mycompany_bot</b>. После этого нажмите <b>“Create Bot”</b>.
+        Enter your bot name (for example, “Company Bot”) and choose a unique
+        username that must end with <b>bot</b> — for example,{" "}
+        <b>mycompany_bot</b>. Then tap <b>“Create Bot”</b>.
       </>
     ),
     image: InfoInterfaceMobile,
   },
   {
-    title: "Шаг 4. Скопируйте токен доступа",
+    title: "Step 4. Copy the access token",
     text: (
       <>
-        После создания бота BotFather покажет страницу с настройками. Нажмите
-        кнопку <b>“Copy”</b> рядом с токеном — скопируйте его и вставьте в поле
-        ниже.
+        After the bot is created, BotFather will show the settings page. Tap the{" "}
+        <b>“Copy”</b> button next to the token, then paste it into the field
+        below.
       </>
     ),
     image: TokenInterfaceMobile,
@@ -238,11 +238,11 @@ export default function CreateBotPage() {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1>Создайте Телеграм бота для вашего бизнеса</h1>
+          <h1>Create a Telegram bot for your business</h1>
           <div className={styles.subtitleWrapper}>
             <p className={styles.subtitle}>
-              Чтобы начать использовать <b>ИИ в вашем бизнесе</b>, создайте
-              собственного бота. Следуйте шагам ниже — всё просто!
+              To start using <b>AI in your business</b>, create your own bot.
+              Just follow the steps below — it’s simple.
             </p>
           </div>
         </div>
@@ -255,7 +255,7 @@ export default function CreateBotPage() {
                 mode === "interface" ? styles.active : ""
               }`}
             >
-              Простой способ (через интерфейс)
+              Easy method (via interface)
             </button>
             <button
               onClick={() => setMode("commands")}
@@ -263,7 +263,7 @@ export default function CreateBotPage() {
                 mode === "commands" ? styles.active : ""
               }`}
             >
-              Ручной способ (через команды)
+              Manual method (via commands)
             </button>
           </div>
 
@@ -275,8 +275,8 @@ export default function CreateBotPage() {
                     mode === "commands" ? styles.activeText : ""
                   }`}
                 >
-                  💬 Подходит тем, кто уже работал с BotFather и знает, как
-                  вручную настраивать бота через команды.
+                  💬 Best for users who have worked with BotFather before and
+                  know how to configure a bot manually using commands.
                 </p>
               )}
               {mode === "interface" && (
@@ -285,15 +285,15 @@ export default function CreateBotPage() {
                     mode === "interface" ? styles.activeText : ""
                   }`}
                 >
-                  🧭 Упрощённый способ с кнопками и формами — без команд и
-                  ручного ввода.
+                  🧭 A simpler option with buttons and forms — no commands or
+                  manual setup required.
                 </p>
               )}
             </div>
             {mode === "interface" && (
               <p className={styles.warning}>
-                ⚠️ Интерфейс может быть недоступен в старых версиях Telegram. В
-                этом случае используйте ручной способ.
+                ⚠️ The interface may be unavailable in older Telegram versions.
+                In that case, use the manual method.
               </p>
             )}
           </div>
@@ -307,18 +307,18 @@ export default function CreateBotPage() {
                 ? stepsCommandMobile
                 : stepsCommands
               : isMobile
-              ? stepsInterfaceMobile
-              : stepsInterface
+                ? stepsInterfaceMobile
+                : stepsInterface
           }
         />
 
         <VideoHelpBlock />
 
         <form className={styles.form} id="input-token">
-          <label>Токен бота:</label>
+          <label>Bot token:</label>
           <CustomInput
             type="text"
-            placeholder="Введите токен от BotFather"
+            placeholder="Enter the BotFather token"
             value={token}
             onChange={(e) => setToken(e.target.value)}
           />
@@ -330,7 +330,7 @@ export default function CreateBotPage() {
             disabled={isIntegrationLoading}
           >
             {isIntegrationLoading && <RingLoader size={18} color="#fff" />}
-            {isIntegrationLoading ? "Создание..." : "Создать бота"}
+            {isIntegrationLoading ? "Creating..." : "Create bot"}
           </button>
         </form>
       </div>

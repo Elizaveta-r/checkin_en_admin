@@ -26,14 +26,14 @@ export const PositionsCard = ({ position, onEdit, onDelete }) => {
           <p className={styles.positionDescription}>
             {position.description
               ? position.description
-              : "Описание отсутствует"}
+              : "No description provided"}
           </p>
         </div>
 
         <div className={styles.employeeCell}>
           <div className={styles.userCell}>
             <Users size={16} className={styles.userIcon} />
-            <p>Пользователей:</p>
+            <p>Users:</p>
           </div>
           <span className={styles.userCount}>{position.employees_count}</span>
         </div>

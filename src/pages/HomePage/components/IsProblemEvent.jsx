@@ -7,11 +7,11 @@ import { Clock, ShieldQuestionMark, XCircle } from "lucide-react";
 const getStatusLabel = (status) => {
   switch (status) {
     case "not_on_time":
-      return "C опозданием";
+      return "Late";
     case "not_done":
-      return "Не выполнено";
+      return "Not completed";
     case "doubt":
-      return "Нужна проверка";
+      return "Needs review";
     default:
       return;
   }

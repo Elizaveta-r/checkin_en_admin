@@ -13,7 +13,7 @@ export const History = () => {
   const dispatch = useDispatch();
 
   const { history, historyMeta, loadingHistory } = useSelector(
-    (state) => state?.billing
+    (state) => state?.billing,
   );
 
   const loadMore = () => {
@@ -21,7 +21,7 @@ export const History = () => {
 
     const next = (historyMeta.page || 1) + 1;
     dispatch(
-      getHistory({ page: next, pageSize: historyMeta.pageSize, append: true })
+      getHistory({ page: next, pageSize: historyMeta.pageSize, append: true }),
     );
   };
 
@@ -38,7 +38,7 @@ export const History = () => {
               ?.sort((a, b) => {
                 const dateA = new Date(convertGoDateToISO(a.created_at));
                 const dateB = new Date(convertGoDateToISO(b.created_at));
-                return dateB - dateA; // сначала новые
+                return dateB - dateA;
               })
               ?.map((item, index) => {
                 return (
@@ -55,12 +55,12 @@ export const History = () => {
             {historyMeta.hasMore && (
               <div className={styles.loadMore} onClick={loadMore}>
                 {loadingHistory && <RingLoader size={14} color="white" />}
-                {loadingHistory ? "Подождите" : "Загрузить еще"}
+                {loadingHistory ? "Please wait" : "Load more"}
               </div>
             )}
           </>
         ) : (
-          <div>Нет истории</div>
+          <div>No history</div>
         )}
       </div>
     </div>

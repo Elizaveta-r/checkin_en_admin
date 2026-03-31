@@ -44,12 +44,12 @@ export const AuthForm = () => {
           setStep(1);
         }, 0);
       } else {
-        toast.error("Введите адрес электронной почты");
+        toast.error("Enter your email address");
       }
       return;
     } else {
       if (!password) {
-        toast.error("Введите пароль");
+        toast.error("Enter your password");
         return;
       }
     }
@@ -61,7 +61,6 @@ export const AuthForm = () => {
   }, [step, email, password, emailError, dispatch, navigate]);
 
   const handleEmailChange = useCallback((e) => {
-    // Убираем пробелы из вставленного или вводимого значения
     const value = e.target.value.replace(/\s/g, "");
     setEmail(value);
     setEmailError(validateEmail(value));
@@ -70,14 +69,14 @@ export const AuthForm = () => {
   const handleEmailKeyDown = useCallback(
     (e) => {
       if (e.key === " ") {
-        e.preventDefault(); // запрет ввода пробела
+        e.preventDefault();
       }
       if (e.key === "Enter") {
         e.preventDefault();
         handleSubmit();
       }
     },
-    [handleSubmit]
+    [handleSubmit],
   );
 
   const handlePasswordChange = useCallback((e) => {
@@ -91,7 +90,7 @@ export const AuthForm = () => {
         handleSubmit();
       }
     },
-    [handleSubmit]
+    [handleSubmit],
   );
 
   const handleResetPassword = useCallback(() => {
@@ -103,7 +102,7 @@ export const AuthForm = () => {
       <div className={styles.inputs}>
         <InputAuth
           ref={emailRef}
-          label="Адрес электронной почты"
+          label="Email address"
           value={email}
           onChange={step === 1 ? undefined : handleEmailChange}
           onKeyDown={step === 0 ? handleEmailKeyDown : undefined}
@@ -113,7 +112,7 @@ export const AuthForm = () => {
           rightIcon={
             step === 1 && (
               <div className={styles.rightIcon} onClick={() => setStep(0)}>
-                Изменить
+                Edit
               </div>
             )
           }
@@ -131,7 +130,7 @@ export const AuthForm = () => {
             >
               <InputAuth
                 ref={passwordRef}
-                label="Пароль"
+                label="Password"
                 type={viewPassword ? "text" : "password"}
                 value={password}
                 onChange={handlePasswordChange}
@@ -144,7 +143,7 @@ export const AuthForm = () => {
                 }
               />
               <div className={styles.forgot} onClick={handleResetPassword}>
-                Забыли пароль?
+                Forgot password?
               </div>
             </motion.div>
           )}
@@ -152,7 +151,7 @@ export const AuthForm = () => {
       </div>
 
       <Button
-        title="Продолжить"
+        title="Continue"
         className={styles.button}
         onClick={handleSubmit}
         loading={loading}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RingLoader } from "react-spinners";
 import { Calendar, Trash2 } from "lucide-react";
 import { DateRange } from "react-date-range";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { toISODate } from "../../utils/methods/dateFormatter";
 
 // Получить начало месяца и текущую дату
@@ -57,12 +57,12 @@ export const FilterModuleStaffingTable = ({ dateRange, setDateRange }) => {
   const rangeText = useMemo(() => {
     if (isFilterActive) {
       return `${dateRange[0].startDate.toLocaleDateString(
-        "ru-RU"
-      )} — ${dateRange[0].endDate.toLocaleDateString("ru-RU")}`;
+        "en-US",
+      )} — ${dateRange[0].endDate.toLocaleDateString("en-US")}`;
     }
     const { start, end } = getDefaultDateRange();
-    return `${start.toLocaleDateString("ru-RU")} — ${end.toLocaleDateString(
-      "ru-RU"
+    return `${start.toLocaleDateString("en-US")} — ${end.toLocaleDateString(
+      "en-US",
     )}`;
   }, [isFilterActive, dateRange]);
 
@@ -76,7 +76,7 @@ export const FilterModuleStaffingTable = ({ dateRange, setDateRange }) => {
     if (!startDate || !endDate) return;
 
     dispatch(
-      getTableData(toISODate(startDate), toISODate(endDate), "Europe/Moscow")
+      getTableData(toISODate(startDate), toISODate(endDate), "Europe/Moscow"),
     ).then((res) => {
       if (res.status == 200) {
         setDateRange(tempDateRange);
@@ -100,7 +100,7 @@ export const FilterModuleStaffingTable = ({ dateRange, setDateRange }) => {
     setTempDateRange(reset);
 
     dispatch(
-      getTableData(toISODate(start), toISODate(end), "Europe/Moscow")
+      getTableData(toISODate(start), toISODate(end), "Europe/Moscow"),
     ).then((res) => {
       if (res.status == 200) {
         setShowCalendar(false);
@@ -116,7 +116,7 @@ export const FilterModuleStaffingTable = ({ dateRange, setDateRange }) => {
             <button
               className={styles.resetButton}
               onClick={handleReset}
-              title="Сбросить фильтр"
+              title="Reset filter"
               disabled={loadingTable}
             >
               {loadingTable ? <RingLoader size={18} /> : <Trash2 size={18} />}
@@ -143,7 +143,7 @@ export const FilterModuleStaffingTable = ({ dateRange, setDateRange }) => {
               moveRangeOnFirstSelection={false}
               ranges={tempDateRange}
               direction="vertical"
-              locale={ru}
+              locale={enUS}
               color="#16a34a"
               maxDate={new Date()}
             />
@@ -154,7 +154,7 @@ export const FilterModuleStaffingTable = ({ dateRange, setDateRange }) => {
               disabled={loadingTable}
             >
               {loadingTable && <RingLoader color="white" size={12} />}
-              {loadingTable ? "Загрузка..." : "Применить и закрыть"}
+              {loadingTable ? "Loading..." : "Apply and close"}
             </button>
 
             <button
@@ -162,7 +162,7 @@ export const FilterModuleStaffingTable = ({ dateRange, setDateRange }) => {
               onClick={handleReset}
               disabled={loadingTable}
             >
-              Сбросить
+              Reset
             </button>
           </div>
         )}

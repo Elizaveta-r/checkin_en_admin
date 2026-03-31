@@ -7,15 +7,15 @@ export const toggleIntegration = createAsyncThunk(
   async ({ id, newStatus }, { rejectWithValue }) => {
     try {
       const res = await $authHost.put(
-        `/integration/enabled?integration_id=${id}&enabled=${newStatus}`
+        `/integration/enabled?integration_id=${id}&enabled=${newStatus}`,
       );
       if (res.status === 200) return { id, newStatus };
-      throw new Error("Ошибка сохранения");
+      throw new Error("Save failed");
     } catch (error) {
       logPostError?.(error);
-      return rejectWithValue("Ошибка при обновлении интеграции");
+      return rejectWithValue("Failed to update integration");
     }
-  }
+  },
 );
 
 const initialState = {
@@ -39,7 +39,7 @@ const integrationsSlice = createSlice({
       state.integrations = action.payload;
       sessionStorage.setItem(
         "integrations",
-        JSON.stringify(state.integrations)
+        JSON.stringify(state.integrations),
       );
     },
     setEditedIntegration(state, action) {
@@ -59,7 +59,7 @@ const integrationsSlice = createSlice({
         state.dismissedBotBanners.push(id);
         sessionStorage.setItem(
           "dismissedBotBanners",
-          JSON.stringify(state.dismissedBotBanners)
+          JSON.stringify(state.dismissedBotBanners),
         );
       }
     },
@@ -78,7 +78,7 @@ const integrationsSlice = createSlice({
       })
       .addCase(toggleIntegration.rejected, (state, action) => {
         state.isIntegrationLoading = false;
-        state.error = action.payload || "Ошибка при сохранении";
+        state.error = action.payload || "Save failed";
       });
   },
 });

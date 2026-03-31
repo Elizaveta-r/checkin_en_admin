@@ -34,8 +34,8 @@ export const SupportModal = ({ isOpen, onClose }) => {
 
   const validate = () => {
     const errs = {};
-    if (!formData.topic.trim()) errs.topic = "Укажите тему обращения";
-    if (!formData.message.trim()) errs.message = "Введите сообщение";
+    if (!formData.topic.trim()) errs.topic = "Please enter a subject";
+    if (!formData.message.trim()) errs.message = "Please enter a message";
 
     const hasContact =
       formData.phone.trim() ||
@@ -44,7 +44,7 @@ export const SupportModal = ({ isOpen, onClose }) => {
 
     if (!hasContact)
       errs.contact =
-        "Укажите хотя бы один способ связи: почта, телефон или Telegram";
+        "Please provide at least one contact method: email, phone, or Telegram";
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -54,12 +54,11 @@ export const SupportModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Формируем сообщение с контактами
     const contactInfo = `
-        Контактные данные:
-        ${formData.name ? `Имя: ${formData.name}\n` : ""}
-        ${formData.phone ? `Телефон: ${formData.phone}\n` : ""}
-        ${formData.email ? `Почта: ${formData.email}\n` : ""}
+        Contact details:
+        ${formData.name ? `Name: ${formData.name}\n` : ""}
+        ${formData.phone ? `Phone: ${formData.phone}\n` : ""}
+        ${formData.email ? `Email: ${formData.email}\n` : ""}
         ${formData.telegram ? `Telegram: ${formData.telegram}\n` : ""}
         ---------------------------
         ${formData.message}
@@ -74,7 +73,7 @@ export const SupportModal = ({ isOpen, onClose }) => {
     try {
       await dispatch(sendMessageSupport(payload, onClose, setLoading));
     } catch (error) {
-      console.error("Ошибка при отправке в поддержку:", error);
+      console.error("Error while sending a support request:", error);
     }
   };
 
@@ -85,17 +84,17 @@ export const SupportModal = ({ isOpen, onClose }) => {
           <X size={18} />
         </button>
 
-        <h2 className={styles.title}>Связаться с поддержкой</h2>
+        <h2 className={styles.title}>Contact Support</h2>
 
         <form className={styles.form}>
           <div className={styles.inputs}>
             <CustomInput
-              placeholder="Как к вам обращаться"
+              placeholder="How should we address you?"
               value={formData.name}
               onChange={(e) => handleChange("name", e.target.value)}
             />
             <CustomInput
-              placeholder="Тема обращения *"
+              placeholder="Subject *"
               value={formData.topic}
               onChange={(e) => handleChange("topic", e.target.value)}
               error={errors.topic}
@@ -103,7 +102,7 @@ export const SupportModal = ({ isOpen, onClose }) => {
           </div>
 
           <CustomTextArea
-            placeholder="Сообщение *"
+            placeholder="Message *"
             value={formData.message}
             onChange={(e) => handleChange("message", e.target.value)}
             error={errors.message}
@@ -113,26 +112,27 @@ export const SupportModal = ({ isOpen, onClose }) => {
             <div className={styles.contactsHeader}>
               <TriangleAlert />
               <p className={styles.contactsTitle}>
-                Укажите хотя бы один способ связи: почта, телефон или Telegram
+                Please provide at least one contact method: email, phone, or
+                Telegram
               </p>
             </div>
 
             <div className={styles.contactsGrid}>
               <PhoneInput
-                placeholder="Телефон"
+                placeholder="Phone"
                 value={formData.phone}
                 onChange={(e) => handleChange("phone", e.target.value)}
               />
               <div>
-                <label htmlFor="">Почта</label>
+                <label htmlFor="">Email</label>
                 <CustomInput
-                  placeholder="Почта"
+                  placeholder="Email"
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                 />
               </div>
               <div>
-                <label htmlFor="">Телеграм</label>
+                <label htmlFor="">Telegram</label>
                 <CustomInput
                   placeholder="Telegram"
                   value={formData.telegram}
@@ -149,7 +149,7 @@ export const SupportModal = ({ isOpen, onClose }) => {
           <Button
             type="submit"
             loading={loading}
-            title="Отправить обращение"
+            title="Send request"
             onClick={handleSubmit}
           />
         </form>

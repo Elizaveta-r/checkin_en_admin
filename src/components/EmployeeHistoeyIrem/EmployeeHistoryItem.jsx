@@ -31,10 +31,9 @@ const STATUS_UI = {
 };
 
 const formatDateTimeString = (datePart, timePart) => {
-  // если передан один аргумент — как раньше
   if (timePart === undefined && typeof datePart === "string") {
     const date = new Date(datePart);
-    return date.toLocaleString("ru-RU", {
+    return date.toLocaleString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -43,16 +42,14 @@ const formatDateTimeString = (datePart, timePart) => {
     });
   }
 
-  // если пришли отдельные дата и время
   if (datePart && timePart) {
-    // безопасно собираем ISO-строку
     const combined = `${datePart}T${
       timePart.length === 5 ? timePart + ":00" : timePart
     }`;
     const date = new Date(combined);
     if (isNaN(date.getTime())) return "-";
 
-    return date.toLocaleString("ru-RU", {
+    return date.toLocaleString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -71,7 +68,7 @@ const formatTimeToWords = (timeStr) => {
 
   if (isNaN(hours) || isNaN(minutes)) return "-";
 
-  return `${hours} ч ${minutes} мин`;
+  return `${hours} hr ${minutes} min`;
 };
 
 const mergeById = (prevArr, nextArr) => {
@@ -101,7 +98,6 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
     setShowAttempts((prev) => {
       const next = !prev;
 
-      // если открываем — грузим
       if (next) {
         setLoadingEventHistory(true);
 
@@ -113,10 +109,10 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
                 : [];
 
               setEventsHistory((prevHistory) =>
-                mergeById(prevHistory, incoming)
+                mergeById(prevHistory, incoming),
               );
             } else {
-              toast.error("Не удалось получить историю событий");
+              toast.error("Failed to load event history");
             }
           })
           .finally(() => setLoadingEventHistory(false));
@@ -156,17 +152,17 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
   const renderHintContent = () => {
     switch (eventStatus) {
       case "active":
-        return "В процессе";
+        return "In progress";
       case "done":
-        return "Выполнено";
+        return "Completed";
       case "not_done":
-        return "Не выполнено";
+        return "Not completed";
       case "not_on_time":
-        return "С опозданием";
+        return "Late";
       case "doubt":
-        return "Требует внимания";
+        return "Needs attention";
       default:
-        return "В процессе";
+        return "In progress";
     }
   };
 
@@ -184,7 +180,6 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
         </div>
       </HintWithPortal>
 
-      {/* 2. Основное содержание */}
       <div className={styles.contentArea}>
         <div className={styles.titleRow}>
           <div className={styles.taskTitleContainer}>
@@ -193,16 +188,16 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
               onClick={isTask ? onTaskClick : null}
             >
               {historyType === "check_in"
-                ? "Чекин"
+                ? "Check-in"
                 : historyType === "check_out"
-                ? "Чекаут"
-                : item.title}
+                  ? "Check-out"
+                  : item.title}
             </p>
             {isLoading && <RingLoader size={12} color="#16a34a" />}
           </div>
 
           <span className={styles.date}>
-            {eventStatus === "active" ? "Выполняется" : date} (
+            {eventStatus === "active" ? "In progress" : date} (
             {getFormattedTimeZoneLabel(timezone)})
           </span>
         </div>
@@ -211,50 +206,48 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
           <div className={styles.deadline}>
             <AlarmClock color="#6b7280" size={12} />{" "}
             {item?.event_type === "check_in"
-              ? "Ожидаемое время чекина"
+              ? "Expected check-in time"
               : item?.action_type === "check_out"
-              ? "Ожидаемое время чекаута"
-              : "Дедлайн"}
+                ? "Expected check-out time"
+                : "Deadline"}
             : {item.deadline_time}
           </div>
           {item?.delta && item?.delta !== "00:00" && (
             <div className={styles.late}>
               <TriangleAlert color="#f59e0b" size={12} />
               {item?.event_type === "check_in"
-                ? "Выполнен с опозданием на"
+                ? "Completed late by"
                 : item?.event_type === "check_out"
-                ? "Выполнен раньше на"
-                : "Выполнена с опозданием на"}
+                  ? "Completed early by"
+                  : "Completed late by"}
               : {formatTimeToWords(item.delta)}
             </div>
           )}
         </div>
 
-        {/* 3. Детали и фидбек */}
-
         {(item.done_rules || item.comment || item.ai_feedback) && (
           <div className={styles.feedbackSection}>
             {item.done_rules && (
               <p className={styles.criteria}>
-                <i>Критерий приемки:</i> <b>{item.done_rules}</b>
+                <i>Acceptance criteria:</i> <b>{item.done_rules}</b>
               </p>
             )}
 
             {item.comment && (
               <p className={styles.comment}>
                 <MessageCircleMore size={14} className={styles.iconTiny} />
-                Комментарий: {item.comment}
+                Comment: {item.comment}
               </p>
             )}
 
             {item.ai_feedback?.includes("OK") ? (
               <p className={`${styles.aiFeedback} ${styles.aiSuccess}`}>
-                <CheckCircle size={14} /> AI Анализ: Успешно
+                <CheckCircle size={14} /> AI Analysis: Success
               </p>
             ) : (
               aiComment && (
                 <p className={`${styles.aiFeedback} ${styles.aiFail}`}>
-                  <AlertTriangle size={14} /> AI Анализ: Неудача (
+                  <AlertTriangle size={14} /> AI Analysis: Failed (
                   {item.ai_feedback})
                 </p>
               )
@@ -263,7 +256,6 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
         )}
       </div>
 
-      {/* 4. Предпросмотр фотоотчета */}
       {isPhotoRequired &&
         (item.photo_link ? (
           <div
@@ -274,19 +266,19 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
           >
             <img
               src={item.photo_link}
-              alt="Фотоотчет сотрудника"
+              alt="Employee photo report"
               className={styles.photo}
             />
           </div>
         ) : (
           <div className={`${styles.photoContainer} ${styles.empty}`}>
-            <p>Нет фото</p>
+            <p>No photo</p>
           </div>
         ))}
       {hasEventHistory && (
         <button className={styles.attemptsButton} onClick={onShowEventHistory}>
           <Images size={14} />
-          Посмотреть историю попыток
+          View attempt history
           {isLoadingEventHistory ? (
             <RingLoader size={12} color="#16a34a" />
           ) : showAttempts ? (
@@ -297,11 +289,10 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
         </button>
       )}
 
-      {/* 5. Раскрывающийся список попыток */}
       {showAttempts && (
         <div className={styles.attemptsList}>
           {eventsHistory.length === 0 ? (
-            <p className={styles.noAttempts}>Нет попыток</p>
+            <p className={styles.noAttempts}>No attempts</p>
           ) : (
             eventsHistory.map((attempt, idx) => {
               return (
@@ -309,7 +300,7 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
                   <img
                     src={attempt.photo_link}
                     className={styles.attemptImage}
-                    alt="Попытка"
+                    alt="Attempt"
                     onClick={() => onPhotoClick(attempt.photo_link)}
                   />
 
@@ -330,19 +321,19 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
                       <p className={styles.attemptDate}>
                         {formatDateTimeString(
                           attempt.done_date,
-                          attempt.done_time
+                          attempt.done_time,
                         )}
                       </p>
                     </div>
                     {attempt?.ai_feedback && (
                       <p className={`${styles.aiFeedback} ${styles.aiFail}`}>
-                        <AlertTriangle size={14} /> AI Анализ: Неудача (
+                        <AlertTriangle size={14} /> AI Analysis: Failed (
                         {attempt?.ai_feedback})
                       </p>
                     )}
                     {attempt.success && (
                       <p className={styles.attemptAiSuccess}>
-                        <CheckCircle size={12} /> Принято
+                        <CheckCircle size={12} /> Accepted
                       </p>
                     )}
 
@@ -353,7 +344,7 @@ export default function EmployeeHistoryItem({ timezone, item, onPhotoClick }) {
                             size={14}
                             className={styles.iconTiny}
                           />
-                          Комментарий: {attempt.comment}
+                          Comment: {attempt.comment}
                         </p>
                       </div>
                     )}

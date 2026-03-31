@@ -64,10 +64,9 @@ export default function EmployeeContactModal({ isOpen, onClose, employee }) {
   }, [contacts]);
 
   const handleContactChange = (e) => {
-    const name = e.target.name; // 'phone', 'telegramName', 'email', 'telegramId'
+    const name = e.target.name;
     const value = e.target.value;
 
-    // 1. Обновляем локальное состояние немедленно
     setInput((prev) => ({
       ...prev,
       [name]: value,
@@ -109,7 +108,7 @@ export default function EmployeeContactModal({ isOpen, onClose, employee }) {
         <Modal
           isOpen={isOpen}
           onClose={handleCancel}
-          title={`Контактные данные сотрудника \n ${fullName}`}
+          title={`Employee Contact Details \n ${fullName}`}
         >
           <div className={styles.content}>
             <div className={styles.form}>
@@ -117,19 +116,19 @@ export default function EmployeeContactModal({ isOpen, onClose, employee }) {
                 name={"phone"}
                 value={input.phone}
                 onChange={handleContactChange}
-                label="Телефон для связи"
+                label="Phone number"
               />
               <div className={styles.formItem}>
-                <p className={styles.formLabel}>Телеграм</p>
+                <p className={styles.formLabel}>Telegram</p>
                 <div className={styles.inputs}>
                   <CustomInput
-                    placeholder={"Имя пользователя..."}
+                    placeholder={"Username..."}
                     value={input.telegramUsername}
                     name="telegramUsername"
                     onChange={handleContactChange}
                   />
                   <CustomInput
-                    placeholder={"Телеграм ID..."}
+                    placeholder={"Telegram ID..."}
                     value={input.telegramId}
                     name="telegramId"
                     onChange={handleContactChange}
@@ -137,7 +136,7 @@ export default function EmployeeContactModal({ isOpen, onClose, employee }) {
                 </div>
               </div>
               <div className={styles.formItem}>
-                <p className={styles.formLabel}>Адрес электронной почты</p>
+                <p className={styles.formLabel}>Email address</p>
 
                 <CustomInput
                   placeholder={"Email..."}
@@ -149,23 +148,8 @@ export default function EmployeeContactModal({ isOpen, onClose, employee }) {
             </div>
 
             <small className={styles.hint}>
-              Введенные данные будут сохранены автоматически
+              Entered data will be saved automatically
             </small>
-
-            {/* <div className={styles.actions}>
-              <Button
-                title="Отмена"
-                onClick={handleCancel}
-                className={styles.buttonCancel}
-                secondary
-              />
-              <Button
-                className={styles.button}
-                title={"Сохранить"}
-                onClick={handleSave}
-                secondary
-              />
-            </div> */}
           </div>
         </Modal>
       )}

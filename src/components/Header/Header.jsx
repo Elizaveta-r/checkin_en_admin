@@ -33,7 +33,7 @@ export const Header = () => {
     try {
       await dispatch(revokeSession(sessionId, setLoading));
     } catch (error) {
-      console.warn("Сессия уже завершена или не найдена:", error);
+      console.warn("Session already ended or not found:", error);
     } finally {
       localStorage.clear();
       sessionStorage.clear();
@@ -79,7 +79,7 @@ export const Header = () => {
           {!isMobile && (
             <Button
               leftIcon={<Headset size={16} strokeWidth={1.7} />}
-              title={"Помогите настроить"}
+              title={"Help me set it up"}
               className={`${styles.supportButton}`}
               onClick={handleOpenHelp}
               secondary={true}
@@ -93,7 +93,7 @@ export const Header = () => {
 
           <Button
             leftIcon={userData && <LogoutIcon size={15} fill={"#fff"} />}
-            title={userData ? "Выйти" : "Войти"}
+            title={userData ? "Log out" : "Sign in"}
             className={styles.logoutButton}
             loading={loading}
             onClick={userData ? handleLogOut : handleSignIn}
@@ -104,7 +104,7 @@ export const Header = () => {
       {isMobile && (
         <Button
           leftIcon={<Headset size={16} strokeWidth={1.7} />}
-          title={"Помощь"}
+          title={"Help"}
           className={`${styles.supportButton}`}
           onClick={handleOpenHelp}
           secondary={true}

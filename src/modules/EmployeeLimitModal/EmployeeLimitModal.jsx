@@ -7,7 +7,7 @@ export const EmployeeLimitModal = ({
   onClose,
   currentCount = 5,
   maxCount = 5,
-  planName = "Бесплатный",
+  planName = "Free",
   onUpgradePlan,
   onAddSlots,
 }) => {
@@ -28,10 +28,8 @@ export const EmployeeLimitModal = ({
             <div className={styles.iconWrapper}>
               <Users size={40} strokeWidth={2.5} />
             </div>
-            <h2 className={styles.title}>Достигнут лимит сотрудников</h2>
-            <p className={styles.subtitle}>
-              Вы не можете добавить нового сотрудника
-            </p>
+            <h2 className={styles.title}>Employee limit reached</h2>
+            <p className={styles.subtitle}>You cannot add a new employee</p>
           </div>
 
           <div className={styles.modalBody}>
@@ -40,19 +38,18 @@ export const EmployeeLimitModal = ({
                 {currentCount} / {maxCount}
               </div>
               <p className={styles.limitText}>
-                Тариф <span className={styles.planName}>{planName}</span>
+                Plan <span className={styles.planName}>{planName}</span>
               </p>
             </div>
 
-            {planName !== "Бесплатный" ? (
+            {planName !== "Free" ? (
               <p className={styles.message}>
-                Чтобы продолжить добавление сотрудников, вы можете сменить тариф
-                или докупить дополнительные места.
+                To continue adding employees, you can upgrade your plan or
+                purchase additional slots.
               </p>
             ) : (
               <p className={styles.message}>
-                Чтобы продолжить добавление сотрудников, вам необходимо сменить
-                тариф.
+                To continue adding employees, you need to upgrade your plan.
               </p>
             )}
 
@@ -62,15 +59,15 @@ export const EmployeeLimitModal = ({
                 onClick={onUpgradePlan}
               >
                 <TrendingUp size={18} />
-                Сменить тариф
+                Upgrade plan
               </button>
-              {planName !== "Бесплатный" && (
+              {planName !== "Free" && (
                 <button
                   className={`${styles.button} ${styles.buttonSecondary}`}
                   onClick={onAddSlots}
                 >
                   <Zap size={18} />
-                  Расширить команду
+                  Expand team
                 </button>
               )}
             </div>

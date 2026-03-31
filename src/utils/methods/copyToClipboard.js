@@ -16,6 +16,6 @@ export async function copyToClipboard(text) {
       document.body.removeChild(textarea);
     }
   } catch (err) {
-    console.error("Ошибка при копировании:", err);
+    console.error("Copy failed:", err);
   }
 }

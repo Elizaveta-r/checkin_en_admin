@@ -31,12 +31,11 @@ $authHost.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      console.warn("⚠️ Токен невалиден или просрочен!");
+      console.warn("⚠️ Token is invalid or has expired!");
 
       localStorage.clear();
       store.dispatch(logout());
 
-      // уведомляем все вкладки
       const channel = new BroadcastChannel("auth");
       channel.postMessage("logout");
       channel.close();
@@ -44,7 +43,7 @@ $authHost.interceptors.response.use(
       window.location.replace("/platform/auth");
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export { $authHost, $host };

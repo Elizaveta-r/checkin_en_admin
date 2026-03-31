@@ -98,7 +98,7 @@ const IntegrationPage = () => {
   return (
     <div className={styles.page}>
       <PageTitle
-        title="Интеграции"
+        title="Integrations"
         hasButton
         onClick={handleOpenCreateModal}
         dataTour="integration.add"
@@ -130,8 +130,8 @@ const IntegrationPage = () => {
         isOpen={visibleConfirmationDeleteModal}
         onClose={handleCloseConfirmationDeleteModal}
         onConfirm={handleDeleteIntegration}
-        message={`"Вы действительно хотите удалить интеграцию?"`}
-        buttonTitle="Удалить интеграцию"
+        message={`Are you sure you want to delete this integration?`}
+        buttonTitle="Delete integration"
         buttonIcon={<Trash size={20} />}
         loading={isIntegrationLoading}
       />
@@ -145,8 +145,8 @@ const IntegrationPage = () => {
       />
       {!integrations && (
         <div className={styles.empty}>
-          Список интеграций пуст. <br /> Нажмите <strong>"Добавить"</strong>,
-          чтобы создать первую интеграцию.
+          No integrations yet. <br /> Click <strong>"Add"</strong> to create
+          your first integration.
         </div>
       )}
 
@@ -155,13 +155,13 @@ const IntegrationPage = () => {
           {!isMobile && (
             <div className={styles.title}>
               <div></div>
-              <div>НАЗВАНИЕ</div>
-              <div>ТОКЕН БОТА</div>
+              <div>NAME</div>
+              <div>BOT TOKEN</div>
               <HintWithPortal
                 styleHintWrapper={{ width: "max-content" }}
-                hintContent={`Когда бот выключен — он не получает и не отвечает на сообщения. \n\n Включите его, чтобы снова принимать обращения пользователей.`}
+                hintContent={`When the bot is turned off, it will not receive or reply to messages.\n\nTurn it back on to resume handling user requests.`}
               >
-                <div>ВЫКЛ/ВКЛ</div>
+                <div>OFF/ON</div>
               </HintWithPortal>
             </div>
           )}

@@ -17,7 +17,7 @@ export default function UpdateTaskPage() {
   const navigate = useNavigate();
 
   const { isEdit, draftTask, loadingTask } = useSelector(
-    (state) => state?.tasks
+    (state) => state?.tasks,
   );
 
   let disposableDateString = null;
@@ -87,7 +87,7 @@ export default function UpdateTaskPage() {
 
   return (
     <div className={styles.page}>
-      <PageTitle title={isEdit ? "Редактирование задачи" : "Новая задача"} />
+      <PageTitle title={isEdit ? "Edit Task" : "New Task"} />
       <BasicTaskDetails />
       <FrequencySelector />
 
@@ -98,7 +98,7 @@ export default function UpdateTaskPage() {
         <Button
           secondary
           onClick={handleConfirm}
-          title={isEdit ? "Сохранить" : "Добавить"}
+          title={isEdit ? "Save" : "Add"}
           dataTour="form.tasks.submit"
           loading={loadingTask}
         />

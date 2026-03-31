@@ -9,7 +9,7 @@ export default function TasksDetailsPage() {
 
   return (
     <div className={styles.container}>
-      <PageTitle title={"Детали задачи"} />
+      <PageTitle title={"Task Details"} />
 
       <TaskCard task={activeTask} isFull />
     </div>

@@ -3,7 +3,7 @@ import EmployeeHistoryItem from "../../components/EmployeeHistoeyIrem/EmployeeHi
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { ImageModal } from "../../ui/ImageModal/ImageModal";
 import styles from "./ReportsPage.module.scss";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { DateRange } from "react-date-range";
 import { X, Calendar, RefreshCcw } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,7 +43,7 @@ export default function ReportsPage() {
   const navigate = useNavigate();
 
   const { employeesWithHistory, employee, loadingGetEmployee } = useSelector(
-    (state) => state.employees
+    (state) => state.employees,
   );
 
   const isMobile = useMediaQuery({
@@ -57,7 +57,6 @@ export default function ReportsPage() {
   const [dateRange, setDateRange] = useState(INITIAL_RANGE);
   const [tempDateRange, setTempDateRange] = useState(INITIAL_RANGE);
 
-  // 🔹 Универсальная функция загрузки
   const fetchReportsData = (empId = selectedEmployeeId, range = dateRange) => {
     const { startDate, endDate } = range[0];
     const startStr = toISODate(startDate);
@@ -68,44 +67,40 @@ export default function ReportsPage() {
 
     if (empId === DEFAULT_EMPLOYEE_ID) {
       return dispatch(
-        getAllEmployeesWithHistory(1, 1000, startNowDate, endNowDate)
+        getAllEmployeesWithHistory(1, 1000, startNowDate, endNowDate),
       );
     } else {
       return dispatch(getEmployeeWithHistory(empId, 1, 100, startStr, endStr));
     }
   };
 
-  // 🔹 Загружаем всех сотрудников при первом рендере
   useEffect(() => {
     fetchReportsData(DEFAULT_EMPLOYEE_ID, INITIAL_RANGE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 🔹 Опции для селекта
   const employeeOptions = useMemo(() => {
     if (!employeesWithHistory?.length) return [];
     const opts = employeesWithHistory.map((e) => ({
       value: e.id,
       label: `${e.surname} ${e.firstname} ${e.patronymic}`,
     }));
-    opts.unshift({ value: DEFAULT_EMPLOYEE_ID, label: "Все сотрудники" });
+    opts.unshift({ value: DEFAULT_EMPLOYEE_ID, label: "All employees" });
     return opts;
   }, [employeesWithHistory]);
 
   const currentEmployeeValue = useMemo(
     () =>
       employeeOptions.find((opt) => opt.value === selectedEmployeeId) || null,
-    [selectedEmployeeId, employeeOptions]
+    [selectedEmployeeId, employeeOptions],
   );
 
-  // 🔹 Смена сотрудника
   const handleEmployeeChange = (selectedOption) => {
     const newId = selectedOption ? selectedOption.value : DEFAULT_EMPLOYEE_ID;
     setSelectedEmployeeId(newId);
     fetchReportsData(newId);
   };
 
-  // 🔹 Календарь
   const handleApplyDateFilter = () => {
     setDateRange(tempDateRange);
     setShowCalendar(false);
@@ -126,23 +121,21 @@ export default function ReportsPage() {
     fetchReportsData(selectedEmployeeId, fresh);
   };
 
-  // 🔹 Модалка с фото
   const handleOpenPhotoModal = (url) => setModalPhotoUrl(url);
   const handleClosePhotoModal = () => setModalPhotoUrl(null);
 
-  // 🔹 Формат диапазона
   const rangeText = useMemo(() => {
     const { startDate, endDate } = dateRange[0];
-    if (!startDate || !endDate) return "Весь период";
+    if (!startDate || !endDate) return "All time";
     if (isSameDay(startDate, endDate)) {
       const today = new Date();
       return startDate.toDateString() === today.toDateString()
-        ? "Сегодня"
-        : startDate.toLocaleDateString("ru-RU");
+        ? "Today"
+        : startDate.toLocaleDateString("en-US");
     }
     return `${startDate.toLocaleDateString(
-      "ru-RU"
-    )} — ${endDate.toLocaleDateString("ru-RU")}`;
+      "en-US",
+    )} — ${endDate.toLocaleDateString("en-US")}`;
   }, [dateRange]);
 
   const isDateFilterActive = useMemo(() => {
@@ -151,7 +144,7 @@ export default function ReportsPage() {
     return !(isSameDay(startDate, today) && isSameDay(endDate, today));
   }, [dateRange]);
 
-  const showDateFilter = currentEmployeeValue?.label !== "Все сотрудники";
+  const showDateFilter = currentEmployeeValue?.label !== "All employees";
 
   const handleGoToEmployee = (id) => {
     dispatch(getEmployeeWithHistory(id, 1, 100)).then((res) => {
@@ -161,9 +154,7 @@ export default function ReportsPage() {
     });
   };
 
-  // 🔹 Готовим данные для рендера
   const renderedEmployees = useMemo(() => {
-    // если выбраны все — используем employeesWithHistory
     if (selectedEmployeeId === DEFAULT_EMPLOYEE_ID) {
       if (!employeesWithHistory?.length) return [];
 
@@ -179,7 +170,6 @@ export default function ReportsPage() {
         .filter((e) => e.filteredHistory.length > 0);
     }
 
-    // если выбран конкретный сотрудник — берём state.employee
     if (!employee) return [];
 
     const sorted = [...(employee.history || [])].sort((a, b) => {
@@ -194,18 +184,17 @@ export default function ReportsPage() {
   return (
     <div className={styles.container}>
       <PageTitle
-        title="Отчеты по сотрудникам"
+        title="Employee Reports"
         hasButton
         hint={
           selectedEmployeeId === DEFAULT_EMPLOYEE_ID &&
-          "Отчёт по всем сотрудникам предоставлен за текущий день"
+          "The report for all employees is shown for today."
         }
-        buttonTitle="Обновить"
+        buttonTitle="Refresh"
         leftIcon={<RefreshCcw size={16} />}
         onClick={() => fetchReportsData()}
       />
 
-      {/* 🔹 Панель фильтров */}
       <div
         className={`${styles.filterBar} ${
           showDateFilter ? styles.filterActive : ""
@@ -215,7 +204,7 @@ export default function ReportsPage() {
           value={currentEmployeeValue}
           options={employeeOptions}
           onChange={handleEmployeeChange}
-          placeholder="Выберите сотрудника"
+          placeholder="Select employee"
           isSearchable
         />
 
@@ -236,7 +225,7 @@ export default function ReportsPage() {
               <button
                 className={styles.resetDateButton}
                 onClick={handleDateReset}
-                title="Сбросить фильтр даты"
+                title="Reset date filter"
               >
                 <X size={16} />
               </button>
@@ -250,7 +239,7 @@ export default function ReportsPage() {
                   moveRangeOnFirstSelection={false}
                   ranges={tempDateRange}
                   direction="vertical"
-                  locale={ru}
+                  locale={enUS}
                   color="#16a34a"
                   maxDate={new Date()}
                 />
@@ -258,13 +247,13 @@ export default function ReportsPage() {
                   className={styles.applyFilterButton}
                   onClick={handleApplyDateFilter}
                 >
-                  Применить и закрыть
+                  Apply and close
                 </button>
                 <button
                   className={styles.resetFilterButton}
                   onClick={handleReset}
                 >
-                  Сбросить фильтр
+                  Reset filter
                 </button>
               </div>
             )}
@@ -272,7 +261,6 @@ export default function ReportsPage() {
         )}
       </div>
 
-      {/* 🔹 Список сотрудников */}
       {loadingGetEmployee ? (
         <div className={styles.loading}>
           <RingLoader color="#16a34a" />
@@ -305,7 +293,7 @@ export default function ReportsPage() {
                         timezone={employee.timezone}
                         onPhotoClick={handleOpenPhotoModal}
                       />
-                    )
+                    ),
                   )}
 
                   {selectedEmployeeId !== DEFAULT_EMPLOYEE_ID &&
@@ -317,17 +305,17 @@ export default function ReportsPage() {
                             getEmployeeWithHistory(
                               selectedEmployeeId,
                               Math.floor(
-                                employee.filteredHistory.length / 100
+                                employee.filteredHistory.length / 100,
                               ) + 1,
                               100,
                               toISODate(dateRange[0].startDate),
-                              toISODate(dateRange[0].endDate)
-                            )
+                              toISODate(dateRange[0].endDate),
+                            ),
                           )
                         }
                         disabled={loadingGetEmployee}
                       >
-                        {loadingGetEmployee ? "Загрузка..." : "Показать ещё"}
+                        {loadingGetEmployee ? "Loading..." : "Show more"}
                       </button>
                     )}
                 </div>
@@ -335,7 +323,7 @@ export default function ReportsPage() {
             ))
           ) : (
             <p className={styles.noData}>
-              Задач не найдено по вашим критериям фильтрации.
+              No tasks found for your selected filters.
             </p>
           )}
         </div>

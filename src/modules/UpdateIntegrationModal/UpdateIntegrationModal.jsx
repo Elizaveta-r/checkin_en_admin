@@ -16,11 +16,11 @@ import {
 import { setEditedIntegration } from "../../store/slices/integrationsSlice";
 
 const useTypeOptions = [
-  { value: "employee_interface", label: "Интерфейс для сотрудников" },
+  { value: "employee_interface", label: "Employee interface" },
 ];
 
 const integrationTypeOptions = [
-  { value: "telegram_bot", label: "Телеграм бот" },
+  { value: "telegram_bot", label: "Telegram bot" },
 ];
 
 const findOptionByValue = (optionsArray, value) => {
@@ -31,7 +31,7 @@ export const UpdateIntegrationModal = ({ isOpen, handleClose, isNew }) => {
   const dispatch = useDispatch();
 
   const { isIntegrationLoading, editedIntegration } = useSelector(
-    (state) => state?.integrations
+    (state) => state?.integrations,
   );
 
   const [dataForm, setDataForm] = useState({
@@ -41,11 +41,11 @@ export const UpdateIntegrationModal = ({ isOpen, handleClose, isNew }) => {
   });
   const [useType, setUseType] = useState({
     value: "employee_interface",
-    label: "Интерфейс для сотрудников",
+    label: "Employee interface",
   });
   const [integrationType, setIntegrationType] = useState({
     value: "telegram_bot",
-    label: "Телеграм бот",
+    label: "Telegram bot",
   });
 
   const handleChangeInput = (e) => {
@@ -78,7 +78,7 @@ export const UpdateIntegrationModal = ({ isOpen, handleClose, isNew }) => {
       .then((res) => {
         if (res.status === 200) {
           window.dispatchEvent(
-            new CustomEvent("tour:integration:submit:success")
+            new CustomEvent("tour:integration:submit:success"),
           );
           handleCancel();
         } else {
@@ -114,7 +114,7 @@ export const UpdateIntegrationModal = ({ isOpen, handleClose, isNew }) => {
 
       const initialUseType = findOptionByValue(
         useTypeOptions,
-        editedIntegration.use_type
+        editedIntegration.use_type,
       );
       if (initialUseType) {
         setUseType(initialUseType);
@@ -122,7 +122,7 @@ export const UpdateIntegrationModal = ({ isOpen, handleClose, isNew }) => {
 
       const initialIntegrationType = findOptionByValue(
         integrationTypeOptions,
-        editedIntegration.integration_type
+        editedIntegration.integration_type,
       );
       if (initialIntegrationType) {
         setIntegrationType(initialIntegrationType);
@@ -140,57 +140,16 @@ export const UpdateIntegrationModal = ({ isOpen, handleClose, isNew }) => {
         <Modal
           isOpen={isOpen}
           onClose={handleCancel}
-          title={`${isNew ? "Создание" : "Редактирование"} интеграции`}
+          title={`${isNew ? "Create" : "Edit"} Integration`}
         >
           <div className={styles.wrapper}>
             <div className={styles.form}>
-              {/* <FormSectionComponent
-                label={"Название"}
-                dataTour="modal.integration.name"
-              >
-                <CustomInput
-                  name="name"
-                  onChange={handleChangeInput}
-                  value={dataForm.name}
-                  placeholder={"Введите название интеграции"}
-                />
-              </FormSectionComponent> */}
-              {/* <FormSectionComponent
-                label={"Описание"}
-                dataTour="modal.integration.description"
-              >
-                <CustomTextArea
-                  name="description"
-                  onChange={handleChangeInput}
-                  value={dataForm.description}
-                  placeholder={"Введите описание интеграции"}
-                />
-              </FormSectionComponent> */}
-              {/* <FormSectionComponent
-                hintContent={"Выберите, как будет использоваться интеграция"}
-                label={"Тип использования"}
-              >
-                <CustomSelect
-                  placeholder="Выберите тип"
-                  options={useTypeOptions}
-                  onChange={setUseType}
-                  value={useType}
-                />
-              </FormSectionComponent> */}
-              {/* <FormSectionComponent label={"Тип интеграции"}>
-                <CustomSelect
-                  placeholder="Выберите интеграцию"
-                  options={integrationTypeOptions}
-                  onChange={setIntegrationType}
-                  value={integrationType}
-                />
-              </FormSectionComponent> */}
               <FormSectionComponent
-                label={"Токен бота"}
+                label={"Bot token"}
                 dataTour="modal.integration.token"
               >
                 <CustomInput
-                  placeholder="Введите токен"
+                  placeholder="Enter token"
                   name="token"
                   onChange={handleChangeInput}
                   value={dataForm.token}
@@ -207,11 +166,7 @@ export const UpdateIntegrationModal = ({ isOpen, handleClose, isNew }) => {
                 loading={isIntegrationLoading}
                 secondary
                 title={
-                  isIntegrationLoading
-                    ? "Сохранение..."
-                    : isNew
-                    ? "Создать"
-                    : "Сохранить"
+                  isIntegrationLoading ? "Saving..." : isNew ? "Create" : "Save"
                 }
                 onClick={isNew ? handleCreate : handleUpdate}
               />

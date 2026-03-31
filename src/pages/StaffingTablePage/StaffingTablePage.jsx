@@ -37,7 +37,6 @@ const buildMinutesMap = (stats = []) => {
   return map;
 };
 
-// Получить начало месяца и текущую дату
 const getDefaultDateRange = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -56,7 +55,7 @@ const buildDaysInRange = (start, end) => {
   const last = new Date(end);
   last.setHours(0, 0, 0, 0);
 
-  const fmt = new Intl.DateTimeFormat("ru-RU", {
+  const fmt = new Intl.DateTimeFormat("en-US", {
     day: "2-digit",
     month: "short",
   });
@@ -79,7 +78,6 @@ export default function StaffingTablePage() {
 
   const { tableData: mappedData } = useSelector((state) => state?.table);
 
-  // Инициализируем с начала месяца до текущего дня
   const defaultRange = useMemo(() => getDefaultDateRange(), []);
 
   const [dateRange, setDateRange] = useState([
@@ -98,7 +96,6 @@ export default function StaffingTablePage() {
   const colTotal = isTinyPhone ? 60 : isPhone ? 70 : 90;
   const colDaysWorked = isTinyPhone ? 50 : isPhone ? 60 : 80;
 
-  // Проверяем, что обе даты установлены и валидны
   const isFilterActive =
     dateRange?.[0]?.startDate &&
     dateRange?.[0]?.endDate &&
@@ -123,10 +120,10 @@ export default function StaffingTablePage() {
 
   const renderHeader = useMemo(() => {
     return [
-      "Подразделение / Сотрудник",
+      "Department / Employee",
       ...daysInRange.map((d) => d.label),
-      "Итог",
-      "Дней",
+      "Total",
+      "Days",
     ];
   }, [daysInRange]);
 
@@ -149,7 +146,7 @@ export default function StaffingTablePage() {
 
         const totalMinutes = daysInRange.reduce(
           (sum, d) => sum + (minutesMap.get(`${d.month}-${d.day}`) || 0),
-          0
+          0,
         );
 
         const workedDays = daysInRange.reduce((cnt, d) => {
@@ -180,12 +177,12 @@ export default function StaffingTablePage() {
     ws["!cols"] = [
       { wpx: firstColWpx },
       ...Array(daysInRange.length).fill({ wpx: 56 }),
-      { wpx: 80 }, // Итог
-      { wpx: 55 }, // Дней
+      { wpx: 80 },
+      { wpx: 55 },
     ];
 
     ws["!rows"] = Array.from({ length: aoa.length }, (_, r) =>
-      r === 0 ? { hpx: 28 } : { hpx: 22 }
+      r === 0 ? { hpx: 28 } : { hpx: 22 },
     );
 
     ws["!merges"] = ws["!merges"] || [];
@@ -253,14 +250,13 @@ export default function StaffingTablePage() {
     }
 
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Штатное расписание");
+    XLSX.utils.book_append_sheet(wb, ws, "Staffing Table");
     XLSX.writeFile(
       wb,
-      `staffing_${new Date().toISOString().slice(0, 10)}.xlsx`
+      `staffing_${new Date().toISOString().slice(0, 10)}.xlsx`,
     );
   };
 
-  // Загружаем данные при изменении диапазона дат
   useEffect(() => {
     if (isFilterActive) {
       const startISO = toISODate(dateRange[0].startDate);
@@ -272,7 +268,6 @@ export default function StaffingTablePage() {
     }
   }, [dispatch, dateRange, isFilterActive]);
 
-  // Начальная загрузка с начала месяца до текущего дня
   useEffect(() => {
     const { start, end } = defaultRange;
     dispatch(getTableData(toISODate(start), toISODate(end), "Europe/Moscow"));
@@ -282,10 +277,10 @@ export default function StaffingTablePage() {
     <div className={styles.page}>
       <div className={styles.tableHeader}>
         <div className={styles.headerTop}>
-          <PageTitle title="Штатное расписание" />
+          <PageTitle title="Staffing Table" />
           {hasData && (
             <Button
-              title="Экспорт в Excel"
+              title="Export to Excel"
               onClick={exportToExcel}
               secondary
               leftIcon={<FileDown size={18} />}
@@ -305,11 +300,11 @@ export default function StaffingTablePage() {
             <div className={styles.emptyIcon}>
               <FileSpreadsheet size={64} />
             </div>
-            <h3 className={styles.emptyTitle}>Нет данных для отображения</h3>
+            <h3 className={styles.emptyTitle}>No data to display</h3>
             <p className={styles.emptyDescription}>
               {isFilterActive
-                ? "По выбранному периоду данные отсутствуют. Попробуйте изменить фильтры."
-                : "Данные по штатному расписанию ещё не добавлены. Начните добавлять сотрудников и их рабочее время."}
+                ? "No data is available for the selected period. Try changing the filters."
+                : "No staffing data has been added yet. Start by adding employees and their working hours."}
             </p>
           </div>
         ) : (
@@ -321,8 +316,8 @@ export default function StaffingTablePage() {
               }}
             >
               {renderHeader.map((h, index) => {
-                const isLast = index === renderHeader.length - 1; // "Дней"
-                const isPrevLast = index === renderHeader.length - 2; // "Итог"
+                const isLast = index === renderHeader.length - 1;
+                const isPrevLast = index === renderHeader.length - 2;
 
                 return (
                   <div

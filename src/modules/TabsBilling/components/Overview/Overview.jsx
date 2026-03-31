@@ -18,6 +18,18 @@ import { pluralizeEmployees } from "../../../../utils/methods/pluralizeText";
 import { updateSubscription } from "../../../../utils/api/actions/billing";
 import { toast } from "sonner";
 
+const CURRENCY_SYMBOL = "₽";
+const CURRENCY_POSITION = "after"; // "before" | "after"
+const PER_DAY_LABEL = "per day";
+
+const formatPrice = (value) => {
+  const formatted = formatWithSpaces(value);
+
+  return CURRENCY_POSITION === "before"
+    ? `${CURRENCY_SYMBOL}${formatted}`
+    : `${formatted} ${CURRENCY_SYMBOL}`;
+};
+
 export const Overview = ({ openBalanceModal }) => {
   const dispatch = useDispatch();
 
@@ -32,7 +44,7 @@ export const Overview = ({ openBalanceModal }) => {
   const subscription = wallet?.subscription;
 
   const currentTariff = tariffs?.find(
-    (tariff) => tariff?.id === subscription?.tariff_id
+    (tariff) => tariff?.id === subscription?.tariff_id,
   );
 
   const employeesCount = employees?.length || 0;
@@ -43,29 +55,25 @@ export const Overview = ({ openBalanceModal }) => {
 
   const tariffName = currentTariff?.name;
 
-  // TODO: при клике на название тарифа показывать модалку с деталями тарифа
-
-  // const expiresAt = formatDate(subscription?.expires_at);
-
   const employeesPlus = Number(subscription?.employees_plus ?? 0);
 
   const tariffPrice = Number(currentTariff?.base_price ?? 0);
 
   const nextChargeAmount = subscription?.daily_charge;
 
-  const nextChargeFormatted = `${formatWithSpaces(nextChargeAmount)} ₽ ${
+  const nextChargeFormatted = `${formatPrice(nextChargeAmount)} ${
     employeesPlus !== 0
       ? `(${employeesPlus} ${pluralizeEmployees(
-          employeesPlus
-        )} + ${formatWithSpaces(tariffPrice)} ₽)`
+          employeesPlus,
+        )} + ${formatPrice(tariffPrice)})`
       : ""
   }`;
 
   const balanceFormatter = () => {
     if (balance) {
-      return `${formatWithSpaces(balance)} ₽`;
+      return formatPrice(balance);
     } else {
-      return loading ? "" : "0,00 ₽";
+      return loading ? "" : formatPrice("0,00");
     }
   };
 
@@ -93,7 +101,7 @@ export const Overview = ({ openBalanceModal }) => {
     };
     dispatch(updateSubscription(data)).then((res) => {
       if (res.status === 200) {
-        toast.success("Лимит сотрудников успешно расширен!");
+        toast.success("Employee limit updated successfully!");
         setIsAddEmployeeModal(false);
       }
     });
@@ -105,66 +113,39 @@ export const Overview = ({ openBalanceModal }) => {
 
   return (
     <div className={styles.content}>
-      {/* Верхняя секция с балансом */}
       <div className={styles.header}>
         <div className={styles.headerTop}>
-          {/* Баланс слева */}
           <div className={styles.balanceSection}>
-            <div className={styles.title}>Состояние счёта</div>
+            <div className={styles.title}>Account Balance</div>
             <div className={styles.balanceRow}>
               <div className={styles.balance}>
-                {!balance && loading ? <p>Загрузка...</p> : balanceFormatter()}
+                {!balance && loading ? <p>Loading...</p> : balanceFormatter()}
               </div>
             </div>
           </div>
 
-          {/* Компактная информация справа */}
           <div className={styles.quickInfo}>
             <div className={styles.quickInfoItem}>
               <div className={styles.quickInfoLabel}>
                 <Zap className={styles.quickInfoIcon} />
-                Тариф
+                Plan
               </div>
               <div className={styles.quickInfoValue}>
                 {subscription
                   ? tariffName
                     ? tariffName
-                    : "Тариф не найден"
-                  : "Не приобретен"}
+                    : "Plan not found"
+                  : "No plan selected"}
               </div>
             </div>
 
-            {/* {subscription && (
-              <div className={styles.quickInfoItem}>
-                <div className={styles.quickInfoLabel}>
-                  <Clock className={styles.quickInfoIcon} />
-                  Действует до
-                </div>
-                <div className={styles.quickInfoValue}>{expiresAt}</div>
-              </div>
-            )} */}
             {subscription &&
               currentTariff &&
               currentTariff?.code !== "free" && (
                 <div className={styles.quickInfoItem}>
                   <div className={styles.quickInfoLabel}>
-                    {/* {employeesPlus > 0 ? (
-                      <HintWithPortal
-                        position="top"
-                        hasIcon={false}
-                        hintContent={`Следующее списание считается так:\n${employeesPlus} ${pluralizeEmployees(
-                          employeesPlus
-                        )} + ${formatWithSpaces(
-                          tariffPrice
-                        )} ₽ = ${formatWithSpaces(nextChargeAmount)} ₽`}
-                        styleHintWrapper={{ width: "max-content" }}
-                      >
-                        <Eye className={styles.quickInfoIcon} />
-                      </HintWithPortal>
-                    ) : ( */}
                     <HandCoins className={styles.quickInfoIcon} />
-                    {/* )} */}
-                    Расход в сутки
+                    Daily charge
                   </div>
 
                   <div className={styles.quickInfoValue}>
@@ -175,39 +156,34 @@ export const Overview = ({ openBalanceModal }) => {
           </div>
         </div>
 
-        {/* Подсказка */}
         <div className={styles.statusTip}>
           <Bell className={styles.statusIcon} />
 
           <span>
-            Средства списываются автоматически в соответствии с вашим тарифом.
-            <br /> При необходимости вы можете изменить автопродление в
-            настройках ниже.
+            Funds are charged automatically according to your selected plan.
+            <br /> You can manage auto-renewal in the settings below if needed.
           </span>
         </div>
       </div>
 
-      {/* Секция действий */}
       <div className={styles.actionsContainer}>
-        {/* Главная кнопка - Пополнить баланс */}
         <button className={styles.topUpButton} onClick={handleTopUpBalance}>
           <Wallet className={styles.buttonIcon} />
           <div className={styles.buttonContent}>
-            <span className={styles.buttonText}>Пополнить баланс</span>
-            <span className={styles.buttonHint}>Быстрое пополнение</span>
+            <span className={styles.buttonText}>Top up balance</span>
+            <span className={styles.buttonHint}>Quick top-up</span>
           </div>
         </button>
 
-        {/* Вторичные действия */}
         <div className={styles.secondaryActions}>
           <button className={styles.actionButton} onClick={handleChangeTariff}>
             <CreditCard className={styles.buttonIcon} />
             <span>
               {currentTariff?.code === "free"
-                ? "Приобрести тариф"
+                ? "Upgrade plan"
                 : subscription
-                ? "Сменить тариф"
-                : "Выбрать тариф"}
+                  ? "Change plan"
+                  : "Choose plan"}
             </span>
           </button>
 
@@ -218,7 +194,7 @@ export const Overview = ({ openBalanceModal }) => {
             >
               <IdCardLanyard className={styles.buttonIcon} />
               <span>
-                Изменить лимит сотрудников{" "}
+                Change employee limit{" "}
                 <i>{`${employeesCount}/${limitEmployees}`}</i>
               </span>
             </button>

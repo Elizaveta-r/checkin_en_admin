@@ -26,15 +26,13 @@ export const SettingsPage = () => {
   return (
     <div className={styles.container}>
       <PageTitle
-        title="Настройки"
-        description={"Управляйте своим аккаунтом и предпочтениями"}
+        title="Settings"
+        description={"Manage your account and preferences"}
       />
 
       <div className={styles.content}>
-        {/* Навигация */}
         <SettingsNav activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        {/* Контент */}
         <div className={styles.mainContent}>
           <AnimatePresence mode="wait">
             {activeTab === "profile" && (

@@ -14,12 +14,12 @@ export const AuthPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>С возвращением</h1>
+      <h1 className={styles.title}>Welcome back</h1>
       <AuthForm />
       <p className={styles.text}>
-        У вас нет учетной записи?{" "}
+        Don’t have an account?{" "}
         <span className={styles.link} onClick={handleGoToRegPage}>
-          Зарегистрироваться
+          Sign up
         </span>
       </p>
       <TermsLinksAuth />

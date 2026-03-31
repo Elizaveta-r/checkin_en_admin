@@ -13,7 +13,7 @@ export default function PageTitle({
   hasButton,
   leftIcon = <Plus size={16} />,
   onClick,
-  buttonTitle = "Добавить",
+  buttonTitle = "Add",
   hint,
   hasCheckbox,
   checked,

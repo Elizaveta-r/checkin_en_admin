@@ -7,7 +7,6 @@ import styles from "./BasicTaskDetails.module.scss";
 import {
   resetPhotoToggles,
   setAcceptCondition,
-  // setDepartmentId,
   setDepartmentIds,
   setDoneType,
   setDraftName,
@@ -19,15 +18,14 @@ import { createPosition } from "../../../utils/api/actions/positions";
 import { toast } from "sonner";
 
 const confirmationTypes = [
-  { value: "photo", label: "Фото" },
-  { value: "text", label: "Текст" },
-  { value: "check_box", label: "Чекбокс" },
+  { value: "photo", label: "Photo" },
+  { value: "text", label: "Text" },
+  { value: "check_box", label: "Checkbox" },
 ];
 
 export const BasicTaskDetails = () => {
   const dispatch = useDispatch();
 
-  // const { isEdit } = useSelector((state) => state.tasks);
   const { department_ids, position_ids, title, done_type, ai_prompt } =
     useSelector((state) => state.tasks.draftTask);
 
@@ -47,7 +45,8 @@ export const BasicTaskDetails = () => {
   const addPositionToValue = (createdOpt) => {
     const prev = Array.isArray(position_ids) ? position_ids.slice() : [];
     const exists = prev.some(
-      (p) => (p.value ?? p) === createdOpt.value || p.label === createdOpt.label
+      (p) =>
+        (p.value ?? p) === createdOpt.value || p.label === createdOpt.label,
     );
     if (!exists) dispatch(setPositionIds([...prev, createdOpt]));
   };
@@ -55,39 +54,15 @@ export const BasicTaskDetails = () => {
   const handleCreatePosition = async (optFromSelect) => {
     const payload = { title: optFromSelect.value, description: "" };
     const res = await dispatch(createPosition(payload));
-    // Пытаемся достать созданную сущность (зависит от твоего thunk)
     const created = res?.payload?.data ?? res?.payload ?? null;
     const createdOpt = created?.id
       ? { value: created.id, label: created.title }
       : { value: optFromSelect.value, label: optFromSelect.value };
 
-    addPositionToValue(createdOpt); // ✅ не сбрасываем старые, просто добавляем
-    window.dispatchEvent(new Event("tour:task:position:create:success")); // ✅ дёргаем тур
+    addPositionToValue(createdOpt);
+    window.dispatchEvent(new Event("tour:task:position:create:success"));
     return res;
   };
-
-  // useEffect(() => {
-  //   if (!isEdit) {
-  //     dispatch(setDepartmentId(departmentOptions[0]));
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [dispatch, isEdit]);
-
-  // useEffect(() => {
-  //   if (!department_ids || !departmentOptions?.length) return;
-
-  //   // поддержим оба варианта: {value} или просто строка id
-  //   const rawId =
-  //     typeof department_ids === "string" ? department_ids : department_ids.value;
-  //   const match = departmentOptions.find((o) => o.value === rawId);
-
-  //   // если уже есть label — ничего не делаем
-  //   if (typeof department_ids === "object" && department_ids.label) return;
-
-  //   if (match) {
-  //     dispatch(setDepartmentId(match));
-  //   }
-  // }, [department_ids, departmentOptions, dispatch]);
 
   useEffect(() => {
     if (
@@ -105,7 +80,7 @@ export const BasicTaskDetails = () => {
         const rawId = typeof p === "string" ? p : p.value;
         return departmentOptions.find((o) => o.value === rawId);
       })
-      .filter(Boolean); // убираем не найденные
+      .filter(Boolean);
 
     if (mapped.length) {
       dispatch(setDepartmentIds(mapped));
@@ -128,7 +103,7 @@ export const BasicTaskDetails = () => {
         const rawId = typeof p === "string" ? p : p.value;
         return positionOptions.find((o) => o.value === rawId);
       })
-      .filter(Boolean); // убираем не найденные
+      .filter(Boolean);
 
     if (mapped.length) {
       dispatch(setPositionIds(mapped));
@@ -136,7 +111,7 @@ export const BasicTaskDetails = () => {
   }, [position_ids, positionOptions, dispatch]);
 
   if (!departmentOptions) {
-    toast.error("Создайте хотя бы 1 подразделение");
+    toast.error("Create at least one department");
     return;
   }
 
@@ -144,10 +119,10 @@ export const BasicTaskDetails = () => {
     <div className={styles.basicTaskDetails}>
       <div className={styles.row}>
         <div className={styles.section} data-tour="form.tasks.name">
-          <p className={styles.label}>Название задачи</p>
+          <p className={styles.label}>Task title</p>
           <CustomInput
             name="title"
-            placeholder="Название задачи"
+            placeholder="Task title"
             value={title}
             onChange={(e) => dispatch(setDraftName(e.target.value))}
           />
@@ -159,17 +134,16 @@ export const BasicTaskDetails = () => {
           <HintWithPortal
             hintContent={
               <>
-                Укажите, как исполнитель будет подтверждать выполнение:{" "}
-                <strong>фотографией</strong>,{" "}
-                <strong>кратким текстовым отчётом</strong> или простой{" "}
-                <strong>отметкой о завершении</strong> (чекбоксом)
+                Specify how the assignee will confirm completion: with a{" "}
+                <strong>photo</strong>, a <strong>short text report</strong>, or
+                a simple <strong>completion mark</strong> (checkbox).
               </>
             }
           >
-            <p className={styles.label}>Тип подтверждения</p>
+            <p className={styles.label}>Confirmation type</p>
           </HintWithPortal>
           <CustomSelect
-            placeholder="Выберите тип подтверждения"
+            placeholder="Select confirmation type"
             options={confirmationTypes}
             value={done_type}
             onChange={(selectedOption) => {
@@ -189,20 +163,22 @@ export const BasicTaskDetails = () => {
           <HintWithPortal
             hintContent={
               <>
-                Укажите, <b>что именно должно быть видно на фото</b>, чтобы ИИ
-                смог понять, что задача выполнена. <br />
-                <br /> Чем <b>точнее и подробнее</b> вы опишете критерии{" "}
+                Specify <b>what exactly should be visible in the photo</b> so AI
+                can determine that the task has been completed. <br />
+                <br />
+                The more <b>accurate and detailed</b> your criteria are{" "}
                 <small>
-                  (что должно быть на снимке, в каком виде, при каких условиях)
+                  (what should appear in the image, in what condition, and under
+                  what circumstances)
                 </small>
-                , тем <b>лучше система распознает результат</b>.
+                , the better the system can <b>recognize the result</b>.
               </>
             }
           >
-            <p className={styles.label}>Критерий приемки</p>
+            <p className={styles.label}>Acceptance criteria</p>
           </HintWithPortal>
           <CustomTextArea
-            placeholder={"Критерий приемки"}
+            placeholder={"Acceptance criteria"}
             value={ai_prompt}
             onChange={(e) => dispatch(setAcceptCondition(e.target.value))}
           />
@@ -211,9 +187,9 @@ export const BasicTaskDetails = () => {
 
       <div className={styles.row}>
         <div className={styles.section} data-tour="form.tasks.dep">
-          <p className={styles.label}>Подразделение</p>
+          <p className={styles.label}>Department</p>
           <CustomSelect
-            placeholder="Выберите подразделение"
+            placeholder="Select department"
             isSearchable
             isMulti
             options={departmentOptions}
@@ -227,9 +203,9 @@ export const BasicTaskDetails = () => {
           />
         </div>
         <div className={styles.section} data-tour="form.tasks.position">
-          <p className={styles.label}>Должности</p>
+          <p className={styles.label}>Positions</p>
           <CustomSelect
-            placeholder="Выберите должности"
+            placeholder="Select positions"
             isSearchable
             isMulti
             options={positionOptions}

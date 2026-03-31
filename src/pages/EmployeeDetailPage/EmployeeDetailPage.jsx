@@ -8,7 +8,7 @@ import styles from "./EmployeeDetailPage.module.scss";
 import { ImageModal } from "../../ui/ImageModal/ImageModal";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import EmployeeDetailsCard from "../../modules/EmployeeDetailsCard/EmployeeDetailsCard";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import EmployeeHistoryItem from "../../components/EmployeeHistoeyIrem/EmployeeHistoryItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployeeWithHistory } from "../../utils/api/actions/employees";
@@ -26,75 +26,6 @@ const getTodayRange = () => [
 ];
 
 const INITIAL_RANGE = getTodayRange();
-
-// const history = [
-//   {
-//     date: "2025-10-08 09:05:00",
-//     task_title: "Прием рабочего места в начале смены",
-//     task_acceptance_criteria:
-//       "Рабочее место должно быть чистым, инструменты дезинфицированы.",
-//     status: "done",
-//     is_photo_required: true,
-//     photo_url:
-//       "https://api.telegram.org/file/bot8437135255:AAEQ3vDc8HKtvyD9n9fb3E21CXxH_Tuh8G0/photos/file_1760.jpg",
-//     ai_feedback: "OK",
-//     comment: "",
-//     checkedIn: true,
-//   },
-//   {
-//     date: "2025-10-07 15:30:00",
-//     task_title: "Чистота мойки (Дневная проверка)",
-//     task_acceptance_criteria:
-//       "Мойка должна быть чистой, свободной от остатков пищи и загрязнений.",
-//     status: "overdue", // ❌ Провал/Просрочка
-//     is_photo_required: true,
-//     photo_url:
-//       "https://api.telegram.org/file/bot8437135255:AAEQ3vDc8HKtvyD9n9fb3E21CXxH_Tuh8G0/photos/file_1782.jpg",
-//     ai_feedback:
-//       "❌ На фото отсутствует мойка. Рекомендации: Сделайте фото мойки на кухне, демонстрируя её чистоту.",
-//     comment: "Забыл сфотографировать мойку, исправлю.",
-//     checkedIn: true,
-//   },
-//   {
-//     date: "2025-10-06 09:13:50",
-//     task_title: "Подготовка зоны выдачи",
-//     task_acceptance_criteria:
-//       "Проверка чистоты зоны выдачи, наличие салфеток, специй и соответствие выкладки стандартам.",
-//     status: "done",
-//     is_photo_required: true,
-//     photo_url:
-//       "https://api.telegram.org/file/bot8437135255:AAEQ3vDc8HKtvyD9n9fb3E21CXxH_Tuh8G0/photos/file_1762.jpg",
-//     ai_feedback: "OK",
-//     comment: "",
-//     checkedIn: true,
-//   },
-//   {
-//     date: "2025-10-05 08:50:00",
-//     task_title: "Комментарии приемки рабочего места от прошлой смены",
-//     task_acceptance_criteria:
-//       "Проверка чистоты зоны выдачи, наличие салфеток, специй и соответствие выкладки стандартам.",
-//     status: "done",
-//     is_photo_required: false,
-//     photo_url: "",
-//     ai_feedback: "",
-//     checkedIn: false,
-//     comment: "Быстро проверил, место в порядке. Все заготовки на месте.",
-//   },
-//   {
-//     checkedIn: false,
-//     date: "2025-10-04 18:00:00",
-//     task_title: "Сдача смены (Уборка)",
-//     task_acceptance_criteria:
-//       "Полная уборка рабочего места, дезинфекция поверхностей, замена мусорных пакетов.",
-//     status: "done_late", // 🟡 Задержка
-//     is_photo_required: true,
-//     photo_url:
-//       "https://api.telegram.org/file/bot8437135255:AAEQ3vDc8HKtvyD9n9fb3E21CXxH_Tuh8G0/photos/file_1800.jpg",
-//     ai_feedback: "OK",
-//     comment:
-//       "Пришлось задержаться на 15 минут из-за срочного заказа. Сдал в 18:15:22.",
-//   },
-// ];
 
 const toISODate = (date) => {
   const y = date.getFullYear();
@@ -127,7 +58,7 @@ export default function EmployeeDetailPage() {
   const isEventMode = !!eventId;
 
   const { employee, loadingGetEmployee } = useSelector(
-    (state) => state?.employees
+    (state) => state?.employees,
   );
 
   const isMobile = useMediaQuery({
@@ -142,8 +73,6 @@ export default function EmployeeDetailPage() {
     if (!Array.isArray(history)) return [];
     if (!isEventMode) return history;
 
-    // Если у тебя event_id = item.id — оставь так.
-    // Если event_id лежит в другом поле, поменяй сравнение.
     return history.filter((x) => String(x.id) === String(eventId));
   }, [history, isEventMode, eventId]);
 
@@ -220,12 +149,12 @@ export default function EmployeeDetailPage() {
   const rangeText = useMemo(() => {
     const { startDate, endDate } = dateRange[0] ?? {};
 
-    if (!startDate || !endDate) return "Весь период";
+    if (!startDate || !endDate) return "All time";
 
     return (
-      startDate.toLocaleDateString("ru-RU") +
+      startDate.toLocaleDateString("en-US") +
       " — " +
-      endDate.toLocaleDateString("ru-RU")
+      endDate.toLocaleDateString("en-US")
     );
   }, [dateRange]);
 
@@ -245,7 +174,6 @@ export default function EmployeeDetailPage() {
     if (!isEventMode) return;
     if (!displayedHistory?.length) return;
 
-    // ждём, пока DOM нарисуется
     requestAnimationFrame(() => {
       eventElRef.current?.scrollIntoView({
         behavior: "smooth",
@@ -256,17 +184,15 @@ export default function EmployeeDetailPage() {
 
   return (
     <div className={styles.pageContent}>
-      <PageTitle title={"Детали сотрудника"} />
+      <PageTitle title={"Employee Details"} />
 
       <div className={styles.mainGrid}>
         <EmployeeDetailsCard employee={employee} />
 
-        {/* 2. ПРАВАЯ КОЛОНКА: ИСТОРИЯ ДЕЙСТВИЙ */}
         <div className={styles.historySection}>
           <div className={styles.historyHeader}>
-            <h2 className={styles.historyTitle}>История выполнения задач</h2>
+            <h2 className={styles.historyTitle}>Task Completion History</h2>
 
-            {/* КНОПКА КАЛЕНДАРЯ */}
             <div className={styles.calendarControls}>
               <div className={styles.filterButtonWrapper}>
                 <div className={styles.btnActionWrapper}>
@@ -274,24 +200,21 @@ export default function EmployeeDetailPage() {
                     <button
                       className={styles.allHistory}
                       onClick={handleShowAllHistory}
-                      title="Показать всю историю"
+                      title="Show full history"
                     >
-                      {isSmallScreen
-                        ? "Сбросить задачу"
-                        : "Сбросить активную задачу"}
+                      {isSmallScreen ? "Reset task" : "Reset active task"}
                     </button>
                   )}
-                  {/* Кнопка сброса видна, только если фильтр активен */}
                   {isFilterActive && (
                     <button
                       className={styles.resetButton}
                       onClick={handleResetToToday}
-                      title="Сбросить к текущему дню"
+                      title="Reset to today"
                     >
                       {loadingGetEmployee ? (
                         <RingLoader size={18} />
                       ) : isSmallScreen ? (
-                        "Сбросить фильтр"
+                        "Reset filter"
                       ) : (
                         <Trash2 size={18} />
                       )}
@@ -303,9 +226,9 @@ export default function EmployeeDetailPage() {
                       className={styles.showAllButton}
                       onClick={handleShowAllPeriod}
                       disabled={loadingGetEmployee}
-                      title="Показать историю за весь период"
+                      title="Show full history"
                     >
-                      Показать весь период
+                      Show all time
                     </button>
                   )}
                 </div>
@@ -321,7 +244,6 @@ export default function EmployeeDetailPage() {
                 </button>
               </div>
 
-              {/* МОДАЛКА КАЛЕНДАРЯ */}
               {showCalendar && (
                 <div className={styles.calendarModal}>
                   <DateRange
@@ -330,7 +252,7 @@ export default function EmployeeDetailPage() {
                     moveRangeOnFirstSelection={false}
                     ranges={tempDateRange}
                     direction="vertical"
-                    locale={ru}
+                    locale={enUS}
                     color="#16a34a"
                     maxDate={new Date()}
                   />
@@ -342,13 +264,13 @@ export default function EmployeeDetailPage() {
                     {loadingGetEmployee && (
                       <RingLoader color="white" size={12} />
                     )}
-                    {loadingGetEmployee ? "Загрузка..." : "Применить и Закрыть"}
+                    {loadingGetEmployee ? "Loading..." : "Apply and Close"}
                   </button>
                   <button
                     className={styles.resetFilterButton}
                     onClick={handleResetToToday}
                   >
-                    Сбросить фильтр
+                    Reset filter
                   </button>
                 </div>
               )}
@@ -357,25 +279,30 @@ export default function EmployeeDetailPage() {
 
           <div className={styles.historyList}>
             {displayedHistory?.map((item) => {
+              const isTargetEvent =
+                isEventMode && String(item.id) === String(eventId);
+
               return isMobile ? (
-                <EmployeeHistoryItemMobile
-                  key={item.id}
-                  item={item}
-                  timezone={employee?.timezone}
-                  onPhotoClick={handleOpenPhotoModal}
-                />
+                <div key={item.id} ref={isTargetEvent ? eventElRef : null}>
+                  <EmployeeHistoryItemMobile
+                    item={item}
+                    timezone={employee?.timezone}
+                    onPhotoClick={handleOpenPhotoModal}
+                  />
+                </div>
               ) : (
-                <EmployeeHistoryItem
-                  key={item.id}
-                  item={item}
-                  timezone={employee?.timezone}
-                  onPhotoClick={handleOpenPhotoModal}
-                />
+                <div key={item.id} ref={isTargetEvent ? eventElRef : null}>
+                  <EmployeeHistoryItem
+                    item={item}
+                    timezone={employee?.timezone}
+                    onPhotoClick={handleOpenPhotoModal}
+                  />
+                </div>
               );
             })}
             {displayedHistory?.length === 0 && (
               <p className={styles.noHistory}>
-                Действий сотрудника не найдено в выбранном диапазоне.
+                No employee activity found for the selected date range.
               </p>
             )}
           </div>

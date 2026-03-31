@@ -12,18 +12,31 @@ import { buyTariff, getUserWallet } from "../../utils/api/actions/billing";
 import { toast } from "sonner";
 
 const durationLabel = (days) => {
-  if (days === 1) return "день";
-  if (days === 7) return "неделя";
-  if (days === 30 || days === 31) return "месяц";
-  return ""; // или "дней" / "—" если нужно
+  if (days === 1) return "day";
+  if (days === 7) return "week";
+  if (days === 30 || days === 31) return "month";
+  return "";
 };
+
 const ADDITIONAL_EMPLOYEE_COST = 150;
+const CURRENCY_SYMBOL = "₽";
+const CURRENCY_POSITION = "after"; // "before" | "after"
+
+const formatPrice = (value) => {
+  const formatted =
+    typeof value === "number"
+      ? formatWithSpaces(value)
+      : formatWithSpaces(value);
+
+  return CURRENCY_POSITION === "before"
+    ? `${CURRENCY_SYMBOL}${formatted}`
+    : `${formatted} ${CURRENCY_SYMBOL}`;
+};
 
 export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
   const dispatch = useDispatch();
 
   const [isProcessing, setIsProcessing] = useState(false);
-
   const [addedEmployeesCount, setAddedEmployeesCount] = useState(0);
 
   if (!isOpen) return null;
@@ -39,13 +52,11 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
         if (res.status === 200) {
           onConfirm(tariff);
           dispatch(getUserWallet());
-          toast.success(`Тариф ${tariff.name} успешно приобретен!`);
+          toast.success(`The ${tariff.name} plan was purchased successfully!`);
         }
       })
       .finally(() => setIsProcessing(false));
   };
-
-  // employeeAdd
 
   const handleChange = (delta) => {
     setAddedEmployeesCount((prev) => {
@@ -71,18 +82,14 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={handleClose}
-      title={"Подтверждение покупки"}
-    >
+    <Modal isOpen={isOpen} onClose={handleClose} title={"Confirm Purchase"}>
       <div className={styles.modal}>
         <div className={styles.header}>
           <div className={styles.iconWrapper}>
             {tariff.isPopular ? <Crown size={32} /> : <Zap size={32} />}
           </div>
 
-          <p className={styles.title}>Вы выбрали тариф:</p>
+          <p className={styles.title}>You selected this plan:</p>
         </div>
 
         <div className={styles.tariffCard}>
@@ -92,7 +99,7 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
                 <h3 className={styles.tariffTitle}>
                   {tariff.name}
                   {tariff.isPopular && (
-                    <span className={styles.popularBadge}>Популярный</span>
+                    <span className={styles.popularBadge}>Popular</span>
                   )}
                 </h3>
                 <p className={styles.tariffDescription}>{tariff.description}</p>
@@ -100,7 +107,7 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
 
               <div className={styles.priceBlock}>
                 <div className={styles.price}>
-                  {tariff.base_price.toLocaleString("ru-RU")} ₽
+                  {formatPrice(tariff.base_price)}
                 </div>
                 <div className={styles.period}>
                   / {durationLabel(tariff.duration_days)}
@@ -134,7 +141,7 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
                   <Users size={14} />
                 </div>
                 <span className={styles.featureText}>
-                  До {tariff.maxEmployees} активных сотрудников
+                  Up to {tariff.maxEmployees} active employees
                 </span>
               </div>
             )}
@@ -144,10 +151,12 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
             <div className={styles.addEmployeesContainer}>
               <HintComponent
                 hasIcon
-                text="Увеличить лимит сотрудников"
-                hint={`Каждый дополнительный сотрудник стоит ${ADDITIONAL_EMPLOYEE_COST} ₽ за ${durationLabel(
-                  tariff.duration_days
-                )}. Вы можете добавить неограниченное количество сотрудников к базовому тарифу.`}
+                text="Increase employee limit"
+                hint={`Each additional employee costs ${formatPrice(
+                  ADDITIONAL_EMPLOYEE_COST,
+                )} per ${durationLabel(
+                  tariff.duration_days,
+                )}. You can add an unlimited number of employees to the base plan.`}
                 titleStyle={styles.titleHint}
                 styleHintWrapper={{
                   justifyContent: "center",
@@ -169,18 +178,18 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
             </div>
           )}
 
-          {addedEmployeesCount >= 15 && tariff.name !== "Стандарт" && (
+          {addedEmployeesCount >= 15 && tariff.name !== "Standard" && (
             <small className={styles.warning}>
-              Рекомендуем выбрать тариф "Стандарт"
+              We recommend switching to the "Standard" plan
             </small>
           )}
 
           {tariff.code !== "free" && (
             <div className={styles.paymentInfo}>
               <p className={styles.paymentText}>
-                <strong>💳 Безопасная оплата</strong>
-                После нажатия кнопки вы будете перенаправлены на защищенную
-                страницу оплаты Робокасса
+                <strong>💳 Secure payment</strong>
+                After clicking the button, you will be redirected to the secure
+                Robokassa payment page
               </p>
             </div>
           )}
@@ -192,7 +201,7 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
           disabled={isProcessing}
           className={`${styles.button} ${styles.cancelButton}`}
         >
-          Отменить
+          Cancel
         </button>
         <button
           onClick={handleConfirm}
@@ -202,14 +211,12 @@ export const TariffConfirmModal = ({ tariff, isOpen, onClose, onConfirm }) => {
           {isProcessing ? (
             <>
               <div className={styles.spinner} />
-              Обработка...
+              Processing...
             </>
           ) : tariff?.code === "free" ? (
-            "Перейти на бесплатный"
+            "Switch to Free"
           ) : (
-            <>
-              Оплатить {formatWithSpaces(totalPrice.toLocaleString("ru-RU"))} ₽
-            </>
+            <>Pay {formatPrice(totalPrice)}</>
           )}
         </button>
       </div>

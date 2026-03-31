@@ -8,13 +8,13 @@ import { History } from "./components/History/History";
 
 const TABS = [
   {
-    label: "Обзор",
+    label: "Overview",
     slug: "overview",
     Component: Overview,
     preload: () => import("./components/Overview/Overview"),
   },
   {
-    label: "История операций",
+    label: "Transaction History",
     slug: "history",
     Component: History,
     preload: () => import("./components/History/History"),
@@ -46,7 +46,7 @@ export const TabsBilling = () => {
               i === activeTabIndex ? styles.active : ""
             }`}
             onClick={() => handleTabClick(i)}
-            onMouseEnter={() => tab.preload?.()} // префетч чанка по ховеру
+            onMouseEnter={() => tab.preload?.()}
             onFocus={() => tab.preload?.()}
           >
             {tab.label}

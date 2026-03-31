@@ -22,17 +22,16 @@ const safeGet = (key) => {
 const initialState = {
   wallet: safeGet("wallet"),
   history: safeGet("history"),
-  settings: safeGet("settings"), // { id, notify_limit, limit_balance_notify, negative_balance_notify } или null
-  // Локальная форма в сторе:
+  settings: safeGet("settings"),
   form: {
-    notifyLimitInput: "", // строка для инпута
+    notifyLimitInput: "",
     limitBalanceNotify: false,
     negativeBalanceNotify: false,
     autoRenewal: false,
   },
   historyMeta: safeGet("history_meta") || {
     page: 0,
-    pageSize: 10, // дефолт под твой первый запрос
+    pageSize: 10,
     hasMore: true,
     loading: false,
   },
@@ -50,7 +49,6 @@ export const saveSettings = createAsyncThunk(
     const { settings, form } = getState().billing;
     if (!settings?.id) return;
 
-    // Парс лимита — как у тебя
     const trimmed = (form.notifyLimitInput ?? "").trim();
     const num = trimmed === "" ? 0 : Number(trimmed.replace(",", "."));
     const notify_limit =
@@ -64,12 +62,11 @@ export const saveSettings = createAsyncThunk(
 
     try {
       await saveSettingsAPI(payload);
-      // Обновим settings в сторе и localStorage, чтобы всё было консистентно
       return payload;
     } catch (e) {
-      return rejectWithValue(e?.payload?.message || "Ошибка сохранения");
+      return rejectWithValue(e?.payload?.message || "Save failed");
     }
-  }
+  },
 );
 
 export const saveSubscription = createAsyncThunk(
@@ -89,9 +86,9 @@ export const saveSubscription = createAsyncThunk(
 
       return payload;
     } catch (e) {
-      return rejectWithValue(e?.payload || "Ошибка сохранения");
+      return rejectWithValue(e?.payload || "Save failed");
     }
-  }
+  },
 );
 
 const billingSlice = createSlice({
@@ -118,13 +115,12 @@ const billingSlice = createSlice({
       const incoming = Array.isArray(action.payload) ? action.payload : [];
       const byId = new Set((state.history || []).map((i) => i?.id));
       const merged = (state.history || []).concat(
-        incoming.filter((i) => (i?.id ? !byId.has(i.id) : true))
+        incoming.filter((i) => (i?.id ? !byId.has(i.id) : true)),
       );
       state.history = merged;
       localStorage.setItem("history", JSON.stringify(state.history));
     },
 
-    // ⬇️ новое: метаданные пагинации
     setHistoryMeta: (state, action) => {
       state.historyMeta = { ...state.historyMeta, ...(action.payload || {}) };
       localStorage.setItem("history_meta", JSON.stringify(state.historyMeta));
@@ -132,9 +128,8 @@ const billingSlice = createSlice({
     setSettings: (state, action) => {
       state.settings = action.payload;
       localStorage.setItem("settings", JSON.stringify(action.payload));
-      // Инициализация формы из settings
       state.form.notifyLimitInput = String(
-        action.payload?.balance_threshold ?? 0
+        action.payload?.balance_threshold ?? 0,
       );
       state.form.limitBalanceNotify =
         !!action.payload?.balance_threshold_notify;
@@ -146,7 +141,6 @@ const billingSlice = createSlice({
       state.form.autoRenewal = action.payload;
     },
 
-    // --- экшены формы
     setNotifyLimitInput: (state, action) => {
       state.form.notifyLimitInput = action.payload;
     },
@@ -168,7 +162,6 @@ const billingSlice = createSlice({
       })
       .addCase(saveSettings.fulfilled, (state, action) => {
         state.saving = "succeeded";
-        // Синхронизируем settings с тем, что сохранили
         const { settings } = state;
         if (settings?.id && action.payload) {
           state.settings = {
@@ -182,7 +175,7 @@ const billingSlice = createSlice({
       })
       .addCase(saveSettings.rejected, (state, action) => {
         state.saving = "failed";
-        state.error = action.payload || "Ошибка сохранения";
+        state.error = action.payload || "Save failed";
       })
       .addCase(saveSubscription.fulfilled, (state, action) => {
         if (!state.wallet?.subscription || !action.payload) return;
@@ -217,19 +210,18 @@ billingListener.startListening({
   matcher: isAnyOf(
     setNotifyLimitInput,
     setLimitBalanceNotify,
-    setNegativeBalanceNotify
+    setNegativeBalanceNotify,
   ),
   effect: async (_action, api) => {
-    // Один «Сохранение…» на серию изменений
-    if (!toastId) toastId = toast.loading("Сохранение…");
+    if (!toastId) toastId = toast.loading("Saving…");
 
     if (timer) clearTimeout(timer);
     timer = setTimeout(async () => {
       try {
         await api.dispatch(saveSettings()).unwrap();
-        toast.success("Сохранено", { id: toastId, duration: 1200 });
+        toast.success("Saved", { id: toastId, duration: 1200 });
       } catch (e) {
-        toast.error(String(e || "Ошибка сохранения"), { id: toastId });
+        toast.error(String(e || "Save failed"), { id: toastId });
       } finally {
         toastId = null;
         timer = null;
@@ -241,15 +233,15 @@ billingListener.startListening({
 billingListener.startListening({
   matcher: isAnyOf(setAutoRenewal),
   effect: async (_action, api) => {
-    if (!toastId) toastId = toast.loading("Сохранение…");
+    if (!toastId) toastId = toast.loading("Saving…");
 
     if (timer) clearTimeout(timer);
     timer = setTimeout(async () => {
       try {
         await api.dispatch(saveSubscription()).unwrap();
-        toast.success("Автопродление обновлено", { id: toastId });
+        toast.success("Auto-renewal updated", { id: toastId });
       } catch (e) {
-        toast.error(String(e || "Ошибка"), { id: toastId });
+        toast.error(String(e || "Error"), { id: toastId });
       } finally {
         toastId = null;
         timer = null;

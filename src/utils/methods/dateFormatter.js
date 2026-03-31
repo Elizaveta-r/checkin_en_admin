@@ -4,7 +4,7 @@ import { subDays } from "date-fns/subDays";
 
 export function convertGoDateToISO(goDateStr) {
   const [date, time] = goDateStr.split(" ");
-  return `${date}T${time}Z`; // ISO 8601
+  return `${date}T${time}Z`;
 }
 
 export const formatDateToISO = (date) => {
@@ -19,7 +19,7 @@ export function formatDateLocal(string) {
   const date = new Date(isoString);
   if (isNaN(date.getTime())) return "Invalid Date";
 
-  return date.toLocaleString(undefined, {
+  return date.toLocaleString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -44,7 +44,7 @@ export function getFormattedDateAndUpdateFlag(goDateStr) {
   const sevenDaysAgo = subDays(new Date(), 7);
   const wasUpdatedRecently = isAfter(parsedDate, sevenDaysAgo);
 
-  const formattedDate = parsedDate.toLocaleString(undefined, {
+  const formattedDate = parsedDate.toLocaleString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -77,8 +77,8 @@ export const getMonthBounds = (date = new Date()) => {
 
 export const formatDate = (iso) => {
   const d = new Date(iso);
-  const day = String(d.getDate()).padStart(2, "0");
   const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
   const year = d.getFullYear();
-  return `${day}.${month}.${year}`;
+  return `${month}/${day}/${year}`;
 };

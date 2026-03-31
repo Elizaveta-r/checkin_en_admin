@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialDraftTask = {
   title: "",
-  task_type: { value: "daily", label: "Ежедневно" }, // Передаем на бек строку value
+  task_type: { value: "daily", label: "Daily" }, // Передаем на бек строку value
   week_days: [], // int
   month_days: [],
   start_time: "",
@@ -85,24 +85,24 @@ const tasksSlice = createSlice({
 
       // Конвертация поля task_type
       const taskTypeOptions = [
-        { value: "daily", label: "Ежедневно" },
-        { value: "weekly", label: "Еженедельно" },
-        { value: "monthly", label: "Ежемесячно" },
-        { value: "onetime", label: "Единоразово" },
+        { value: "daily", label: "Daily" },
+        { value: "weekly", label: "Weekly" },
+        { value: "monthly", label: "Monthly" },
+        { value: "onetime", label: "One-time" },
       ];
       const taskType = taskTypeOptions.find(
-        (o) => o.value === serverTask.time_type
-      ) || { value: serverTask.time_type, label: "Неизвестно" };
+        (o) => o.value === serverTask.time_type,
+      ) || { value: serverTask.time_type, label: "Unknown" };
 
       // Конвертация week_days
       const weekDaysOptions = [
-        { value: 1, label: "Понедельник" },
-        { value: 2, label: "Вторник" },
-        { value: 3, label: "Среда" },
-        { value: 4, label: "Четверг" },
-        { value: 5, label: "Пятница" },
-        { value: 6, label: "Суббота" },
-        { value: 7, label: "Воскресенье" },
+        { value: 1, label: "Monday" },
+        { value: 2, label: "Tuesday" },
+        { value: 3, label: "Wednesday" },
+        { value: 4, label: "Thursday" },
+        { value: 5, label: "Friday" },
+        { value: 6, label: "Saturday" },
+        { value: 7, label: "Sunday" },
       ];
       const weekDays = serverTask.week_days
         ? serverTask.week_days.map(
@@ -110,20 +110,20 @@ const tasksSlice = createSlice({
               weekDaysOptions.find((d) => d.value === dayValue) || {
                 value: dayValue,
                 label: dayValue,
-              }
+              },
           )
         : [];
 
       // Конвертация done_type (Тип подтверждения)
       const doneTypeOptions = [
-        { value: "photo", label: "Фото" },
-        { value: "text", label: "Текст" },
-        { value: "check_box", label: "Чекбокс" },
+        { value: "photo", label: "Photo" },
+        { value: "text", label: "Text" },
+        { value: "check_box", label: "Checkbox" },
       ];
 
       const doneType = doneTypeOptions.find(
-        (o) => o.value === serverTask.done_type
-      ) || { value: serverTask.done_type, label: "Неизвестно" };
+        (o) => o.value === serverTask.done_type,
+      ) || { value: serverTask.done_type, label: "Unknown" };
 
       const departmentIds = serverTask.departments
         ? serverTask.departments.map((d) => ({ value: d.id, label: d.name }))

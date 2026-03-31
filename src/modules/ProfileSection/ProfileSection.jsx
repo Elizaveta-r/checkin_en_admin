@@ -16,15 +16,15 @@ export const ProfileSection = () => {
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
-        <h2 className={styles.sectionTitle}>Информация профиля</h2>
+        <h2 className={styles.sectionTitle}>Profile Information</h2>
         <p className={styles.sectionDescription}>
-          Основная информация о вашем аккаунте
+          Basic information about your account
         </p>
       </div>
 
       <div className={styles.card}>
         <div className={styles.field}>
-          <label className={styles.label}>Имя</label>
+          <label className={styles.label}>Name</label>
           <div className={styles.valueGroup}>
             <div className={styles.value}>{user_data.username}</div>
             <button
@@ -37,14 +37,14 @@ export const ProfileSection = () => {
         </div>
 
         <div className={styles.field}>
-          <label className={styles.label}>Адрес электронной почты</label>
+          <label className={styles.label}>Email Address</label>
           <div className={styles.valueGroup}>
             <div className={styles.value}>{user_data.email}</div>
             <div className={styles.verificationStatus}>
               {user_data.verified && (
                 <>
                   <CircleCheck className={styles.verifiedIcon} />
-                  <span className={styles.verifiedText}>Подтвержден</span>
+                  <span className={styles.verifiedText}>Verified</span>
                 </>
               )}
             </div>

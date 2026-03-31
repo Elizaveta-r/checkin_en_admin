@@ -21,7 +21,7 @@ export function getBrowserInfo(userAgent = "") {
       !/\bVersion\/\d+/.test(ua));
   if (isWV && /Chrome/i.test(name)) return `WebView (Chrome ${major})`;
 
-  return [name || "Браузер", major].filter(Boolean).join(" ");
+  return [name || "Browser", major].filter(Boolean).join(" ");
 }
 
 export function parseUA(userAgent = "") {
@@ -30,7 +30,6 @@ export function parseUA(userAgent = "") {
   const os = p.getOS();
   const d = p.getDevice();
 
-  // Браузер
   let browserName = b.name || "";
   if (/YaBrowser/i.test(userAgent)) browserName = "Yandex";
   else if (/OPR/i.test(userAgent)) browserName = "Opera";
@@ -48,7 +47,7 @@ export function parseUA(userAgent = "") {
     [d.vendor, d.model].filter(Boolean).join(" ").trim() ||
     (d.type ? d.type : "");
 
-  return [browser || "Неизвестный браузер", osStr, vendorModel]
+  return [browser || "Unknown browser", osStr, vendorModel]
     .filter(Boolean)
     .join(" • ");
 }

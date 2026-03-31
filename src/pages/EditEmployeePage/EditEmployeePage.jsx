@@ -32,8 +32,8 @@ import {
 import { useMediaQuery } from "react-responsive";
 
 const roles = [
-  { value: "employee", label: "Сотрудник" },
-  { value: "head", label: "Руководитель" },
+  { value: "employee", label: "Employee" },
+  { value: "head", label: "Manager" },
 ];
 
 export default function EditEmployeePage() {
@@ -43,20 +43,19 @@ export default function EditEmployeePage() {
   const { departments } = useSelector((state) => state.departments);
   const { positions: allPositions } = useSelector((state) => state.positions);
   const { editedEmployee, loadingEmployee } = useSelector(
-    (state) => state?.employees
+    (state) => state?.employees,
   );
 
   const isNew = !editedEmployee;
   const isStartTour = sessionStorage.getItem("start_tour");
 
-  // ✅ мемоизируем, чтобы не менять ссылки на каждом рендере
   const departmentsOptions = useMemo(
     () => formatDataForSelect(departments || []),
-    [departments]
+    [departments],
   );
   const positionsOptions = useMemo(
     () => formatDataForSelect(allPositions || []),
-    [allPositions]
+    [allPositions],
   );
 
   const getRoleValue = (role) =>
@@ -106,8 +105,8 @@ export default function EditEmployeePage() {
         defaultDepartment
           ? { value: defaultDepartment.id, label: defaultDepartment.title }
           : departments?.[0]
-          ? { value: departments[0].id, label: departments[0].title }
-          : null
+            ? { value: departments[0].id, label: departments[0].title }
+            : null,
       );
       setTimeZone(null);
       return;
@@ -138,13 +137,13 @@ export default function EditEmployeePage() {
         label: d.title,
       }));
       setDepartment(
-        emp.role === "head" ? initialDepartments : initialDepartments[0]
+        emp.role === "head" ? initialDepartments : initialDepartments[0],
       );
     } else {
       setDepartment(
         departments?.[0]
           ? { value: departments[0]?.id, label: departments[0]?.title }
-          : null
+          : null,
       );
     }
 
@@ -192,7 +191,7 @@ export default function EditEmployeePage() {
     }
 
     const preserved = prevContacts.filter(
-      (c) => c.type !== "telegram_id" && c.type !== "telegram_username"
+      (c) => c.type !== "telegram_id" && c.type !== "telegram_username",
     );
 
     return [...contacts, ...preserved];
@@ -204,8 +203,8 @@ export default function EditEmployeePage() {
     const departmentsArray = Array.isArray(department)
       ? department
       : department
-      ? [department]
-      : [];
+        ? [department]
+        : [];
     const departmentIds = mapSelectOptionsToIds(departmentsArray);
 
     const contacts = buildContacts();
@@ -228,12 +227,12 @@ export default function EditEmployeePage() {
 
   const validateName = () => {
     if (!input.name) {
-      toast.error("Пожалуйста, заполните ФИО сотрудника.");
+      toast.error("Please enter the employee’s full name.");
       return false;
     }
     const { surname } = parseFullName(input.name);
     if (!surname) {
-      toast.error("Пожалуйста, введите как минимум фамилию");
+      toast.error("Please enter at least a last name.");
       return false;
     }
     return true;
@@ -241,7 +240,7 @@ export default function EditEmployeePage() {
 
   const validateTelegramId = (id) => {
     if (!id) {
-      toast.error("Пожалуйста, введите Telegram ID.");
+      toast.error("Please enter the Telegram ID.");
       return false;
     }
     return true;
@@ -304,15 +303,14 @@ export default function EditEmployeePage() {
     if (didInitRef.current) return;
     initializeState(isNew ? null : editedEmployee);
     didInitRef.current = true;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, editedEmployee?.id]);
 
   useEffect(() => {
     const selectedDeps = Array.isArray(department)
       ? department
       : department
-      ? [department]
-      : [];
+        ? [department]
+        : [];
 
     if (!selectedDeps.length) return;
 
@@ -336,7 +334,7 @@ export default function EditEmployeePage() {
       : null;
 
     setTimeZone((prev) =>
-      depTz && depTz.value !== prev?.value ? depTz : prev
+      depTz && depTz.value !== prev?.value ? depTz : prev,
     );
 
     let newIn;
@@ -395,8 +393,8 @@ export default function EditEmployeePage() {
       .map(
         (old) =>
           newOptions.find(
-            (opt) => opt.value === old.value || opt.label === old.label
-          ) || old
+            (opt) => opt.value === old.value || opt.label === old.label,
+          ) || old,
       )
       .filter(Boolean);
 
@@ -405,23 +403,21 @@ export default function EditEmployeePage() {
 
   return (
     <div className={styles.page}>
-      <PageTitle
-        title={isNew ? "Создание сотрудника" : "Редактирование сотрудника"}
-      />
+      <PageTitle title={isNew ? "Create Employee" : "Edit Employee"} />
       <div className={styles.content}>
         <div className={styles.formGrid}>
           <div className={styles.formRow}>
             <div className={styles.formItem} data-tour="form.employee.name">
-              <p className={styles.formLabel}>ФИО</p>
+              <p className={styles.formLabel}>Full name</p>
               <CustomInput
-                placeholder="Введите ФИО..."
+                placeholder="Enter full name..."
                 value={input.name}
                 name="name"
                 onChange={handleChangeInput}
               />
             </div>
             <div className={styles.formItem} data-tour="form.employee.role">
-              <p className={styles.formLabel}>Роль</p>
+              <p className={styles.formLabel}>Role</p>
               <CustomSelect
                 options={roles}
                 value={role}
@@ -429,15 +425,14 @@ export default function EditEmployeePage() {
                   setRole(val);
 
                   setDepartment((prev) => {
-                    // Если выбираем руководителя — превращаем в массив, включая дефолтное
                     if (val?.value === "head") {
                       const asArray = Array.isArray(prev)
                         ? prev
                         : prev
-                        ? [prev]
-                        : [];
+                          ? [prev]
+                          : [];
                       const alreadyHasDefault = asArray.some(
-                        (d) => d.value === defaultDepartment?.id
+                        (d) => d.value === defaultDepartment?.id,
                       );
                       return alreadyHasDefault || !defaultDepartment
                         ? asArray
@@ -450,26 +445,25 @@ export default function EditEmployeePage() {
                           ];
                     }
 
-                    // Если переключаемся обратно на сотрудника — оставляем первый из массива
-                    return Array.isArray(prev) ? prev[0] ?? null : prev;
+                    return Array.isArray(prev) ? (prev[0] ?? null) : prev;
                   });
                 }}
                 dataTourHeader="form.employee.role.header"
                 dataTourId="form.employee.role"
-                placeholder="Выберите роль..."
+                placeholder="Select role..."
               />
             </div>
           </div>
 
           <div className={styles.formItem} data-tour="form.employee.dep">
             <p className={styles.formLabel}>
-              {department?.length > 1 ? "Подразделения" : "Подразделение"}
+              {department?.length > 1 ? "Departments" : "Department"}
             </p>
             <CustomSelect
               options={departmentsOptions}
               value={department}
               onChange={setDepartment}
-              placeholder="Выберите подразделение..."
+              placeholder="Select department..."
               isSearchable
               dataTourHeader="form.employee.dep.header"
               dataTourId="form.employee.dep"
@@ -480,13 +474,13 @@ export default function EditEmployeePage() {
 
           {role?.value !== "head" && (
             <div className={styles.formItem} data-tour="form.employee.position">
-              <p className={styles.formLabel}>Должность</p>
+              <p className={styles.formLabel}>Position</p>
               <CustomSelect
                 isMulti
                 options={positionsOptions}
                 value={position}
                 onChange={setPosition}
-                placeholder="Выберите должность..."
+                placeholder="Select position..."
                 isSearchable
                 isCreatable
                 dataTourHeader="form.employee.position.header"
@@ -503,16 +497,16 @@ export default function EditEmployeePage() {
               data-tour="form.employee.timezone"
             >
               <HintWithPortal
-                hintContent={<HintTimeZone text={"работает ваш сотрудник"} />}
+                hintContent={<HintTimeZone text={"your employee works"} />}
                 minWidth="500px"
               >
                 <p className={styles.formLabel} style={{ marginBottom: 0 }}>
-                  Часовой пояс
+                  Time zone
                 </p>
               </HintWithPortal>
 
               <CustomSelect
-                placeholder="Выберите часовой пояс"
+                placeholder="Select time zone"
                 options={timeZoneOptions}
                 onChange={setTimeZone}
                 value={timeZone}
@@ -532,7 +526,7 @@ export default function EditEmployeePage() {
               >
                 <HintWithPortal hintContent={<HintCheckIn />}>
                   <p className={styles.formLabel} style={{ marginBottom: 0 }}>
-                    Чекин (в)
+                    Check-in at
                   </p>
                 </HintWithPortal>
                 <CustomInput
@@ -550,7 +544,7 @@ export default function EditEmployeePage() {
               >
                 <HintWithPortal hintContent={<HintCheckOut />}>
                   <p className={styles.formLabel} style={{ marginBottom: 0 }}>
-                    Чекаут (с)
+                    Check-out from
                   </p>
                 </HintWithPortal>
                 <CustomInput
@@ -569,9 +563,9 @@ export default function EditEmployeePage() {
               className={styles.formItem}
               data-tour="form.employee.telegram-id"
             >
-              <p className={styles.formLabel}>Телеграм ID</p>
+              <p className={styles.formLabel}>Telegram ID</p>
               <CustomInput
-                placeholder="Например: 000012345"
+                placeholder="For example: 000012345"
                 value={input.telegramId}
                 type="number"
                 name="telegramId"
@@ -582,7 +576,7 @@ export default function EditEmployeePage() {
               className={styles.formItem}
               data-tour="form.employee.telegram-name"
             >
-              <p className={styles.formLabel}>Имя пользователя</p>
+              <p className={styles.formLabel}>Username</p>
               <CustomInput
                 placeholder="@user_name"
                 value={input.telegramName}
@@ -595,14 +589,14 @@ export default function EditEmployeePage() {
 
         <div className={styles.actions}>
           <Button
-            title="Отмена"
+            title="Cancel"
             onClick={handleCancel}
             className={styles.buttonCancel}
             secondary
           />
           <Button
             className={styles.button}
-            title={isNew ? "Создать" : "Сохранить"}
+            title={isNew ? "Create" : "Save"}
             onClick={isNew ? handleConfirm : handleUpdate}
             loading={loadingEmployee}
             dataTour="form.employee.submit"

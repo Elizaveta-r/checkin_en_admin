@@ -9,12 +9,12 @@ export const TariffCard = ({ tariff, onBuyClick, loadingBuy }) => {
       <div className={styles.cardContent}>
         <div className={styles.cardHeader}>
           <p className={styles.title}>{tariff.name}</p>
-          {tariff.isPopular && <div className={styles.pill}>популярный</div>}
+          {tariff.isPopular && <div className={styles.pill}>Popular</div>}
         </div>
 
         <div className={styles.priceContainer}>
           <div className={styles.price}>
-            {formatWithSpaces(tariff.base_price)} ₽ <span>в месяц</span>
+            {formatWithSpaces(tariff.base_price)} ₽ <span>per month</span>
           </div>
           <p className={styles.description}>{tariff.description}</p>
         </div>
@@ -27,34 +27,34 @@ export const TariffCard = ({ tariff, onBuyClick, loadingBuy }) => {
           secondary
           title={
             tariff.isCurrent
-              ? "Текущий тариф"
+              ? "Current plan"
               : tariff.code === "free"
-              ? "Перейти на бесплатный"
-              : "Выбрать тариф"
+                ? "Switch to Free"
+                : "Choose plan"
           }
           loading={loadingBuy}
           disabled={tariff.isCurrent}
           onClick={onBuyClick}
         />
         {/* <HintWithPortal
-          hintContent={`Вы можете расширить лимит сотрудников, приобретая дополнительные слоты.\n
-            Функция недоступна в бесплатном тарифе.`}
+          hintContent={`You can expand the employee limit by purchasing additional slots.\n
+            This feature is not available on the Free plan.`}
           position="left"
         >
           <Button
             className={`${styles.buttonTeam} ${
-              tariff.name === "Бесплатный" ? styles.disabled : ""
+              tariff.name === "Free" ? styles.disabled : ""
             }`}
             secondary
-            title={"Расширить команду"}
-            disabled={tariff.name === "Бесплатный"}
+            title={"Expand team"}
+            disabled={tariff.name === "Free"}
             onClick={onTeamClick}
           />
         </HintWithPortal> */}
       </div>
 
       <div className={styles.featuresContainer}>
-        <p className={styles.featuresTitle}>Преимущества</p>
+        <p className={styles.featuresTitle}>Benefits</p>
         <div className={styles.featuresList}>
           {tariff.features.map((feature) => (
             <div key={feature.text} className={`${styles.feature} `}>

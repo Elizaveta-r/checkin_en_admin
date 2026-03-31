@@ -11,7 +11,7 @@ export const SettingsNav = ({ activeTab, setActiveTab }) => {
         onClick={() => setActiveTab("profile")}
       >
         <UserIcon className={styles.navIcon} />
-        Профиль
+        Profile
       </button>
       <button
         className={`${styles.navItem} ${
@@ -20,7 +20,7 @@ export const SettingsNav = ({ activeTab, setActiveTab }) => {
         onClick={() => setActiveTab("security")}
       >
         <Lock className={styles.navIcon} />
-        Безопасность
+        Security
       </button>
     </nav>
   );

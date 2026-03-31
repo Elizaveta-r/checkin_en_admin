@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import PasswordIcon from "../../components/PasswordIcon/PasswordIcon";
 import { signUp } from "../../utils/api/actions/user";
-import { getEmailName } from "../../utils/methods/getEmailName copy";
+import { getEmailName } from "../../utils/methods/getEmailName";
 
 export const RegForm = ({ step, setStep }) => {
   const dispatch = useDispatch();
@@ -34,21 +34,20 @@ export const RegForm = ({ step, setStep }) => {
 
   const passwordRules = useMemo(
     () => [
-      { key: "len", text: "Минимум 8 символов", ok: password.length >= 8 },
-      { key: "digit", text: "Хотя бы 1 цифра", ok: /\d/.test(password) },
+      { key: "len", text: "At least 8 characters", ok: password.length >= 8 },
+      { key: "digit", text: "At least 1 number", ok: /\d/.test(password) },
       {
         key: "spec",
-        text: "Хотя бы 1 спецсимвол",
+        text: "At least 1 special character",
         ok: /[^A-Za-z0-9А-Яа-я]/.test(password),
       },
     ],
-    [password]
+    [password],
   );
 
   const allOk = passwordRules.every((r) => r.ok);
   const showError = !!passwordError;
 
-  // автофокус на пароль при step = 1
   useEffect(() => {
     if (step === 1) {
       passwordRef.current?.focus();
@@ -74,7 +73,7 @@ export const RegForm = ({ step, setStep }) => {
         emailRef.current.blur();
         setStep(1);
       } else {
-        toast.error("Введите адрес электронной почты");
+        toast.error("Enter your email address");
       }
       return;
     }
@@ -85,10 +84,10 @@ export const RegForm = ({ step, setStep }) => {
           email,
           password,
           userName: getEmailName(email),
-        })
+        }),
       );
     } else {
-      toast.error("Введите пароль");
+      toast.error("Enter your password");
     }
   }, [
     step,
@@ -110,7 +109,7 @@ export const RegForm = ({ step, setStep }) => {
         handleSubmit();
       }
     },
-    [handleSubmit]
+    [handleSubmit],
   );
 
   return (
@@ -118,7 +117,7 @@ export const RegForm = ({ step, setStep }) => {
       <div className={styles.inputs}>
         <InputAuth
           ref={emailRef}
-          label="Адрес электронной почты"
+          label="Email address"
           value={email}
           type="email"
           onChange={handleEmailChange}
@@ -128,7 +127,7 @@ export const RegForm = ({ step, setStep }) => {
           rightIcon={
             step === 1 && (
               <div className={styles.rightIcon} onClick={handlePrevStep}>
-                Изменить
+                Edit
               </div>
             )
           }
@@ -146,7 +145,7 @@ export const RegForm = ({ step, setStep }) => {
             >
               <InputAuth
                 ref={passwordRef}
-                label="Пароль"
+                label="Password"
                 value={password}
                 onChange={handlePasswordChange}
                 onKeyDown={handleKeyDown}
@@ -161,7 +160,7 @@ export const RegForm = ({ step, setStep }) => {
               />
               <div className={styles.passwordMeta}>
                 <div className={styles.passwordReqTitle}>
-                  Требования к паролю:
+                  Password requirements:
                 </div>
 
                 <ul className={styles.passwordReqList}>
@@ -182,7 +181,7 @@ export const RegForm = ({ step, setStep }) => {
       </div>
 
       <Button
-        title="Продолжить"
+        title="Continue"
         className={styles.button}
         onClick={handleSubmit}
         loading={loading}

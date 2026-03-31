@@ -11,7 +11,7 @@ export const Switchers = () => {
   const dispatch = useDispatch();
 
   const { late_push, to_report } = useSelector(
-    (state) => state.tasks.draftTask
+    (state) => state.tasks.draftTask,
   );
 
   return (
@@ -20,15 +20,15 @@ export const Switchers = () => {
         hasIcon={false}
         hintContent={
           <>
-            Включите, чтобы <b>руководитель тоже</b> получал уведомления о{" "}
-            <b>просрочках</b>. <br />
-            <br /> <small>Сотрудник получает уведомления всегда.</small>
+            Enable this so the <b>manager also</b> receives notifications about{" "}
+            <b>overdue tasks</b>. <br />
+            <br /> <small>The employee always receives notifications.</small>
           </>
         }
       >
         <ToggleSwitch
           labelStyle={styles.switcherLabel}
-          label="Уведомить о просрочке"
+          label="Notify about overdue tasks"
           checked={late_push}
           onChange={() => dispatch(setExpiredNotify(!late_push))}
         />
@@ -38,16 +38,16 @@ export const Switchers = () => {
         hasIcon={false}
         hintContent={
           <>
-            Включите, чтобы добавить задачу <b>в итоговый отчёт в Телеграм</b>.{" "}
+            Enable this to include the task <b>in the final Telegram report</b>.{" "}
             <br />
             <br />
-            <small>В веб-отчёте она отображается всегда.</small>
+            <small>It is always shown in the web report.</small>
           </>
         }
       >
         <ToggleSwitch
           labelStyle={styles.switcherLabel}
-          label="В итоговый отчет"
+          label="Include in final report"
           checked={to_report}
           onChange={() => dispatch(setToFinalReport(!to_report))}
         />

@@ -50,18 +50,17 @@ export default function DepartmentDetailPage() {
   const [visibleUpdateModal, setVisibleUpdateModal] = useState(false);
 
   const { editedEmployee, loadingGetEmployee } = useSelector(
-    (state) => state?.employees
+    (state) => state?.employees,
   );
 
   const handleIsDefaultChange = (newCheckedValue) => {
-    if (!department || !department?.id) return; // Защита от отсутствия данных
+    if (!department || !department?.id) return;
 
-    // Вызываем Thunk, который сам управляет оптимистичным обновлением и откатом
     dispatch(
       toggleDepartmentIsDefault({
         department: department,
         newValue: newCheckedValue,
-      })
+      }),
     );
   };
 
@@ -110,7 +109,6 @@ export default function DepartmentDetailPage() {
     return () => {
       dispatch(setDepartment(null));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
   return (
@@ -120,16 +118,8 @@ export default function DepartmentDetailPage() {
         hasCheckbox
         checked={department.is_default}
         onChange={handleIsDefaultChange}
-        checkboxLabel={"Использовать по умолчанию"}
+        checkboxLabel={"Use as default"}
       />
-
-      {/* <div className={styles.isDefault}>
-        <CustomCheckbox
-          checked={department.is_default}
-          onChange={handleIsDefaultChange}
-          label={"Использовать по умолчанию"}
-        />
-      </div> */}
 
       <EditEmployeeModal
         isOpen={visibleUpdateModal}
@@ -148,26 +138,26 @@ export default function DepartmentDetailPage() {
       <div className={styles.content}>
         <p className={styles.desc}>{description}</p>
         <div className={styles.details}>
-          <p className={styles.title}>Детали:</p>
+          <p className={styles.title}>Details:</p>
           <div className={styles.detailsGrid}>
             <div className={styles.gridItem}>
               <div className={styles.headerCards}>
                 <Clock size={"0.85rem"} color="#6b7280" />
-                <p className={styles.label}>Чекин до:</p>
+                <p className={styles.label}>Check-in by:</p>
               </div>
               <p className={styles.time}>{check_in_time}</p>
             </div>
             <div className={styles.gridItem}>
               <div className={styles.headerCards}>
                 <Clock size={"0.85rem"} color="#6b7280" />{" "}
-                <p className={styles.label}>Чекаут с:</p>
+                <p className={styles.label}>Check-out from:</p>
               </div>
               <p className={styles.time}>{check_out_time}</p>
             </div>
             <div className={styles.gridItem}>
               <div className={styles.headerCards}>
                 <Globe size={"0.85rem"} color="#6b7280" />{" "}
-                <p className={styles.label}>Часовой пояс:</p>
+                <p className={styles.label}>Time zone:</p>
               </div>
               <p className={styles.time}>
                 {getFormattedTimeZoneLabel(timezone)}
@@ -176,7 +166,7 @@ export default function DepartmentDetailPage() {
             <div className={styles.gridItem}>
               <div className={styles.headerCards}>
                 <Users size={"0.85rem"} color="#6b7280" />{" "}
-                <p className={styles.label}>Всего сотрудников:</p>
+                <p className={styles.label}>Total employees:</p>
               </div>
               <p className={styles.time}>
                 {department?.employees_count || "0"}
@@ -186,7 +176,7 @@ export default function DepartmentDetailPage() {
         </div>
 
         <div className={styles.employees}>
-          <p className={styles.title}>Руководители:</p>
+          <p className={styles.title}>Managers:</p>
           <div className={styles.employeeGrid}>
             {managers ? (
               managers?.map((emp) =>
@@ -212,16 +202,16 @@ export default function DepartmentDetailPage() {
                     onGetDetails={() => handleGetDetails(emp.id)}
                     onEdit={() => handleOpenUpdateModal(emp)}
                   />
-                )
+                ),
               )
             ) : (
-              <p className={styles.empty}>Нет руководителей</p>
+              <p className={styles.empty}>No managers</p>
             )}
           </div>
         </div>
 
         <div className={styles.employees}>
-          <p className={styles.title}>Сотрудники:</p>
+          <p className={styles.title}>Employees:</p>
           <div className={styles.employeeGrid}>
             {employees ? (
               employees?.map((emp) =>
@@ -251,10 +241,10 @@ export default function DepartmentDetailPage() {
                     onGetDetails={() => handleGetDetails(emp.id)}
                     onEdit={() => handleOpenUpdateModal(emp)}
                   />
-                )
+                ),
               )
             ) : (
-              <p className={styles.empty}>Нет сотрудников</p>
+              <p className={styles.empty}>No employees</p>
             )}
           </div>
         </div>
@@ -294,7 +284,7 @@ const EmployeeRow = ({
 
       <div className={styles.actions}>
         <HintWithPortal
-          hintContent="Посмотреть контактные данные"
+          hintContent="View contact details"
           hasIcon={false}
           isMaxWidth
         >
@@ -302,7 +292,7 @@ const EmployeeRow = ({
             <Contact size={16} />
           </div>
         </HintWithPortal>
-        <HintWithPortal hintContent="Редактировать" hasIcon={false} isMaxWidth>
+        <HintWithPortal hintContent="Edit" hasIcon={false} isMaxWidth>
           <div className={styles.edit} onClick={onEdit}>
             <Pencil size={16} />
           </div>{" "}
@@ -345,7 +335,7 @@ const EmployeeRowMobile = ({
 
       <div className={styles.actions}>
         <HintWithPortal
-          hintContent="Посмотреть контактные данные"
+          hintContent="View contact details"
           hasIcon={false}
           isMaxWidth
         >
@@ -353,7 +343,7 @@ const EmployeeRowMobile = ({
             <Contact size={16} />
           </div>
         </HintWithPortal>
-        <HintWithPortal hintContent="Редактировать" hasIcon={false} isMaxWidth>
+        <HintWithPortal hintContent="Edit" hasIcon={false} isMaxWidth>
           <div className={styles.edit} onClick={onEdit}>
             <Pencil size={16} />
           </div>{" "}

@@ -1,37 +1,32 @@
-// Валидация email
 export const validateEmail = (email) => {
   if (!email) {
-    return "Введите email";
+    return "Enter your email";
   }
 
-  // RFC 5322 compliant, но упрощённый вариант
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(email)) {
-    return "Введите корректный email";
+    return "Enter a valid email address";
   }
 
   return "";
 };
 
-// Валидация пароля
 export const validatePassword = (password) => {
   if (!password) {
-    return "Введите пароль";
+    return "Enter your password";
   }
 
   if (password.length < 8) {
-    return "Пароль должен содержать минимум 8 символов";
+    return "Password must be at least 8 characters long";
   }
 
-  // хотя бы 1 цифра
   if (!/\d/.test(password)) {
-    return "Пароль должен содержать хотя бы одну цифру";
+    return "Password must contain at least one number";
   }
 
-  // хотя бы один спецсимвол
   if (!/[!@#$%^&*(),.?":{}|_<>]/.test(password)) {
-    return "Пароль должен содержать хотя бы один спецсимвол";
+    return "Password must contain at least one special character";
   }
 
   return "";

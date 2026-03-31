@@ -17,7 +17,7 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
   const dispatch = useDispatch();
 
   const { editedEmployee, loadingEmployee } = useSelector(
-    (state) => state?.employees
+    (state) => state?.employees,
   );
 
   const { departments } = useSelector((state) => state.departments);
@@ -29,32 +29,30 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
 
   const departmentsOptions = useMemo(
     () => formatDataForSelect(departments || []),
-    [departments]
+    [departments],
   );
   const positionsOptions = useMemo(
     () => formatDataForSelect(positions || []),
-    [positions]
+    [positions],
   );
 
   const initializeState = (emp) => {
     if (!emp) return;
 
-    // Должности
     const initialPositions = Array.isArray(emp.positions)
       ? emp.positions
           .map((p) => positionsOptions.find((opt) => opt.value === p.id))
-          .filter(Boolean) // убираем undefined, если не нашли
+          .filter(Boolean)
       : [];
     setPosition(initialPositions);
 
-    // Подразделения
     if (Array.isArray(emp?.departments) && emp?.departments?.length > 0) {
       const initialDepartments = emp?.departments
         .map((d) => departmentsOptions.find((opt) => opt.value === d.id))
         .filter(Boolean);
 
       setDepartment(
-        emp.role === "head" ? initialDepartments : initialDepartments[0]
+        emp.role === "head" ? initialDepartments : initialDepartments[0],
       );
     } else {
       setDepartment(departmentsOptions[0] || null);
@@ -64,8 +62,6 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
   useEffect(() => {
     if (!isOpen) return;
     initializeState(editedEmployee);
-    // только на открытие и смену id редактируемого сотрудника
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, editedEmployee?.id]);
 
   if (!isOpen) return;
@@ -75,8 +71,8 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
     const departmentsArray = Array.isArray(department)
       ? department
       : department
-      ? [department]
-      : [];
+        ? [department]
+        : [];
     const departmentIds = mapSelectOptionsToIds(departmentsArray);
 
     const base = {
@@ -99,7 +95,7 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
           setPosition([]);
           setDepartment(null);
         }
-      }
+      },
     );
   };
 
@@ -109,7 +105,7 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
         <Modal
           isOpen={isOpen}
           onClose={handleClose}
-          title={`Перемещение сотрудника \n ${
+          title={`Move Employee \n ${
             editedEmployee?.surname +
             " " +
             editedEmployee?.firstname +
@@ -121,26 +117,26 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
             <div className={styles.form}>
               <div className={styles.formItem}>
                 <p className={styles.formLabel}>
-                  Подразделение, в которое будет перемещен сотрудник
+                  Department to which the employee will be moved
                 </p>
                 <CustomSelect
                   options={departmentsOptions}
                   value={department}
                   onChange={setDepartment}
-                  placeholder="Выберите подразделение..."
+                  placeholder="Select a department..."
                   isSearchable
                 />
               </div>
               <div className={styles.formItem}>
                 <p className={styles.formLabel}>
-                  Должность, которая будет назначена сотруднику
+                  Position(s) to assign to the employee
                 </p>
                 <CustomSelect
                   isMulti
                   options={positionsOptions}
                   value={position}
                   onChange={setPosition}
-                  placeholder="Выберите должность..."
+                  placeholder="Select a position..."
                   isSearchable
                 />
               </div>
@@ -149,9 +145,9 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
                 labelClassName={styles.checkboxLabel}
                 checked={checked}
                 onChange={() => setChecked(!checked)}
-                label={"Возврат в исходный отдел"}
-                labelHint={`Если включено, сотрудник после завершения своей текущей смены автоматически вернётся в исходное подразделение, из которого был переведён. \n
-                            Это удобно, если вы временно перемещаете сотрудника для усиления другого отдела и хотите, чтобы он автоматически вернулся на своё место после смены.`}
+                label={"Return to original department"}
+                labelHint={`If enabled, the employee will automatically return to the original department after their current shift ends.\n
+                            This is useful if you are temporarily moving an employee to support another department and want them to return automatically after the shift.`}
               />
             </div>
             <div className={styles.buttons}>
@@ -159,7 +155,7 @@ export const ModalMoveEmployee = ({ isOpen, handleClose }) => {
               <Button
                 onClick={handleSendData}
                 secondary
-                title={"Переместить"}
+                title={"Move"}
                 loading={loadingEmployee}
                 className={styles.button}
               />

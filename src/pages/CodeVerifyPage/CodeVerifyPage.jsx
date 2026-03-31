@@ -72,8 +72,8 @@ export const CodeVerifyPage = () => {
     <div className={styles.container}>
       {!success && (
         <div className={styles.titleContainer}>
-          <h3 className={styles.title}>Подтвердите почту</h3>
-          <p className={styles.desc}>Введите код, полученный в письме</p>
+          <h3 className={styles.title}>Verify your email</h3>
+          <p className={styles.desc}>Enter the code from the email</p>
         </div>
       )}
 
@@ -89,33 +89,31 @@ export const CodeVerifyPage = () => {
 
       {!success && (
         <div className={styles.resendRow}>
-          <span className={styles.resendHint}>Не пришёл код?</span>
+          <span className={styles.resendHint}>Didn’t get the code?</span>
           <div
             onClick={handleResend}
             className={`${styles.resendButton} ${
               cooldown > 0 || loadingCode ? styles.disabled : ""
             }`}
           >
-            {cooldown > 0
-              ? `Отправить ещё раз (${cooldown} c)`
-              : "Отправить код ещё раз"}
+            {cooldown > 0 ? `Resend (${cooldown}s)` : "Resend code"}
           </div>
         </div>
       )}
 
       {success && (
         <div className={styles.successMessage}>
-          <p className={styles.successTitle}>Код подтверждён!</p>
+          <p className={styles.successTitle}>Code verified!</p>
           <p className={styles.successText}>
-            Теперь вы можете нажать на кнопку ниже и авторизоваться, повторно
-            введя пароль.
+            You can now click the button below and sign in again using your
+            password.
           </p>
         </div>
       )}
 
       {success && (
         <Button
-          title={"Авторизоваться"}
+          title={"Sign in"}
           onClick={handleClick}
           className={styles.button}
         />

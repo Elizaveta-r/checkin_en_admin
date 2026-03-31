@@ -15,11 +15,11 @@ export const SimpleTaskInfoTable = ({ tasks }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.headerTitle}>Название</div>
-        <div className={styles.headerTitle}>Должность(-и)</div>
-        <div className={styles.headerTitle}>Подразделение(-я)</div>
-        <div className={styles.headerTitle}>Тип</div>
-        <div className={styles.headerTitle}>Дедлайн</div>
+        <div className={styles.headerTitle}>Title</div>
+        <div className={styles.headerTitle}>Position(s)</div>
+        <div className={styles.headerTitle}>Department(s)</div>
+        <div className={styles.headerTitle}>Type</div>
+        <div className={styles.headerTitle}>Deadline</div>
         <div className={styles.buttons}>
           <div className={`${styles.edit} ${styles.empty}`}></div>
           <div className={`${styles.trash} ${styles.empty}`}></div>
@@ -63,11 +63,11 @@ const TableItem = ({ task }) => {
   const getTaskTypeLabel = () => {
     switch (task?.done_type) {
       case "text":
-        return "Текст";
+        return "Text";
       case "check_box":
-        return "Чекбокс";
+        return "Checkbox";
       case "photo":
-        return "Фото";
+        return "Photo";
       default:
         return "";
     }
@@ -90,12 +90,12 @@ const TableItem = ({ task }) => {
           {task?.start_time} / {task?.deadline_time}
         </div>
         <div className={styles.buttons}>
-          <HintWithPortal hintContent="Редактировать" hasIcon={false}>
+          <HintWithPortal hintContent="Edit" hasIcon={false}>
             <div className={styles.edit} onClick={handleUpdate}>
               <Pencil size={16} />
             </div>
           </HintWithPortal>
-          <HintWithPortal hintContent="Удалить" hasIcon={false}>
+          <HintWithPortal hintContent="Delete" hasIcon={false}>
             <div className={styles.trash} onClick={handleDelete}>
               <Trash size={16} />
             </div>
@@ -106,7 +106,7 @@ const TableItem = ({ task }) => {
         isOpen={visibleDeleteModal}
         onClose={() => setVisibleDeleteModal(false)}
         message={<Message taskName={task?.title} />}
-        buttonTitle="Удалить задачу"
+        buttonTitle="Delete task"
         onConfirm={handleDeleteTask}
         buttonIcon={<XCircle size={20} />}
         loading={loadingTask}
@@ -118,8 +118,8 @@ const TableItem = ({ task }) => {
 const Message = ({ taskName }) => {
   return (
     <div>
-      <p>Вы действительно хотите удалить задачу?</p> "
-      <strong>{taskName}</strong>"
+      <p>Are you sure you want to delete this task?</p>{" "}
+      <strong>{taskName}</strong>
     </div>
   );
 };

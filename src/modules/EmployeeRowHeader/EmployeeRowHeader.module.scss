@@ -1,6 +1,6 @@
 @use "../../styles/variables" as v;
 
-$grid-template-cols: 1.5fr 1fr 130px 1fr 80px auto;
+$grid-template-cols: 1.5fr 1fr 130px 1fr 92px auto;
 
 .dataItem {
   display: grid;
@@ -143,7 +143,9 @@ $grid-template-cols: 1.5fr 1fr 130px 1fr 80px auto;
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 
   &.empty {
     border: none;

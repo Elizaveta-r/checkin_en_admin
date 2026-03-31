@@ -3,6 +3,18 @@ import { pluralizeEmployees } from "../../utils/methods/pluralizeText";
 import formatWithSpaces from "../../utils/methods/formatNumberWithSpaces";
 import styles from "./TotalSumTariff.module.scss";
 
+const CURRENCY_SYMBOL = "$";
+const CURRENCY_POSITION = "before"; // "before" | "after"
+const PER_MONTH_LABEL = "month";
+
+const formatPrice = (value) => {
+  const formatted = formatWithSpaces(value);
+
+  return CURRENCY_POSITION === "before"
+    ? `${CURRENCY_SYMBOL}${formatted}`
+    : `${formatted} ${CURRENCY_SYMBOL}`;
+};
+
 export const TotalSumTariff = ({
   tariff,
   addedEmployeesCount,
@@ -13,7 +25,7 @@ export const TotalSumTariff = ({
   return (
     <div className={styles.content}>
       <p className={styles.totalEmployees}>
-        Всего: {tariff.employees_limit + addedEmployeesCount}{" "}
+        Total: {tariff.employees_limit + addedEmployeesCount}{" "}
         {pluralizeEmployees(tariff.employees_limit + addedEmployeesCount)}
       </p>
 
@@ -22,19 +34,17 @@ export const TotalSumTariff = ({
           <p className={styles.sumTitle}>
             {addedEmployeesCount} x {employeeCost}
           </p>
-          <p className={styles.sumValue}>{employeePrice} ₽</p>
+          <p className={styles.sumValue}>{formatPrice(employeePrice)}</p>
         </div>
         <div className={styles.sumItem}>
-          <p className={styles.sumTitle}>Тариф "{tariff.name}"</p>
-          <p className={styles.sumValue}>
-            {formatWithSpaces(tariff.base_price)} ₽
-          </p>
+          <p className={styles.sumTitle}>Plan "{tariff.name}"</p>
+          <p className={styles.sumValue}>{formatPrice(tariff.base_price)}</p>
         </div>
 
         <div className={styles.sumItem}>
-          <p className={styles.sumTitle}>Итого к оплате</p>
+          <p className={styles.sumTitle}>Total due</p>
           <p className={styles.totalSumValue}>
-            {formatWithSpaces(totalPrice)} ₽ / мес.
+            {formatPrice(totalPrice)} / {PER_MONTH_LABEL}
           </p>
         </div>
       </div>

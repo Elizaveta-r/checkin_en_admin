@@ -30,7 +30,7 @@ export default function DepartmentsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { departments, department, loading } = useSelector(
-    (state) => state?.departments
+    (state) => state?.departments,
   );
 
   const hasDefault = useSelector(selectHasDefaultDepartment);
@@ -140,12 +140,12 @@ export default function DepartmentsPage() {
       !hasCheckedDefault
     ) {
       timerRef.current = setTimeout(() => {
-        toast.warning("⚠️ Не выбрано подразделение по умолчанию! ", {
+        toast.warning("⚠️ No default department selected!", {
           id: "default-department-warning",
           duration: Infinity,
-          description: "Рекомендуется установить одно основное подразделение",
+          description: "We recommend setting one main department",
           action: {
-            label: "Скрыть",
+            label: "Dismiss",
             onClick: () => toast.dismiss("default-department-warning"),
           },
         });
@@ -173,7 +173,7 @@ export default function DepartmentsPage() {
   return (
     <div className={styles.pageContent}>
       <PageTitle
-        title="Ваши подразделения"
+        title="Your Departments"
         hasButton
         onClick={handleOpenCreateModal}
         dataTour={"departments.add"}
@@ -182,9 +182,9 @@ export default function DepartmentsPage() {
       <DeleteConfirmationModal
         isOpen={openConfirmationModal}
         onClose={handleCloseConfirmationModal}
-        message={`Вы действительно хотите удалить подразделение? \n Это действие нельзя будет отменить.`}
+        message={`Are you sure you want to delete this department?\nThis action cannot be undone.`}
         onConfirm={handleDeleteDepartment}
-        buttonTitle="Удалить"
+        buttonTitle="Delete"
         buttonIcon={<Trash size={20} />}
       />
       {department && (
@@ -201,8 +201,8 @@ export default function DepartmentsPage() {
 
       {!departments && (
         <div className={styles.empty}>
-          Список подразделений пуст. <br /> Нажмите <strong>"Добавить"</strong>,
-          чтобы создать первое подразделение.
+          No departments yet. <br /> Click <strong>"Add"</strong> to create your
+          first department.
         </div>
       )}
 

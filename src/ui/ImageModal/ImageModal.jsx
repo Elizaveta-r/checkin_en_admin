@@ -25,14 +25,12 @@ export const ImageModal = ({ photoUrl, onClose }) => {
   const closeWithAnimation = (direction) => {
     setIsAnimatingOut(true);
 
-    // уезжает вверх или вниз
     animate(y, direction === "down" ? 500 : -500, {
       type: "spring",
       stiffness: 250,
       damping: 25,
     });
 
-    // выключаем после анимации
     setTimeout(() => {
       setIsVisible(false);
       onClose();
@@ -67,7 +65,6 @@ export const ImageModal = ({ photoUrl, onClose }) => {
             className={styles.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Группа картинки + кнопки */}
             <motion.div
               className={styles.imageWrapper}
               drag={window.innerWidth <= 1023 ? "y" : false}
@@ -98,7 +95,7 @@ export const ImageModal = ({ photoUrl, onClose }) => {
 
               <img
                 src={photoUrl}
-                alt="Фотоотчет сотрудника"
+                alt="Employee photo report"
                 className={styles.modalImage}
               />
             </motion.div>

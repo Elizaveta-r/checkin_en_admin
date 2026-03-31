@@ -19,10 +19,9 @@ export default function EmployeeRow({
   onShowContacts,
   onDelete,
   onEdit,
-  onMove,
 }) {
   const allDepartments = useSelector(
-    (state) => state?.departments?.departments
+    (state) => state?.departments?.departments,
   );
   const allPositions = useSelector((state) => state?.positions?.positions);
   const { loadingGetEmployee } = useSelector((state) => state?.employees);
@@ -33,20 +32,20 @@ export default function EmployeeRow({
   const getRoleName = () => {
     switch (role) {
       case "employee":
-        return "Сотрудник";
+        return "Employee";
       case "head":
-        return "Руководитель";
+        return "Manager";
       default:
         return "";
     }
   };
 
   const departmentsForEmployee = allDepartments?.filter((department) =>
-    employeeDepartmentIdsSet.has(department.id)
+    employeeDepartmentIdsSet.has(department.id),
   );
 
   const positionsForEmployee = allPositions?.filter((position) =>
-    employeePositionIdsSet.has(position.id)
+    employeePositionIdsSet.has(position.id),
   );
 
   const fullName = `${surname} ${firstname} ${patronymic}`;
@@ -75,13 +74,13 @@ export default function EmployeeRow({
             const isLast = index === positionsForEmployee?.length - 1;
             return (
               <p key={`position-${index}`} className={styles.positionCol}>
-                {position?.title ? position?.title : "Должность не назначена"}
+                {position?.title ? position?.title : "No position assigned"}
                 {!isLast && ", "}
               </p>
             );
           })
         ) : (
-          <p className={styles.positionCol}>Должность не назначена</p>
+          <p className={styles.positionCol}>No position assigned</p>
         )}
       </div>
 
@@ -89,15 +88,10 @@ export default function EmployeeRow({
 
       <div>
         {departmentsForEmployee?.map((department, index) => {
-          // Определяем, является ли текущий элемент последним в массиве
           const isLast = index === departmentsForEmployee?.length - 1;
 
           return (
-            <p
-              key={`department-${index}`}
-              className={styles.department}
-              // Добавляем запятую и пробел, если это не последний элемент
-            >
+            <p key={`department-${index}`} className={styles.department}>
               {department?.title}
               {!isLast && ", "}
             </p>
@@ -113,7 +107,7 @@ export default function EmployeeRow({
 
       <div className={styles.actions}>
         <HintWithPortal
-          hintContent="Посмотреть контактные данные"
+          hintContent="View contact details"
           hasIcon={false}
           isMaxWidth
         >
@@ -121,17 +115,17 @@ export default function EmployeeRow({
             <Contact size={16} />
           </div>
         </HintWithPortal>
-        {/* <HintWithPortal hintContent="Переместить сотрудника" hasIcon={false}>
+        {/* <HintWithPortal hintContent="Move employee" hasIcon={false}>
           <div className={styles.move} onClick={onMove}>
             <Shuffle size={16} />
           </div>
         </HintWithPortal> */}
-        <HintWithPortal hintContent="Редактировать" hasIcon={false} isMaxWidth>
+        <HintWithPortal hintContent="Edit" hasIcon={false} isMaxWidth>
           <div className={styles.edit} onClick={onEdit}>
             <Pencil size={16} />
           </div>{" "}
         </HintWithPortal>
-        <HintWithPortal hintContent="Удалить" hasIcon={false} isMaxWidth>
+        <HintWithPortal hintContent="Delete" hasIcon={false} isMaxWidth>
           <div className={styles.trash} onClick={onDelete}>
             <Trash size={16} />
           </div>{" "}
