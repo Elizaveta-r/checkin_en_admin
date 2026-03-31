@@ -1,0 +1,60 @@
+@use "../../styles/variables" as v;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 8px 0;
+}
+
+.history {
+  background: v.$color-white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03);
+  padding: 0;
+  height: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  & > p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: v.$color-text-main;
+    margin: 0;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid v.$color-border;
+    background: v.$color-bg-light;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  /* Контейнер для History компонента */
+  & > div {
+    flex: 1;
+    overflow: hidden;
+    padding: 20px 28px;
+  }
+}
+
+/* --- Адаптивность --- */
+@media screen and (max-width: 768px) {
+  .container {
+    gap: 16px;
+  }
+
+  .history {
+    min-height: 400px;
+
+    & > p {
+      padding: 20px;
+    }
+
+    & > div {
+      padding: 16px 20px;
+    }
+  }
+}

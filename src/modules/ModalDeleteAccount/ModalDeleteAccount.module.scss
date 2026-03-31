@@ -1,0 +1,240 @@
+@use "../../styles/variables" as v;
+
+.modalTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #dc2626;
+  font-weight: 700;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 4px 0;
+}
+
+// Текст предупреждения
+.warningText {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(254, 242, 242, 0.4);
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(220, 38, 38, 0.15);
+
+  svg {
+    color: #dc2626;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  p {
+    margin: 0;
+    color: #374151;
+    font-size: 14px;
+    line-height: 1.6;
+    flex: 1;
+  }
+}
+
+// Группа инпутов
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  //   flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.requiredBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(249, 250, 251, 0.8);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 6px;
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-top: 2px;
+  width: fit-content;
+}
+
+.phraseBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(254, 242, 242, 0.6);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 6px;
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #dc2626;
+  margin-top: 2px;
+  width: fit-content;
+  user-select: none;
+}
+
+.inputError {
+  border-color: #dc2626 !important;
+  background: rgba(254, 242, 242, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+
+  &:focus {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2) !important;
+  }
+}
+
+.errorText {
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &::before {
+    content: "⚠";
+    font-size: 14px;
+  }
+}
+
+.finalWarning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: v.$color-text-light;
+  font-size: 14px;
+}
+
+// Группа кнопок
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(229, 231, 235, 0.8);
+
+  @media (max-width: 450px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.cancelButton {
+  flex: 1;
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.deleteButton {
+  width: max-content;
+  min-height: 48px;
+  font-size: 14px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%) !important;
+    box-shadow: 0 8px 28px rgba(220, 38, 38, 0.5) !important;
+    transform: translateY(-3px);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%) !important;
+    box-shadow: none !important;
+    transform: none;
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .modalContent {
+    gap: 16px;
+  }
+
+  .warningText {
+    padding: 12px 14px;
+
+    p {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .modalContent {
+    gap: 16px;
+  }
+
+  .warningText {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .label {
+    font-size: 13px;
+  }
+
+  .requiredBadge,
+  .phraseBadge {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}

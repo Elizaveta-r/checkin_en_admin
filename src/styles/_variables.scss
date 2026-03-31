@@ -1,0 +1,138 @@
+@use "sass:color";
+
+/* Глобальные переменные цвета */
+$color_white: #ffffff;
+$color-bg-light: #f9fafb;
+$color-disabled: #f3f4f6;
+$color-border: #e5e7eb;
+$color-border-hover: color.adjust($color-border, $lightness: -5%);
+
+$color-light-gray: #d1d5db;
+$color-slider-off: #ccc;
+$color-muted-badge: rgba(249, 250, 251, 0.8);
+$color-border-base: rgba(200, 200, 200, 0.8);
+$color-bg-base: rgba(240, 240, 240, 0.5);
+$color-reset-gray: #9ca3af;
+$color-text-light: #6b7280;
+$color-disabled-button: #a3a3a3;
+$color-gray-50: #666;
+$color-status-off: #777777;
+
+$color-text-dark: #1f2937;
+$color-text-secondary: #374151;
+$hint-bg: #333;
+
+$color-lime-50: #dcfce7;
+$color-status-done: #10b981;
+$color-green-500: #22c55e;
+$color-green: #23c45f;
+$color-green-50: #f0fdf4;
+$color-primary-dark: #15803d;
+$color-primary: #16a34a;
+$color-primary-900: #16a34a49;
+
+$color-accent-end: #06b6d4;
+$hover-resend: #2c5bf5;
+$color-info: #3e68ff;
+$color-status-active: #3b82f6;
+$color-status-doubt: #a855f7;
+$color-status-doubt-light: color.adjust($color-status-doubt, $lightness: 30%);
+
+$color-red-25: #fef2f2;
+$color-red-50: #fee2e2;
+$color-mandatory: #dc2626;
+$color-danger: #ef4444;
+
+$color-yellow-50: #fef3c7;
+$color-alert: #eab308;
+$color-status-late: #f59e0b;
+$color-attention: #f97316;
+$color-required: #c2410c;
+$color-badge-alert: #a16207;
+$color-orange-50: #d97706;
+
+$gradient-primary: linear-gradient(
+  135deg,
+  $color-green-500 0%,
+  $color-accent-end 100%
+);
+
+/* Конкретные переменные  */
+$color-error: $color-mandatory;
+$color-outcome: $color-mandatory;
+$color-danger-hover: $color-mandatory;
+$color-accent-start: $color-green-500;
+$color-success: $color-green-500;
+$color-text: $color-text-dark;
+$color-text-main: $color-text-dark;
+$color-shadow-light: $color-disabled;
+$exit-button: $color-text-dark;
+
+$linear-main-gradient: linear-gradient(83deg, #24c367 0%, #0ab7cd 100%);
+$linear-contact-gradient: linear-gradient(
+  135deg,
+  rgba(249, 115, 22, 0.1) 0%,
+  rgba(251, 146, 60, 0.1) 100%
+);
+$linear-edit-gradient: linear-gradient(
+  135deg,
+  rgba(59, 130, 246, 0.1) 0%,
+  rgba(96, 165, 250, 0.1) 100%
+);
+$linear-trash-gradient: linear-gradient(
+  135deg,
+  rgba(220, 38, 38, 0.1) 0%,
+  rgba(239, 68, 68, 0.1) 100%
+);
+$linear-badge-primary: linear-gradient(
+  135deg,
+  rgba(34, 197, 94, 0.12) 0%,
+  rgba(6, 182, 212, 0.12) 100%
+);
+$linear-mandatory-badge-gradient: linear-gradient(
+  135deg,
+  rgba(220, 38, 38, 0.1) 0%,
+  rgba(239, 68, 68, 0.1) 100%
+);
+$linear-required-badge-gradient: linear-gradient(
+  135deg,
+  rgba(249, 115, 22, 0.1) 0%,
+  rgba(251, 146, 60, 0.1) 100%
+);
+$linear-info-badge-gradient: linear-gradient(
+  135deg,
+  rgba(59, 130, 246, 0.1) 0%,
+  rgba(96, 165, 250, 0.1) 100%
+);
+$linear-alert-badge-gradient: linear-gradient(
+  135deg,
+  rgba(234, 179, 8, 0.1) 0%,
+  rgba(250, 204, 21, 0.1) 100%
+);
+$linear-tariffs-gradient: linear-gradient(
+  135deg,
+  rgba(34, 197, 94, 0.05) 0%,
+  rgba(6, 182, 212, 0.05) 100%
+);
+
+$contact-border: rgba(249, 115, 22, 0.5);
+$edit-border: rgba(59, 130, 246, 0.5);
+$trash-border: rgba(220, 38, 38, 0.5);
+
+$color-status-failed: $color-danger;
+$color-delete-red: $color-danger;
+
+/* Тени */
+$color-shadow: rgba(0, 0, 0, 0.04);
+$color-shadow-light: rgba(0, 0, 0, 0.05);
+$color-shadow-dark: rgba(0, 0, 0, 0.5);
+$color-shadow-primary: 0 4px 15px rgba(34, 197, 94, 0.4);
+$color-shadow-primary-hover: 0 6px 20px rgba(6, 182, 212, 0.4);
+
+/* Текст */
+$font-size: 1rem;
+$line-height: 1.4;
+
+/* Грид сетки */
+$grid-template-cols-employee: 1.5fr 1.2fr 100px 1fr 80px auto;
+$grid-template-cols: 2fr 1fr 130px 1fr 80px auto;

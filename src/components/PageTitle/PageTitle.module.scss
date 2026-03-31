@@ -1,0 +1,42 @@
+@use "../../styles/variables" as v;
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+  text-align: left;
+  margin: 0;
+  word-wrap: break-word;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+
+  @media screen and (max-width: 767px) {
+    font-size: var(--font-size-h3);
+  }
+
+  @media screen and (max-width: 425px) {
+    font-size: 1.4rem;
+  }
+}
+
+.info {
+  font-size: 0.875rem;
+  color: v.$color-text-light;
+  text-align: left;
+}
+
+.button {
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+    padding: 8px 14px !important;
+  }
+}

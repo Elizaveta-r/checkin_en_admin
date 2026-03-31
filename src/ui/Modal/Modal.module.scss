@@ -1,0 +1,107 @@
+@use "../../styles/variables" as v;
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: v.$color-shadow-dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: v.$color-white;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid v.$color-border;
+}
+
+.footer {
+  padding: 20px;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: v.$color-text-main;
+  white-space: pre-line;
+  width: 100%;
+  text-align: center;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.1rem;
+    max-width: fit-content;
+  }
+
+  &.titleTop {
+    text-align: left;
+  }
+}
+
+.description {
+  font-size: 0.875rem;
+  color: v.$color-text-light;
+}
+
+.closeButton {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: v.$color-text-light;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+
+  & svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background-color: v.$color-disabled;
+    color: v.$color-primary;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 24px;
+    height: 24px;
+
+    & svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.body {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}

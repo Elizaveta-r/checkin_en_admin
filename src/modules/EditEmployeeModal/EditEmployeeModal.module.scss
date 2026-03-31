@@ -1,0 +1,78 @@
+@use "../../styles/variables" as v;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 10px;
+
+  @media screen and (max-width: 767px) {
+    padding: 0;
+  }
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  box-sizing: border-box;
+
+  max-height: 60vh;
+  padding-right: 15px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: v.$color-text-main;
+  text-align: left;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid v.$color-border;
+}
+
+.buttonCancel {
+  box-shadow: none;
+  background: transparent;
+  color: v.$color-text-main;
+  border: 1px solid v.$color-border;
+
+  &:hover {
+    box-shadow: none;
+    background-color: v.$color-disabled;
+    border-color: v.$color-light-gray;
+    color: v.$color-text-main;
+  }
+}

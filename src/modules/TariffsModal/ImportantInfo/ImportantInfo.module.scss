@@ -1,0 +1,76 @@
+@use "../../../styles/variables" as v;
+
+.importantInfo {
+  background: v.$color-green-50;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  padding: 30px 104px;
+  border-radius: 16px;
+  border: 1px solid v.$color-border;
+
+  @media screen and (max-width: 767px) {
+    padding: 30px 60px;
+  }
+
+  @media screen and (max-width: 520px) {
+    padding: 30px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  & svg {
+    flex-shrink: 0;
+    color: v.$color-green;
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: white;
+  padding: 18px 16px;
+  border-radius: 8px;
+
+  &:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: v.$color-green;
+}
+
+.text {
+  font-size: 14px;
+  color: v.$color-text-main;
+  font-weight: 700;
+}

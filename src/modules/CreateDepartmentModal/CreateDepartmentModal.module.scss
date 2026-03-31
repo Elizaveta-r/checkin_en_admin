@@ -1,0 +1,111 @@
+@use "../../styles/variables" as v;
+@use "sass:color";
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: v.$color-text-main;
+  text-align: left;
+}
+
+.timeZoneDisplay {
+  padding: 12px 16px;
+  background-color: v.$color-disabled;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  color: v.$color-primary;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.timeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 8px;
+}
+
+.timeGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.warning {
+  color: v.$color-required;
+  font-size: 0.8rem;
+  padding: 8px;
+  border-radius: 8px;
+  background: color.adjust(v.$color-required, $lightness: 55%, $alpha: -0.2);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid v.$color-border;
+  font-family: "Nunito", sans-serif;
+}
+
+.buttonCancel,
+.buttonConfirm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.buttonCancel {
+  background-color: v.$color-bg-light;
+  color: v.$color-text-light;
+  border: 1px solid v.$color-border;
+
+  &:hover {
+    background-color: v.$color-disabled;
+  }
+}
+
+.buttonConfirm {
+  background: linear-gradient(
+    135deg,
+    v.$color-accent-start 0%,
+    v.$color-accent-end 100%
+  );
+  color: v.$color-white;
+  box-shadow: v.$color-shadow-primary;
+
+  &:hover {
+    opacity: 0.9;
+    box-shadow: v.$color-shadow-primary-hover;
+  }
+}
+
+.small {
+  font-style: italic;
+}

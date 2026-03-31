@@ -1,0 +1,80 @@
+@use "../../../styles/variables" as v;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  @media screen and (max-width: 1439px) {
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 1023px) {
+    gap: 16px;
+  }
+
+  @media screen and (max-width: 767px) {
+    gap: 12px;
+  }
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-sizing: border-box;
+}
+
+.label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: v.$color-text-dark;
+  text-align: left;
+}
+
+.timeSection {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  @media screen and (max-width: 1439px) {
+  }
+
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+  }
+}
+
+.weekDays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid v.$color-border;
+  color: v.$color-text-main;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background-color: v.$color-primary-900;
+  }
+
+  &.selected {
+    background-color: v.$color-primary;
+    color: v.$color-white;
+    border: 1px solid v.$color-primary;
+  }
+}

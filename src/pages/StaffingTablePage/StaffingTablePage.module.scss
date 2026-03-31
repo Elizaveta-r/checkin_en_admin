@@ -1,0 +1,1512 @@
+// @use "../../styles/variables" as v;
+
+// .page {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   height: 100%;
+//   overflow: hidden;
+// }
+
+// .tableHeader {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+// }
+
+// .headerTop {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 16px;
+//   flex-wrap: wrap;
+
+//   @media screen and (max-width: 768px) {
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }
+// }
+
+// .tableContainer {
+//   background-color: v.$color_white;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+//   overflow: hidden;
+//   display: flex;
+//   flex-direction: column;
+//   flex: 1;
+// }
+
+// // ==== ПУСТОЕ СОСТОЯНИЕ ====
+// .emptyState {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 4rem 2rem;
+//   text-align: center;
+//   min-height: 400px;
+// }
+
+// .emptyIcon {
+//   width: 120px;
+//   height: 120px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 24px;
+//   background: linear-gradient(
+//     135deg,
+//     rgba(34, 197, 94, 0.08) 0%,
+//     rgba(6, 182, 212, 0.08) 100%
+//   );
+//   margin-bottom: 1.5rem;
+//   position: relative;
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     inset: -2px;
+//     border-radius: 24px;
+//     padding: 2px;
+//     background: linear-gradient(
+//       135deg,
+//       v.$color-green-500,
+//       v.$color-accent-end
+//     );
+//     -webkit-mask: linear-gradient(#fff 0 0) content-box,
+//       linear-gradient(#fff 0 0);
+//     -webkit-mask-composite: xor;
+//     mask-composite: exclude;
+//     opacity: 0.2;
+//   }
+
+//   svg {
+//     color: v.$color-green-500;
+//     opacity: 0.8;
+//   }
+// }
+
+// .emptyTitle {
+//   font-size: 1.5rem;
+//   font-weight: 700;
+//   color: v.$color-text-dark;
+//   margin: 0 0 0.75rem 0;
+//   letter-spacing: -0.02em;
+// }
+
+// .emptyDescription {
+//   font-size: 1rem;
+//   color: v.$color-text-light;
+//   max-width: 500px;
+//   margin: 0;
+//   line-height: 1.6;
+// }
+
+// .scrollWrapper {
+//   overflow: auto;
+//   border: 1px solid v.$color-border;
+//   border-radius: 8px;
+// }
+
+// .grid {
+//   display: grid;
+//   position: relative;
+//   min-width: max-content;
+//   background-color: v.$color-white;
+// }
+
+// // ==== ШАПКА ====
+// .headerCell {
+//   position: sticky;
+//   top: 0;
+//   z-index: 4;
+//   background-color: #f8fafc;
+//   border-bottom: 2px solid v.$color-border;
+//   border-right: 1px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-weight: 600;
+//   font-size: 0.875rem;
+//   color: v.$color-text-main;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   &:first-child {
+//     text-align: left;
+//     justify-content: flex-start;
+//     padding-left: 16px;
+//     z-index: 6;
+//   }
+
+//   &:last-child {
+//     border-right: none;
+//     z-index: 6;
+//   }
+// }
+
+// // ==== ПОДРАЗДЕЛЕНИЕ ====
+// .departmentCell {
+//   background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+//   color: white;
+//   font-weight: 700;
+//   font-size: 1rem;
+//   padding: 14px 16px;
+//   border-bottom: 1px solid v.$color-border;
+//   display: flex;
+//   align-items: center;
+//   position: sticky;
+//   left: 0;
+//   z-index: 3;
+// }
+
+// // ==== СОТРУДНИК (STICKY LEFT) ====
+// .employeeCell {
+//   background-color: v.$color-white;
+//   border-bottom: 1px solid v.$color-border;
+//   border-right: 2px solid v.$color-border;
+//   padding: 12px 16px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
+
+//   .name {
+//     font-weight: 600;
+//     font-size: 0.9375rem;
+//     color: v.$color-text-main;
+//   }
+
+//   .position {
+//     font-size: 0.8125rem;
+//     color: v.$color-text-light;
+//   }
+// }
+
+// .stickyEmployee {
+//   position: sticky;
+//   left: 0;
+//   z-index: 5;
+//   background-color: v.$color-white;
+
+//   &::after {
+//     content: "";
+//     position: absolute;
+//     right: 0;
+//     top: 0;
+//     bottom: 0;
+//     width: 6px;
+//     background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+//     pointer-events: none;
+//   }
+// }
+
+// // ==== ДЕНЬ ====
+// .dayCell {
+//   background-color: v.$color-white;
+//   border-bottom: 1px solid v.$color-border;
+//   border-right: 1px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-size: 0.875rem;
+//   color: v.$color-text-secondary;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   transition: background-color 0.2s ease;
+//   position: relative;
+//   z-index: 1;
+
+//   &:hover {
+//     background-color: #f1f5f9;
+//   }
+
+//   &:not(:has(–)) {
+//     font-weight: 600;
+//     color: #0ea5e9;
+//     background-color: #f0f9ff;
+//   }
+// }
+
+// // ==== ИТОГ (STICKY RIGHT) ====
+// .totalCell {
+//   background-color: #fef3c7;
+//   border-bottom: 1px solid v.$color-border;
+//   border-left: 2px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-weight: 700;
+//   font-size: 0.9375rem;
+//   color: #d97706;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .stickyTotal {
+//   position: sticky;
+//   right: 0;
+//   z-index: 5;
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     bottom: 0;
+//     width: 6px;
+//     background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+//     pointer-events: none;
+//   }
+// }
+
+// // ==== ДНЕЙ (STICKY RIGHT, ПОСЛЕДНЯЯ КОЛОНКА) ====
+// .daysCell {
+//   background-color: v.$color-green-50; // мягкий зелёный фон
+//   border-bottom: 1px solid v.$color-border;
+//   border-left: 1px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-weight: 700;
+//   font-size: 0.9375rem;
+//   color: v.$color-primary-dark;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// // "Итог" теперь предпоследний справа, поэтому смещаем его влево на ширину "Дней"
+// .stickyTotal {
+//   position: sticky;
+//   right: 65px; // подгони под colDaysWorked (например 50/60/80)
+//   z-index: 5;
+//   background-color: #fef3c7; // чтобы не просвечивало при sticky
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     bottom: 0;
+//     width: 6px;
+//     background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+//     pointer-events: none;
+//   }
+// }
+
+// .stickyDays {
+//   position: sticky;
+//   right: 0;
+//   z-index: 6; // выше чем Итог
+//   background-color: v.$color-green-50;
+
+//   // градиент слева, чтобы визуально отделить sticky-область
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     bottom: 0;
+//     width: 6px;
+//     background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+//     pointer-events: none;
+//   }
+// }
+
+// // ==== АДАПТИВНОСТЬ ====
+
+// @media screen and (max-width: 1200px) {
+//   .headerCell,
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.8125rem;
+//     padding: 10px 6px;
+//   }
+
+//   .employeeCell {
+//     padding: 10px 12px;
+
+//     .name {
+//       font-size: 0.875rem;
+//     }
+
+//     .position {
+//       font-size: 0.75rem;
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 768px) {
+//   .headerCell {
+//     font-size: 0.75rem;
+//     padding: 8px 4px;
+//   }
+
+//   .departmentCell {
+//     font-size: 0.9375rem;
+//     padding: 12px;
+//   }
+
+//   .employeeCell {
+//     padding: 8px 10px;
+
+//     .name {
+//       font-size: 0.8125rem;
+//     }
+
+//     .position {
+//       font-size: 0.6875rem;
+//     }
+//   }
+
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.75rem;
+//     padding: 8px 4px;
+//   }
+
+//   .emptyState {
+//     padding: 3rem 1.5rem;
+//     min-height: 300px;
+//   }
+
+//   .emptyIcon {
+//     width: 100px;
+//     height: 100px;
+
+//     svg {
+//       width: 56px;
+//       height: 56px;
+//     }
+//   }
+
+//   .emptyTitle {
+//     font-size: 1.25rem;
+//   }
+
+//   .emptyDescription {
+//     font-size: 0.9rem;
+//   }
+// }
+
+// @media screen and (max-width: 480px) {
+//   .headerCell {
+//     font-size: 0.6875rem;
+//     padding: 6px 3px;
+//   }
+
+//   .departmentCell {
+//     font-size: 0.875rem;
+//     padding: 10px 8px;
+//   }
+
+//   .employeeCell {
+//     padding: 6px 8px;
+
+//     .name {
+//       font-size: 0.75rem;
+//     }
+
+//     .position {
+//       font-size: 0.625rem;
+//     }
+//   }
+
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.6875rem;
+//     padding: 6px 2px;
+//   }
+
+//   .emptyState {
+//     padding: 2rem 1rem;
+//   }
+
+//   .emptyIcon {
+//     width: 80px;
+//     height: 80px;
+
+//     svg {
+//       width: 48px;
+//       height: 48px;
+//     }
+//   }
+
+//   .emptyTitle {
+//     font-size: 1.125rem;
+//   }
+
+//   .emptyDescription {
+//     font-size: 0.85rem;
+//   }
+// }
+
+// @media screen and (max-width: 360px) {
+//   .headerCell,
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.625rem;
+//     padding: 4px 2px;
+//   }
+
+//   .employeeCell {
+//     padding: 6px;
+
+//     .name {
+//       font-size: 0.6875rem;
+//     }
+
+//     .position {
+//       font-size: 0.5625rem;
+//     }
+//   }
+// }
+
+@use "../../styles/variables" as v;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 12px; // добавляем небольшой отступ по бокам
+  }
+}
+
+.tableHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.tableContainer {
+  background-color: v.$color_white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  @media screen and (max-width: 768px) {
+    width: 100%; // Убедимся, что контейнер не выходит за границы
+    max-width: 100vw; // Дополнительная страховка
+  }
+}
+
+// ==== ПУСТОЕ СОСТОЯНИЕ ====
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  min-height: 400px;
+
+  @media screen and (max-width: 768px) {
+    padding: 3rem 1.5rem;
+    min-height: 300px;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+}
+
+.emptyIcon {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.08) 0%,
+    rgba(6, 182, 212, 0.08) 100%
+  );
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(
+      135deg,
+      v.$color-green-500,
+      v.$color-accent-end
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.2;
+  }
+
+  svg {
+    color: v.$color-green-500;
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+
+    svg {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 80px;
+    height: 80px;
+
+    svg {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: v.$color-text-dark;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.02em;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.25rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 1.125rem;
+  }
+}
+
+.emptyDescription {
+  font-size: 1rem;
+  color: v.$color-text-light;
+  max-width: 500px;
+  margin: 0;
+  line-height: 1.6;
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.9rem;
+    max-width: 400px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 0.85rem;
+    max-width: 300px;
+  }
+}
+
+.scrollWrapper {
+  overflow: auto;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+
+  // Ключевое изменение: горизонтальная прокрутка на маленьких экранах
+  @media screen and (max-width: 768px) {
+    overflow-x: auto;
+    overflow-y: hidden; // чтобы не было лишнего скролла
+    -webkit-overflow-scrolling: touch; // плавность на iOS
+  }
+}
+
+.grid {
+  display: grid;
+  position: relative;
+  min-width: max-content;
+  background-color: v.$color_white;
+
+  @media screen and (max-width: 768px) {
+    min-width: 100%; // или даже больше, если нужно
+  }
+}
+
+// ==== ШАПКА ====
+.headerCell {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background-color: #f8fafc;
+  border-bottom: 2px solid v.$color-border;
+  border-right: 1px solid v.$color-border;
+  padding: 12px 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: v.$color-text-main;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:first-child {
+    text-align: left;
+    justify-content: flex-start;
+    padding-left: 16px;
+    z-index: 6;
+  }
+
+  &:last-child {
+    border-right: none;
+    z-index: 6;
+  }
+
+  @media screen and (max-width: 1200px) {
+    font-size: 0.8125rem;
+    padding: 10px 6px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.75rem;
+    padding: 8px 4px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 0.6875rem;
+    padding: 6px 3px;
+  }
+
+  @media screen and (max-width: 360px) {
+    font-size: 0.625rem;
+    padding: 4px 2px;
+  }
+}
+
+// ==== ПОДРАЗДЕЛЕНИЕ ====
+.departmentCell {
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 16px;
+  border-bottom: 1px solid v.$color-border;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+
+  @media screen and (max-width: 1200px) {
+    font-size: 0.9375rem;
+    padding: 12px 12px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.9375rem;
+    padding: 12px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 0.875rem;
+    padding: 10px 8px;
+  }
+}
+
+// ==== СОТРУДНИК (STICKY LEFT) ====
+.employeeCell {
+  background-color: v.$color_white;
+  border-bottom: 1px solid v.$color-border;
+  border-right: 2px solid v.$color-border;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: v.$color-text-main;
+  }
+
+  .position {
+    font-size: 0.8125rem;
+    color: v.$color-text-light;
+  }
+
+  @media screen and (max-width: 1200px) {
+    padding: 10px 12px;
+
+    .name {
+      font-size: 0.875rem;
+    }
+
+    .position {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 10px;
+
+    .name {
+      font-size: 0.8125rem;
+    }
+
+    .position {
+      font-size: 0.6875rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 6px 8px;
+
+    .name {
+      font-size: 0.75rem;
+    }
+
+    .position {
+      font-size: 0.625rem;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    padding: 6px;
+
+    .name {
+      font-size: 0.6875rem;
+    }
+
+    .position {
+      font-size: 0.5625rem;
+    }
+  }
+}
+
+.stickyEmployee {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+  background-color: v.$color_white;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+    pointer-events: none;
+  }
+}
+
+// ==== ДЕНЬ ====
+.dayCell {
+  background-color: v.$color_white;
+  border-bottom: 1px solid v.$color-border;
+  border-right: 1px solid v.$color-border;
+  padding: 12px 8px;
+  font-size: 0.875rem;
+  color: v.$color-text-secondary;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    background-color: #f1f5f9;
+  }
+
+  &:not(:has(–)) {
+    font-weight: 600;
+    color: #0ea5e9;
+    background-color: #f0f9ff;
+  }
+
+  @media screen and (max-width: 1200px) {
+    font-size: 0.8125rem;
+    padding: 10px 6px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 0.75rem;
+    padding: 8px 4px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 0.6875rem;
+    padding: 6px 2px;
+  }
+
+  @media screen and (max-width: 360px) {
+    font-size: 0.625rem;
+    padding: 4px 2px;
+  }
+}
+
+// ==== ИТОГ (STICKY RIGHT) ====
+.totalCell {
+  background-color: #fef3c7;
+  border-bottom: 1px solid v.$color-border;
+  border-left: 2px solid v.$color-border;
+  padding: 12px 8px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #d97706;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stickyTotal {
+  position: sticky;
+  right: 65px; // подгоняется под ширину колонки "Дней"
+  z-index: 5;
+  background-color: #fef3c7;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    right: 55px; // уменьшаем для компактности
+  }
+
+  @media screen and (max-width: 480px) {
+    right: 45px;
+  }
+}
+
+// ==== ДНЕЙ (STICKY RIGHT, ПОСЛЕДНЯЯ КОЛОНКА) ====
+.daysCell {
+  background-color: v.$color-green-50;
+  border-bottom: 1px solid v.$color-border;
+  border-left: 1px solid v.$color-border;
+  padding: 12px 8px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: v.$color-primary-dark;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stickyDays {
+  position: sticky;
+  right: 0;
+  z-index: 6;
+  background-color: v.$color-green-50;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 4px;
+    font-size: 0.75rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 6px 2px;
+    font-size: 0.6875rem;
+  }
+
+  @media screen and (max-width: 360px) {
+    padding: 4px 2px;
+    font-size: 0.625rem;
+  }
+}
+
+// @use "../../styles/variables" as v;
+
+// .page {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   height: 100%;
+//   overflow: hidden;
+// }
+
+// .tableHeader {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+// }
+
+// .headerTop {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   gap: 16px;
+//   flex-wrap: wrap;
+
+//   @media screen and (max-width: 768px) {
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }
+// }
+
+// .tableContainer {
+//   background-color: v.$color_white;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+//   overflow: hidden;
+//   display: flex;
+//   flex-direction: column;
+//   flex: 1;
+// }
+
+// // ==== ПУСТОЕ СОСТОЯНИЕ ====
+// .emptyState {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 4rem 2rem;
+//   text-align: center;
+//   min-height: 400px;
+// }
+
+// .emptyIcon {
+//   width: 120px;
+//   height: 120px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 24px;
+//   background: linear-gradient(
+//     135deg,
+//     rgba(34, 197, 94, 0.08) 0%,
+//     rgba(6, 182, 212, 0.08) 100%
+//   );
+//   margin-bottom: 1.5rem;
+//   position: relative;
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     inset: -2px;
+//     border-radius: 24px;
+//     padding: 2px;
+//     background: linear-gradient(
+//       135deg,
+//       v.$color-green-500,
+//       v.$color-accent-end
+//     );
+//     -webkit-mask: linear-gradient(#fff 0 0) content-box,
+//       linear-gradient(#fff 0 0);
+//     -webkit-mask-composite: xor;
+//     mask-composite: exclude;
+//     opacity: 0.2;
+//   }
+
+//   svg {
+//     color: v.$color-green-500;
+//     opacity: 0.8;
+//   }
+// }
+
+// .emptyTitle {
+//   font-size: 1.5rem;
+//   font-weight: 700;
+//   color: v.$color-text-dark;
+//   margin: 0 0 0.75rem 0;
+//   letter-spacing: -0.02em;
+// }
+
+// .emptyDescription {
+//   font-size: 1rem;
+//   color: v.$color-text-light;
+//   max-width: 500px;
+//   margin: 0;
+//   line-height: 1.6;
+// }
+
+// .scrollWrapper {
+//   overflow: auto;
+//   border: 1px solid v.$color-border;
+//   border-radius: 8px;
+// }
+
+// .grid {
+//   display: grid;
+//   position: relative;
+//   min-width: max-content;
+//   background-color: v.$color-white;
+// }
+
+// // ==== ШАПКА ====
+// .headerCell {
+//   position: sticky;
+//   top: 0;
+//   z-index: 4;
+//   background-color: #f8fafc;
+//   border-bottom: 2px solid v.$color-border;
+//   border-right: 1px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-weight: 600;
+//   font-size: 0.875rem;
+//   color: v.$color-text-main;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   &:first-child {
+//     text-align: left;
+//     justify-content: flex-start;
+//     padding-left: 16px;
+//     z-index: 6;
+//   }
+
+//   &:last-child {
+//     border-right: none;
+//     z-index: 6;
+//   }
+// }
+
+// // ==== ПОДРАЗДЕЛЕНИЕ ====
+// .departmentCell {
+//   background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+//   color: white;
+//   font-weight: 700;
+//   font-size: 1rem;
+//   padding: 14px 16px;
+//   border-bottom: 1px solid v.$color-border;
+//   display: flex;
+//   align-items: center;
+//   position: sticky;
+//   left: 0;
+//   z-index: 3;
+// }
+
+// // ==== СОТРУДНИК (STICKY LEFT) ====
+// .employeeCell {
+//   background-color: v.$color-white;
+//   border-bottom: 1px solid v.$color-border;
+//   border-right: 2px solid v.$color-border;
+//   padding: 12px 16px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
+
+//   .name {
+//     font-weight: 600;
+//     font-size: 0.9375rem;
+//     color: v.$color-text-main;
+//   }
+
+//   .position {
+//     font-size: 0.8125rem;
+//     color: v.$color-text-light;
+//   }
+// }
+
+// .stickyEmployee {
+//   position: sticky;
+//   left: 0;
+//   z-index: 5;
+//   background-color: v.$color-white;
+
+//   &::after {
+//     content: "";
+//     position: absolute;
+//     right: 0;
+//     top: 0;
+//     bottom: 0;
+//     width: 6px;
+//     background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+//     pointer-events: none;
+//   }
+// }
+
+// // ==== ДЕНЬ ====
+// .dayCell {
+//   background-color: v.$color-white;
+//   border-bottom: 1px solid v.$color-border;
+//   border-right: 1px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-size: 0.875rem;
+//   color: v.$color-text-secondary;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   transition: background-color 0.2s ease;
+//   position: relative;
+//   z-index: 1;
+
+//   &:hover {
+//     background-color: #f1f5f9;
+//   }
+
+//   &:not(:has(–)) {
+//     font-weight: 600;
+//     color: #0ea5e9;
+//     background-color: #f0f9ff;
+//   }
+// }
+
+// // ==== ИТОГ (STICKY RIGHT) ====
+// .totalCell {
+//   background-color: #fef3c7;
+//   border-bottom: 1px solid v.$color-border;
+//   border-left: 2px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-weight: 700;
+//   font-size: 0.9375rem;
+//   color: #d97706;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .stickyTotal {
+//   position: sticky;
+//   right: 65px;
+//   z-index: 5;
+//   background-color: #fef3c7;
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     bottom: 0;
+//     width: 6px;
+//     background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+//     pointer-events: none;
+//   }
+// }
+
+// // ==== ДНЕЙ (STICKY RIGHT, ПОСЛЕДНЯЯ КОЛОНКА) ====
+// .daysCell {
+//   background-color: v.$color-green-50;
+//   border-bottom: 1px solid v.$color-border;
+//   border-left: 1px solid v.$color-border;
+//   padding: 12px 8px;
+//   font-weight: 700;
+//   font-size: 0.9375rem;
+//   color: v.$color-primary-dark;
+//   text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .stickyDays {
+//   position: sticky;
+//   right: 0;
+//   z-index: 6;
+//   background-color: v.$color-green-50;
+
+//   &::before {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     bottom: 0;
+//     width: 6px;
+//     background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+//     pointer-events: none;
+//   }
+// }
+
+// // ==== АДАПТИВНОСТЬ ====
+
+// @media screen and (max-width: 1200px) {
+//   .headerCell,
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.8125rem;
+//     padding: 10px 6px;
+//   }
+
+//   .employeeCell {
+//     padding: 10px 12px;
+
+//     .name {
+//       font-size: 0.875rem;
+//     }
+
+//     .position {
+//       font-size: 0.75rem;
+//     }
+//   }
+
+//   .stickyTotal {
+//     right: 60px;
+//   }
+// }
+
+// @media screen and (max-width: 768px) {
+//   .page {
+//     gap: 12px;
+//   }
+
+//   .tableHeader {
+//     gap: 12px;
+//   }
+
+//   .headerCell {
+//     font-size: 0.75rem;
+//     padding: 8px 4px;
+//   }
+
+//   .departmentCell {
+//     font-size: 0.9375rem;
+//     padding: 12px;
+//   }
+
+//   .employeeCell {
+//     padding: 8px 10px;
+
+//     .name {
+//       font-size: 0.8125rem;
+//     }
+
+//     .position {
+//       font-size: 0.6875rem;
+//     }
+//   }
+
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.75rem;
+//     padding: 8px 4px;
+//   }
+
+//   .stickyTotal {
+//     right: 55px;
+//   }
+
+//   .emptyState {
+//     padding: 3rem 1.5rem;
+//     min-height: 300px;
+//   }
+
+//   .emptyIcon {
+//     width: 100px;
+//     height: 100px;
+
+//     svg {
+//       width: 56px;
+//       height: 56px;
+//     }
+//   }
+
+//   .emptyTitle {
+//     font-size: 1.25rem;
+//   }
+
+//   .emptyDescription {
+//     font-size: 0.9rem;
+//   }
+// }
+
+// @media screen and (max-width: 480px) {
+//   .page {
+//     gap: 10px;
+//   }
+
+//   .tableHeader {
+//     gap: 10px;
+//   }
+
+//   .headerCell {
+//     font-size: 0.6875rem;
+//     padding: 6px 3px;
+
+//     &:first-child {
+//       padding-left: 8px;
+//     }
+//   }
+
+//   .departmentCell {
+//     font-size: 0.875rem;
+//     padding: 10px 8px;
+//   }
+
+//   .employeeCell {
+//     padding: 6px 8px;
+
+//     .name {
+//       font-size: 0.75rem;
+//     }
+
+//     .position {
+//       font-size: 0.625rem;
+//     }
+//   }
+
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.6875rem;
+//     padding: 6px 2px;
+//   }
+
+//   .stickyTotal {
+//     right: 50px;
+//   }
+
+//   .stickyEmployee::after,
+//   .stickyTotal::before,
+//   .stickyDays::before {
+//     width: 4px;
+//   }
+
+//   .emptyState {
+//     padding: 2rem 1rem;
+//   }
+
+//   .emptyIcon {
+//     width: 80px;
+//     height: 80px;
+
+//     svg {
+//       width: 48px;
+//       height: 48px;
+//     }
+//   }
+
+//   .emptyTitle {
+//     font-size: 1.125rem;
+//   }
+
+//   .emptyDescription {
+//     font-size: 0.85rem;
+//   }
+// }
+
+// @media screen and (max-width: 360px) {
+//   .page {
+//     gap: 8px;
+//   }
+
+//   .tableHeader {
+//     gap: 8px;
+//   }
+
+//   .tableContainer {
+//     border-radius: 8px;
+//   }
+
+//   .scrollWrapper {
+//     border-radius: 6px;
+//   }
+
+//   .headerCell {
+//     font-size: 0.625rem;
+//     padding: 4px 2px;
+
+//     &:first-child {
+//       padding-left: 6px;
+//     }
+//   }
+
+//   .departmentCell {
+//     font-size: 0.8125rem;
+//     padding: 8px 6px;
+//   }
+
+//   .employeeCell {
+//     padding: 6px;
+
+//     .name {
+//       font-size: 0.6875rem;
+//     }
+
+//     .position {
+//       font-size: 0.5625rem;
+//     }
+//   }
+
+//   .dayCell,
+//   .totalCell,
+//   .daysCell {
+//     font-size: 0.625rem;
+//     padding: 4px 2px;
+//   }
+
+//   .stickyTotal {
+//     right: 45px;
+//   }
+
+//   .stickyEmployee::after,
+//   .stickyTotal::before,
+//   .stickyDays::before {
+//     width: 3px;
+//   }
+
+//   .emptyState {
+//     padding: 1.5rem 0.75rem;
+//     min-height: 250px;
+//   }
+
+//   .emptyIcon {
+//     width: 70px;
+//     height: 70px;
+//     border-radius: 18px;
+
+//     &::before {
+//       border-radius: 18px;
+//     }
+
+//     svg {
+//       width: 40px;
+//       height: 40px;
+//     }
+//   }
+
+//   .emptyTitle {
+//     font-size: 1rem;
+//     margin-bottom: 0.5rem;
+//   }
+
+//   .emptyDescription {
+//     font-size: 0.8rem;
+//     line-height: 1.5;
+//   }
+// }

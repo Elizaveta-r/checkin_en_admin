@@ -1,0 +1,128 @@
+@use "../../styles/variables" as v;
+
+.iconBlock {
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background: rgb(225 225 225);
+  }
+}
+
+.rightIcon {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  color: var(--color-primary);
+  transition: text-decoration 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  @media screen and (max-width: 767px) {
+    padding: 0 18px;
+  }
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.forgot {
+  width: max-content;
+  font-size: var(--font-size-small);
+  color: var(--color-primary);
+  margin-left: 18px;
+
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.codeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.passwordBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.passwordMeta {
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: v.$color-disabled;
+  border-radius: 8px;
+  border-left: 4px solid v.$color-primary;
+}
+
+.passwordReqTitle {
+  font-size: 0.85rem;
+  color: v.$color-text-dark;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.passwordReqList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.reqItemOk,
+.reqItemNo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.reqIcon {
+  width: 14px;
+  flex: 0 0 14px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.reqItemOk {
+  color: #16a34a;
+}
+.reqItemNo {
+  color: #6b7280;
+}
+
+.reqText {
+  min-width: 0;
+}

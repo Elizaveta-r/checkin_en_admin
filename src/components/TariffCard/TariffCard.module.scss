@@ -1,0 +1,167 @@
+@use "../../styles/variables" as v;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid v.$color-border;
+
+  transition: all 0.2s ease-in;
+
+  &:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: v.$color-accent-start;
+    transform: translateY(-4px);
+  }
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 18px;
+  color: #525861;
+  font-weight: 500;
+}
+
+.pill {
+  width: max-content;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: v.$linear-main-gradient;
+
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+}
+
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.price {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  font-weight: 700;
+  font-size: 32px;
+  color: v.$color-text-main;
+  line-height: 100%;
+
+  & span {
+    color: #525861;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+  }
+}
+
+.description {
+  font-size: 14px;
+  line-height: 150%;
+  font-weight: 400;
+  color: #8c8c8c;
+  height: 12vh;
+  text-align: left;
+
+  @media screen and (max-width: 1023px) {
+    height: 20vh;
+  }
+
+  @media screen and (max-width: 500px) {
+    height: auto;
+  }
+}
+
+.btnGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.btnGrid .buttonBuy,
+.btnGrid .buttonTeam {
+  width: 100%;
+  padding: 10.5px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  transform: none;
+}
+
+.buttonTeam {
+  background: white;
+  border: 1px solid #c5c5c5;
+  color: #5d5d5d;
+  box-shadow: none;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &:hover {
+    box-shadow: none;
+    border-color: v.$color-success;
+    color: v.$color-success;
+    background: v.$color-green-50;
+  }
+}
+
+.featuresContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.featuresTitle {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: v.$color-text-main;
+  text-align: left;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.notIncluded,
+.includedIcon {
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.includedIcon {
+  color: v.$color-green;
+}
+
+.featureText {
+  font-size: 13px;
+  color: #6c7180;
+  text-align: left;
+
+  &.included {
+    color: v.$color-text-main;
+  }
+}

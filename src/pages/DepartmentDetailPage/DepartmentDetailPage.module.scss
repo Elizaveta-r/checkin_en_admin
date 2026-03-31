@@ -1,0 +1,262 @@
+@use "../../styles/variables" as v;
+
+.pageContent {
+  min-height: 100vh;
+}
+
+.isDefault {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.content {
+  margin-top: 24px;
+
+  @media screen and (max-width: 553px) {
+    margin-top: 15px;
+  }
+}
+
+.desc {
+  font-size: 1.1rem;
+  color: v.$color-text-light;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid v.$color-border;
+  text-align: left;
+
+  @media screen and (max-width: 553px) {
+    font-size: 0.9rem;
+  }
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: v.$color-text-main;
+  margin-bottom: 20px;
+  border-left: 4px solid v.$color-primary;
+  padding-left: 12px;
+  text-align: left;
+
+  @media screen and (max-width: 553px) {
+    font-size: 1rem;
+  }
+}
+
+.details {
+  margin-bottom: 40px;
+
+  @media screen and (max-width: 553px) {
+    margin-bottom: 20px;
+  }
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+
+  @media screen and (max-width: 553px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
+
+.gridItem {
+  background-color: v.$color-white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.headerCards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: v.$color-text-light;
+  margin-bottom: 4px;
+  margin: 0;
+
+  @media screen and (max-width: 553px) {
+    font-size: 0.8rem;
+  }
+}
+
+.time {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: v.$color-primary;
+
+  @media screen and (max-width: 553px) {
+    font-size: 1.1rem;
+  }
+}
+
+.employees {
+  margin-bottom: 40px;
+
+  @media screen and (max-width: 553px) {
+    margin-bottom: 20px;
+  }
+}
+
+.employeeGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dataItem {
+  display: flex;
+  align-items: center;
+  background-color: v.$color-white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s;
+  gap: 8px;
+
+  &:hover {
+    background-color: #fcfdfe;
+  }
+
+  @media screen and (max-width: 553px) {
+    flex-direction: column;
+  }
+}
+
+.nameCell {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nameEmp {
+  font-weight: 600;
+  color: v.$color-text-main;
+  flex-grow: 1;
+  text-align: left;
+  cursor: pointer;
+}
+
+.postEmp {
+  font-size: 0.9rem;
+  color: v.$color-text-light;
+  width: 200px;
+  text-align: left;
+  padding-right: 20px;
+
+  @media screen and (max-width: 553px) {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: v.$color-white;
+  flex-shrink: 0;
+
+  background: linear-gradient(
+    45deg,
+    v.$color-accent-start,
+    v.$color-accent-end
+  );
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.empty {
+  text-align: left;
+  color: v.$color-text-light;
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-self: end;
+
+  @media screen and (max-width: 553px) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+.contact,
+.edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid v.$color-border;
+  background: v.$color-white;
+
+  svg {
+    transition: transform 0.25s ease;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media screen and (max-width: 553px) {
+    width: 100%;
+  }
+}
+
+.contact {
+  color: v.$color-attention;
+
+  &:hover {
+    background: v.$linear-contact-gradient;
+    border-color: v.$contact-border;
+    transform: translateY(-1px);
+
+    svg {
+      transform: scale(1.1) rotate(2deg);
+    }
+  }
+}
+
+.edit {
+  color: v.$color-info;
+  &:hover {
+    background: v.$linear-edit-gradient;
+    border-color: v.$edit-border;
+    transform: translateY(-1px);
+    svg {
+      transform: scale(1.1) rotate(-5deg);
+    }
+  }
+}
+
+.edit svg {
+  stroke-width: 2;
+}

@@ -1,0 +1,194 @@
+@use "../../styles/variables" as v;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid v.$color-border;
+
+  &.filterActive {
+    display: grid;
+    grid-template-columns: 2.5fr auto;
+    gap: 15px;
+
+    @media screen and (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.calendarControls {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.filterButton {
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 50px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: v.$color-text-main;
+  background-color: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: v.$color-primary;
+    color: v.$color-primary;
+  }
+}
+
+.resetDateButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  padding: 0;
+  color: v.$color-text-light;
+  background-color: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: v.$color-mandatory;
+    border-color: v.$color-mandatory;
+  }
+}
+
+.calendarModal {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: v.$color-white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  :global(.rdrCalendarWrapper) {
+    box-shadow: none !important;
+    border-radius: 8px;
+  }
+
+  :global(.rdrDateRangeWrapper .rdrDateDisplayWrapper) {
+    display: none;
+  }
+}
+
+.applyFilterButton {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  background-color: v.$color-primary;
+  color: v.$color-white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.resetFilterButton {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+  background-color: v.$color-white;
+  color: v.$color-reset-gray;
+  border: 1px solid v.$color-border;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-size: 14px;
+
+  &:hover {
+    background-color: v.$color-bg-light;
+    color: v.$color-text-main;
+  }
+}
+
+.employeesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.employees {
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: v.$color-text-main;
+  margin-bottom: 20px;
+  border-left: 4px solid v.$color-primary;
+  padding-left: 12px;
+  text-align: left;
+  cursor: pointer;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.1rem;
+  }
+}
+
+.employeeGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.noData {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: v.$color-text-light;
+  padding: 50px 0;
+  border: 1px dashed v.$color-border;
+  border-radius: 8px;
+}
+
+.loadMoreBtn {
+  background-color: #16a34a;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  align-self: center;
+
+  &:hover {
+    background-color: #15803d;
+  }
+}
+
+.loading {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

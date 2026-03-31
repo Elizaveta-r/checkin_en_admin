@@ -1,0 +1,56 @@
+@use "../../styles/variables" as v;
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  padding: 8px;
+  height: fit-content;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: v.$color-gray-50;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background-color: v.$color-disabled;
+    color: v.$color-text-main;
+  }
+
+  &.active {
+    background: v.$exit-button;
+    color: v.$color-white;
+
+    .navIcon {
+      color: v.$color-white;
+    }
+  }
+}
+
+.navIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #999;
+  transition: color 0.15s ease;
+}

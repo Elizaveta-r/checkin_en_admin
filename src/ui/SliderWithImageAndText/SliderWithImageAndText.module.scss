@@ -1,0 +1,160 @@
+@use "../../styles/variables" as v;
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sliderContent {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    // grid-template-columns: 1fr;
+    text-align: center;
+    gap: 20px;
+  }
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  cursor: zoom-in;
+}
+
+.image {
+  max-width: 100%;
+  height: 407px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background: v.$color-bg-light;
+  object-fit: contain;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 400px;
+    // height: 210px;
+  }
+}
+
+.textWrapper {
+  text-align: left;
+  white-space: pre-line;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+}
+
+.stepTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: v.$color-text-dark;
+  margin-bottom: 10px;
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
+}
+
+.stepText {
+  font-size: 16px;
+  line-height: 1.5;
+  color: v.$color-text-light;
+
+  @media (max-width: 480px) {
+    font-size: 15px;
+  }
+}
+
+/* Кнопки навигации */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(v.$color-white, 0.85);
+  border: 1px solid v.$color-border;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  &:hover {
+    background: v.$color-bg-light;
+    box-shadow: v.$color-shadow-primary-hover;
+  }
+
+  @media (max-width: 480px) {
+    padding: 6px;
+  }
+}
+
+.leftButton {
+  left: -60px;
+
+  @media (max-width: 768px) {
+    left: 10px;
+  }
+}
+
+.rightButton {
+  right: -60px;
+
+  @media (max-width: 768px) {
+    right: 10px;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: v.$color-text-dark;
+
+  @media (max-width: 480px) {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Пагинация */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: v.$color-light-gray;
+  transition: background-color 0.25s ease;
+
+  @media (max-width: 480px) {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+.activeDot {
+  background: v.$gradient-primary;
+}

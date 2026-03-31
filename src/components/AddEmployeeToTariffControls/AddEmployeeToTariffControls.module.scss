@@ -1,0 +1,46 @@
+@use "../../styles/variables" as v;
+
+.employeeAdderControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.employeeButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid v.$color-border;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: v.$color-text-main;
+
+  &:hover:not(:disabled) {
+    background-color: v.$color-primary;
+    color: white;
+    border-color: v.$color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.employeeCount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: v.$color-text-main;
+  min-width: 40px;
+  text-align: center;
+}

@@ -1,0 +1,68 @@
+@use "../../styles/variables" as v;
+@use "sass:color";
+
+.checkboxWrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 8px;
+  &:focus-visible {
+    outline: 2px solid v.$color-primary;
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: 380px) {
+    align-items: flex-start;
+  }
+}
+
+.customCheckbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid v.$color-border;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checked {
+  background-color: v.$color-primary;
+  border-color: v.$color-primary;
+}
+
+.icon {
+  color: #fff;
+  transition: opacity 0.2s ease;
+  width: 14px;
+  height: 14px;
+  stroke-width: 3;
+}
+
+.label {
+  font-size: 14px;
+  color: v.$color-text-main;
+  line-height: 1.2;
+  line-height: 100%;
+  text-align: left;
+}
+
+.disabled {
+  cursor: not-allowed;
+
+  .customCheckbox {
+    background-color: v.$color-disabled;
+    border-color: color.adjust(v.$color-disabled, $lightness: -5%);
+    .icon {
+      color: #b0b0b0;
+    }
+  }
+
+  .label {
+    color: #a0a0a0;
+  }
+}

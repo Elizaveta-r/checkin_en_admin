@@ -1,0 +1,248 @@
+@use "../../styles/variables" as v;
+@use "sass:color";
+
+.videoHelpBlock {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(249, 250, 251, 0.95) 100%
+  );
+
+  backdrop-filter: blur(20px);
+  border: 3px solid transparent;
+  position: relative;
+  z-index: -1;
+  border-radius: 24px;
+  padding: 2rem;
+  //   margin-bottom: 4rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  overflow: hidden;
+  animation: slideInFromTop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+
+  //   &::before {
+  //     will-change: background-position;
+  //     content: "";
+  //     position: absolute;
+  //     inset: -3px;
+  //     background: linear-gradient(
+  //       135deg,
+  //       v.$color-green-500,
+  //       v.$color-accent-end,
+  //       #8b5cf6
+  //     );
+  //     background-size: 200% 200%;
+  //     border-radius: 24px;
+  //     z-index: -1;
+  //     animation: gradientShift 5s ease infinite;
+  //   }
+
+  .arrow,
+  .iconWrapper {
+    transition: all 0.3s ease-in;
+  }
+
+  .arrow,
+  .iconWrapper {
+    & svg {
+      color: white;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 60px rgba(34, 197, 94, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.5);
+
+    .arrow {
+      transform: translateX(6px) scale(1.2);
+    }
+
+    .iconWrapper {
+      transform: scale(1.15) rotate(5deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.75rem;
+    // margin-bottom: 3rem;
+  }
+
+  @media (max-width: 450px) {
+    padding: 1.5rem;
+    gap: 1rem;
+    // margin-bottom: 2.5rem;
+  }
+}
+
+.gradientBg {
+  position: absolute;
+  inset: -3px;
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    v.$color-green-500,
+    v.$color-accent-end,
+    #8b5cf6
+  );
+  //     background-size: 200% 200%;
+  //     border-radius: 24px;
+  //     z-index: -1;
+  //     animation: gradientShift 5s ease infinite;
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease infinite;
+  z-index: 1;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.title,
+.description {
+  color: whitesmoke;
+  text-align: left;
+}
+
+.iconWrapper {
+  z-index: 1;
+  min-width: 80px;
+  width: 80px;
+  height: 80px;
+  background: v.$gradient-primary;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: v.$color-shadow-primary, inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    background: v.$gradient-primary;
+    border-radius: 24px;
+    opacity: 0.2;
+    filter: blur(20px);
+    z-index: -1;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  svg {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  @media (max-width: 450px) {
+    min-width: 70px;
+    width: 70px;
+    height: 70px;
+
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.3;
+  }
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  z-index: 1;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: whitesmoke;
+  margin-bottom: 0.625rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 450px) {
+    font-size: 1.25rem;
+    // justify-content: center;
+  }
+}
+
+.description {
+  font-size: 1.0625rem;
+  color: color.adjust(whitesmoke, $lightness: 60%);
+  line-height: 1.7;
+  margin: 0;
+
+  @media (max-width: 450px) {
+    font-size: 1rem;
+  }
+}
+
+.arrow {
+  z-index: 1;
+  font-size: 2rem;
+  background: v.$gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobileWrapper {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobileLink {
+  color: whitesmoke;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}

@@ -1,0 +1,79 @@
+@use "../../styles/variables" as v;
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switchLabel {
+  font-size: 0.95rem;
+  color: v.$color-text-main;
+  font-weight: 500;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.switchInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switchInput:disabled + .slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.switchInput:disabled + .slider:before {
+  background: #f0f0f0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-image: linear-gradient(
+    90deg,
+    v.$color-slider-off,
+    v.$color-slider-off
+  );
+
+  border-radius: 34px;
+  transition: all 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: v.$color-white;
+  border-radius: 50%;
+  transition: all 0.4s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.slider.checked {
+  background-image: linear-gradient(
+    90deg,
+    v.$color-accent-start,
+    v.$color-accent-end
+  );
+  box-shadow: 0 0 4px rgba(v.$color-primary, 0.5);
+}
+
+.slider.checked:before {
+  transform: translateX(20px);
+}

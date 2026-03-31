@@ -1,0 +1,46 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: v.$color-text-main;
+  background-color: v.$color-white;
+
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px v.$color-shadow-light;
+  outline: none;
+
+  resize: vertical;
+  min-height: 80px;
+
+  transition: border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+
+  &::placeholder {
+    color: v.$color-text-light;
+    opacity: 0.8;
+  }
+
+  &:hover {
+    border-color: color.adjust(v.$color-border, $lightness: -5%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  &:focus {
+    border-color: v.$color-primary;
+    box-shadow: 0 0 0 3px color.adjust(v.$color-primary, $lightness: 35%),
+      0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &.is-error {
+    border-color: v.$color-danger;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3), 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+  }
+}

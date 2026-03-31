@@ -1,0 +1,458 @@
+@use "../../styles/variables" as v;
+@use "sass:color";
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  @media (max-width: 768px) {
+    text-align: center;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.sectionTitle {
+  text-align: left;
+  color: v.$color-text-dark;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
+}
+
+.sectionDescription {
+  color: v.$color-text-light;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 13px;
+  }
+}
+
+.passwordBlock {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid v.$color-border;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
+}
+
+.passwordHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+
+.passwordAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: v.$exit-button;
+  color: v.$color-white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background: color.adjust(v.$exit-button, $lightness: 10%);
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
+.emptySessions {
+  color: v.$color-text-light;
+  font-size: 13px;
+  padding: 8px 0;
+
+  @media (max-width: 768px) {
+    text-align: center;
+    padding: 16px 0;
+  }
+}
+
+.sessionsBlock {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
+}
+
+.sessionsTitle,
+.passwordTitle {
+  font-weight: 500;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 15px;
+  }
+}
+
+.sessionsTitle {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.sessionsList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
+}
+
+.sessionCard {
+  padding: 20px 18px;
+  border-radius: 12px;
+  border: 1px solid v.$color-border;
+  background: v.$color-white;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  &.active {
+    border: 1px solid v.$color-info;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    gap: 12px;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.sessionIcon {
+  border-radius: 4px;
+  border: 1px solid v.$color-border;
+  background: v.$color-white;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.active {
+    background: v.$linear-info-badge-gradient;
+
+    & svg {
+      stroke: v.$color-info;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+  }
+
+  @media (max-width: 480px) {
+    width: 36px;
+    height: 36px;
+    align-self: flex-start;
+  }
+}
+
+.sessionInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 8px;
+  }
+}
+
+.deviceInfo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.deviceName {
+  padding: 0;
+  margin: 0;
+  color: v.$color-text-dark;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+}
+
+.currentSession {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 130px;
+  background: v.$hover-resend;
+  color: v.$color-white;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: default;
+  user-select: none;
+
+  @media (max-width: 768px) {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  @media (max-width: 480px) {
+    align-self: flex-start;
+  }
+}
+
+.endSession {
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 130px;
+  background: color.adjust(v.$color-mandatory, $lightness: 10%);
+  color: v.$color-white;
+  // font-family: Rubik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  min-width: 74px;
+
+  &:hover {
+    background: v.$color-mandatory;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  @media (max-width: 480px) {
+    align-self: flex-start;
+  }
+}
+
+.sessionDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 6px;
+  }
+}
+
+.itemDetails {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: v.$color-text-light;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+.itemIcon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.itemValue {
+  padding: 0;
+  margin: 0;
+
+  @media (max-width: 480px) {
+    word-break: break-word;
+  }
+}
+
+.deleteTitle {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  color: v.$color-mandatory;
+}
+
+.deleteContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.deleteAccount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(v.$color-delete-red, 0.3);
+
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.12) 0%,
+    rgba(220, 38, 38, 0.12) 100%
+  );
+
+  color: v.$color-delete-red;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease, transform 0.2s ease;
+
+  // Мягкая тень
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12);
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(239, 68, 68, 0.18) 0%,
+      rgba(220, 38, 38, 0.18) 100%
+    );
+    border-color: rgba(v.$color-delete-red, 0.45);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.22);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px rgba(239, 68, 68, 0.18);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+  }
+}

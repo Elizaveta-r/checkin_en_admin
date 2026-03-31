@@ -1,0 +1,23 @@
+/* src/ui/StatusPill/StatusPill.module.scss */
+
+.pill {
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  user-select: none;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+.active {
+  background-color: #e6f7d9;
+  color: #52c41a;
+}
+
+.inactive {
+  background-color: #f0f0f0;
+  color: #595959;
+}

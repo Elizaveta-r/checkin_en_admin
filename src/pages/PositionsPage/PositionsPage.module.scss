@@ -1,0 +1,38 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  @media screen and (max-width: 1023px) {
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 767px) {
+    gap: 16px;
+  }
+}
+
+.noData {
+  font-size: 16px;
+  text-align: center;
+  color: v.$color-text-light;
+  padding: 72px !important;
+  background-color: v.$color-white !important;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-weight: 400;
+  box-shadow: none !important;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  @media screen and (max-width: 568px) {
+    grid-template-columns: 1fr;
+  }
+}

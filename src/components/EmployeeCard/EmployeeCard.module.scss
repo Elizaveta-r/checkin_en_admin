@@ -1,0 +1,251 @@
+@use "../../styles/variables" as v;
+
+$grid-template-cols: 2fr 1fr 130px 1fr 80px auto;
+
+.dataItem {
+  display: flex;
+  flex-direction: column;
+  // gap: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: v.$color-white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 0px 6px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s;
+  word-wrap: break-word;
+}
+
+.headerRow {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 20px 11px 20px;
+  border-radius: 0;
+  margin-bottom: 5px;
+
+  background-image: linear-gradient(
+    45deg,
+    v.$color-accent-start,
+    v.$color-accent-end
+  );
+  background-clip: padding-box, border-box;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+
+  p {
+    font-weight: 700;
+    color: v.$color-text-light;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.nameCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+
+  &:hover {
+    .nameEmp {
+      text-decoration-color: v.$color-green-500;
+    }
+  }
+}
+
+.nameEmp {
+  font-weight: 600;
+  color: v.$color-text-main;
+  text-align: left;
+
+  text-decoration: underline transparent;
+  text-decoration-thickness: 1.5px;
+  transition: text-decoration-color 0.3s ease-in-out;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: v.$color-white;
+  flex-shrink: 0;
+
+  background: linear-gradient(
+    45deg,
+    v.$color-accent-start,
+    v.$color-accent-end
+  );
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  &.empty {
+    background: none;
+    box-shadow: none;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.positions,
+.role,
+.departments {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.positionsTitle,
+.roleTitle,
+.departmentsTitle {
+  font-size: 0.9rem;
+  color: v.$color-text-light;
+  font-weight: 400;
+  text-align: left;
+}
+
+.positionCol {
+  display: inline;
+  font-size: 0.9rem;
+  color: v.$color-text-main;
+  font-weight: 500;
+  text-align: left;
+}
+
+.roleCol {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: v.$color-primary;
+  text-align: left;
+}
+
+.department {
+  font-size: 0.9rem;
+  color: v.$color-text-light;
+  font-weight: 400;
+  text-align: left;
+}
+
+.statusIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+
+    &.on {
+      background-color: v.$color-status-done;
+      box-shadow: 0 0 5px v.$color-status-done;
+    }
+
+    &.off {
+      background-color: v.$color-status-off;
+    }
+  }
+}
+
+.actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.contact,
+.edit,
+.trash,
+.move {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 36px;
+
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid v.$color-border;
+  background: v.$color-white;
+
+  svg {
+    transition: transform 0.25s ease;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.contact {
+  color: v.$color-attention;
+
+  &:hover {
+    background: v.$linear-contact-gradient;
+    border-color: v.$contact-border;
+    transform: translateY(-1px);
+
+    svg {
+      transform: scale(1.1) rotate(2deg);
+    }
+  }
+}
+
+.edit {
+  color: v.$color-info;
+  &:hover {
+    background: v.$linear-edit-gradient;
+    border-color: v.$edit-border;
+    transform: translateY(-1px);
+    svg {
+      transform: scale(1.1) rotate(-5deg);
+    }
+  }
+}
+
+.trash {
+  color: v.$color-mandatory;
+  &:hover {
+    background: v.$linear-trash-gradient;
+    border-color: v.$trash-border;
+    transform: translateY(-1px);
+    svg {
+      transform: scale(1.15) rotate(5deg);
+    }
+  }
+}
+
+.trash svg,
+.edit svg {
+  stroke-width: 2;
+}
+
+.move {
+  color: v.$color-info;
+
+  &:hover {
+    background: v.$linear-badge-primary;
+    border-color: v.$color-accent-end;
+    transform: translateY(-1px);
+    svg {
+      transform: scale(1.1) rotate(-10deg);
+    }
+  }
+}

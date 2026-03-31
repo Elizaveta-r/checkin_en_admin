@@ -1,0 +1,27 @@
+.links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+
+  & a {
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease-in;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+  }
+}
+
+.line {
+  width: 1px;
+  height: 25px;
+  background-color: #ebebeb;
+}

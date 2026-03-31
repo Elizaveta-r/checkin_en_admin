@@ -1,0 +1,480 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+
+.historyItem {
+  display: grid;
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+  padding: 10px 14px;
+
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  border: 1px solid v.$color-border;
+
+  &:hover {
+    background-color: v.$color-bg-light;
+  }
+
+  /* Цвета статусов */
+  &.active {
+    border-left: 4px solid v.$color-status-active;
+  }
+
+  &.done {
+    border-left: 4px solid v.$color-status-done;
+  }
+
+  &.failed {
+    border-left: 4px solid v.$color-status-failed;
+  }
+
+  &.notOnTime {
+    border-left: 4px solid v.$color-status-late;
+  }
+
+  &.doubt {
+    border-left: 4px solid v.$color-status-doubt;
+  }
+}
+
+.statusIcon {
+  color: v.$color-text-light;
+  padding-top: 5px;
+}
+
+.done {
+  .statusIcon {
+    color: v.$color-status-done;
+  }
+}
+
+.failed {
+  .statusIcon {
+    color: v.$color-status-failed;
+  }
+}
+
+.active {
+  .statusIcon {
+    color: v.$color-status-active;
+  }
+}
+
+.notOnTime {
+  .statusIcon {
+    color: v.$color-status-late;
+  }
+}
+
+.doubt {
+  .statusIcon {
+    color: v.$color-status-doubt;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.taskTitle {
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: v.$color-text-main;
+
+  &.task {
+    color: v.$color-primary;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: v.$color-primary;
+  }
+}
+
+.date {
+  font-size: 0.8rem;
+  color: v.$color-text-light;
+}
+
+.positionInfo {
+  font-size: 0.85rem;
+  color: v.$color-text-light;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 5px;
+}
+
+.feedbackSection {
+  padding: 10px;
+  background-color: #f7f7f9;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.aiFeedback {
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+.aiSuccess {
+  color: v.$color-status-done;
+  background-color: color.adjust(v.$color-status-done, $lightness: 30%);
+
+  svg {
+    color: v.$color-status-done;
+  }
+}
+
+.aiFail {
+  color: v.$color-status-failed;
+  background-color: color.adjust(v.$color-status-failed, $lightness: 25%);
+
+  svg {
+    color: v.$color-status-failed;
+  }
+}
+
+.criteria,
+.comment {
+  font-size: 0.8rem;
+  color: v.$color-text-main;
+
+  & svg {
+    flex-shrink: 0;
+  }
+}
+.comment {
+  color: v.$color-status-late;
+  font-style: italic;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.photoContainer {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  cursor: zoom-in;
+
+  &.empty {
+    background-color: #e7f1ec;
+    border: 1px dashed #9fbca8;
+    color: #6a8572;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: default;
+    &:hover {
+      background-color: #dbe8e1;
+      border-color: #8aad96;
+      color: #5c7764;
+    }
+  }
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoLink {
+  align-self: flex-start;
+  padding: 8px 12px;
+  background-color: v.$color-bg-light;
+  color: v.$color-primary;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: v.$color-border;
+  }
+}
+
+.noHistory {
+  color: v.$color-text-light;
+  text-align: center;
+  padding: 40px;
+  background-color: v.$color-bg-light;
+  border-radius: 8px;
+}
+
+.deadlineContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 4px;
+
+  .deadline,
+  .late {
+    font-size: 0.8rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* строка с дедлайном */
+  .deadline {
+    color: v.$color-text-light;
+    font-weight: 500;
+  }
+
+  /* строка с опозданием */
+  .late {
+    color: v.$color-status-late;
+    font-weight: 600;
+    font-style: italic;
+  }
+}
+
+/* Кнопка "История попыток" */
+.attemptsButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: v.$color-bg-light;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: v.$color-text-secondary;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: v.$color_white;
+    border-color: v.$color-border-hover;
+    color: v.$color-text-dark;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+/* Список попыток */
+.attemptsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(
+    135deg,
+    v.$color-bg-light 0%,
+    v.$color_white 100%
+  );
+  border: 1px solid v.$color-border;
+  border-radius: 12px;
+  margin-top: 12px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Отдельная попытка */
+.attemptItem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background: v.$color_white;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: v.$color-border-hover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Миниатюра фото попытки */
+.attemptImage {
+  width: 100%;
+  height: 100%;
+  max-height: 8.125rem;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid v.$color-border;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Информация о попытке */
+.attemptInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+}
+
+.attemptDateContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.attemptDate {
+  white-space: nowrap;
+  font-size: 0.8rem;
+  color: #6b7280;
+  color: v.$color-text-light;
+  margin: 0;
+  text-align: right;
+}
+
+.attemptAiFail {
+  font-size: 0.8rem;
+  font-weight: 700;
+  // color: v.$color-status-failed;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: color.adjust(v.$color-status-failed, $lightness: 25%);
+  color: v.$color-danger;
+  border-radius: 4px;
+  margin: 0;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.attemptAiSuccess {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: v.$color-status-done;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: color.adjust(v.$color-status-done, $lightness: 35%);
+  border-radius: 4px;
+  margin: 0;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.photoLink {
+  align-self: flex-start;
+  padding: 8px 12px;
+  background-color: v.$color-bg-light;
+  color: v.$color-primary;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: v.$color-border;
+  }
+}
+
+.noHistory {
+  color: v.$color-text-light;
+  text-align: center;
+  padding: 40px;
+  background-color: v.$color-bg-light;
+  border-radius: 8px;
+}
+
+.deadlineContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 4px;
+
+  .deadline,
+  .late {
+    font-size: 0.8rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* строка с дедлайном */
+  .deadline {
+    color: v.$color-text-light;
+    font-weight: 500;
+  }
+
+  /* строка с опозданием */
+  .late {
+    color: v.$color-status-late;
+    font-weight: 600;
+    font-style: italic;
+  }
+}

@@ -1,0 +1,135 @@
+@use "../../styles/variables" as v;
+
+.hintTooltipPortal {
+  position: absolute;
+  background: v.$color-text-dark;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 9999;
+  transform-origin: center;
+
+  text-align: center;
+
+  min-width: 210px;
+  max-width: 350px;
+  font-size: 14px;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+  white-space: pre-line;
+  will-change: transform, opacity;
+
+  &.top {
+    translate: -50% -100%;
+  }
+
+  &.bottom {
+    translate: -50% 0;
+  }
+
+  &.left {
+    translate: -100% -50%;
+  }
+
+  &.right {
+    translate: 0 -50%;
+  }
+
+  @media screen and (max-width: 320px) {
+    min-width: 170px;
+  }
+
+  @media screen and (max-width: 320px) {
+    min-width: 175px;
+  }
+}
+
+.hintContainer {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.hintTarget {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  gap: 8px;
+  width: 100%;
+}
+
+.hintTriggerWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hintIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hintTooltip {
+  position: absolute;
+  z-index: 10;
+  padding: 10px 15px;
+  background-color: v.$hint-bg;
+  color: v.$color-white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-width: 210px;
+  max-width: 350px;
+  font-size: 14px;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+  white-space: pre-line;
+}
+
+.hintTooltip img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.hintTooltip ol,
+.hintTooltip ul {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.hintTooltip li {
+  margin-bottom: 5px;
+}
+
+.hintTooltip {
+  &.top {
+    bottom: calc(100% + 10px);
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  &.right {
+    left: calc(100% + 10px);
+    top: 50%;
+    translate: 0 -50%;
+  }
+
+  &.left {
+    right: calc(100% + 10px);
+    top: 50%;
+    translate: 0 -50%;
+  }
+
+  &.bottom {
+    top: calc(100% + 10px);
+    left: 50%;
+    translate: -50% 0;
+  }
+}

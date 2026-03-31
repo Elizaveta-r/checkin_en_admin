@@ -1,0 +1,90 @@
+@use "../../styles/variables" as v;
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.infoBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: v.$gradient-primary;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  justify-content: center;
+
+  svg {
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.edit,
+.trash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid v.$color-border;
+  background: v.$color_white;
+
+  svg {
+    transition: transform 0.25s ease;
+  }
+}
+
+.edit {
+  color: v.$color-info;
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: v.$color-info;
+    transform: translateY(-1px);
+
+    svg {
+      transform: rotate(-5deg);
+    }
+  }
+}
+
+.trash {
+  color: v.$color-mandatory;
+
+  &:hover {
+    background: rgba(220, 38, 38, 0.1);
+    border-color: v.$color-mandatory;
+    transform: translateY(-1px);
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@use "../../styles/variables" as v;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 10px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: v.$color-text-main;
+  text-align: left;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid v.$color-border;
+}
+
+.cancelButton {
+  padding: 10px 24px;
+}
+
+.saveButton {
+  height: 40px;
+  font-size: 14px;
+}

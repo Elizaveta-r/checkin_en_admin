@@ -1,0 +1,35 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.imgContainer {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text {
+  color: var(--color-text-main);
+  font-size: var(--font-size-h2);
+  font-style: normal;
+  font-weight: var(--font-weight-bold);
+  line-height: normal;
+}
+
+.i {
+  font-family: "Lora";
+  font-weight: 600;
+}

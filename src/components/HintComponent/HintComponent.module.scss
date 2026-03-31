@@ -1,0 +1,7 @@
+@use "../../styles/variables" as v;
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: v.$color-text-dark;
+}

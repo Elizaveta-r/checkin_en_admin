@@ -1,0 +1,147 @@
+@use "../../styles/variables" as v;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  color: v.$color-text-main;
+  text-align: left;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+}
+
+.sectionDescription {
+  color: v.$color-text-light;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.field {
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  left: 35px;
+  top: -50%;
+  transform: translateY(80%);
+  pointer-events: none;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  background: v.$color-white;
+
+  color: v.$color-text-main;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.valueGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 30px;
+  border-radius: 100000px;
+  border: 1px solid v.$color-border;
+  background: v.$color-white;
+}
+
+.value {
+  color: v.$color-text-main;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.editButton {
+  border: none;
+  width: 39px;
+  height: 39px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: none;
+  border-radius: 8px;
+  background: v.$color-white;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background: v.$color-border;
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.verificationStatus {
+  height: 39px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  user-select: none;
+}
+
+.verifiedIcon {
+  width: 20px;
+  height: 20px;
+  color: v.$color-status-done;
+}
+
+.verifiedText {
+  color: v.$color-status-done;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.unverifiedIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: v.$color-status-late;
+}
+
+.resendButton {
+  background: none;
+  border: none;
+  color: v.$color-info;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: v.$hover-resend;
+  }
+}

@@ -1,0 +1,84 @@
+@use "../../styles/variables" as v;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.iconContainer {
+  margin-bottom: 20px;
+}
+
+.warningIcon {
+  color: v.$color-danger;
+  stroke-width: 1.5;
+}
+
+.message {
+  font-size: 1rem;
+  color: v.$color-text-light;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  white-space: pre-line;
+
+  @media screen and (max-width: 767px) {
+    font-size: 0.9rem;
+  }
+}
+
+.employeeName {
+  font-weight: 600;
+  color: v.$color-danger;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.buttonCancel,
+.buttonConfirm {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 0.9rem;
+  }
+}
+
+.buttonCancel {
+  background-color: v.$color-bg-light;
+  color: v.$color-text-light;
+  border: 1px solid v.$color-border;
+
+  &:hover {
+    background-color: v.$color-disabled;
+  }
+}
+
+.buttonConfirm {
+  // Стиль для удаления: красный акцент
+  background-color: v.$color-danger;
+  color: v.$color-white;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+
+  &:hover {
+    background-color: v.$color-danger-hover;
+    box-shadow: 0 6px 20px v.$trash-border;
+  }
+}

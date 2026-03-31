@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @media screen and (max-width: 425px) {
+    padding: 0 18px;
+    gap: 25px;
+  }
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+
+  @media screen and (max-width: 767px) {
+    font-size: 25px;
+  }
+}
+
+.text {
+  font-size: 16px;
+  color: #0d0d0d;
+  white-space: nowrap;
+  text-align: center;
+
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+  }
+}
+
+.link {
+  width: max-content;
+  color: var(--color-primary);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    border-bottom: 1px solid var(--color-primary);
+  }
+}

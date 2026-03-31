@@ -1,0 +1,140 @@
+@use "../../styles/variables" as v;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.header,
+.item {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 1.5fr repeat(2, 1fr) auto;
+  text-align: left;
+  padding: 0 20px 11px 20px;
+}
+
+.item {
+  transition: background-color 0.2s ease-in-out;
+  padding: 11px 20px;
+
+  &:hover {
+    background-color: v.$color-bg-light;
+  }
+}
+
+.header {
+  background-color: transparent;
+  border-radius: 0;
+  margin-bottom: 5px;
+  background-image: linear-gradient(45deg, #22c55e, #06b6d4);
+  background-clip: padding-box, border-box;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+}
+
+.headerTitle {
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.itemTitleContainer,
+.itemPositions,
+.itemDepartments,
+.itemType,
+.itemTime {
+  display: flex;
+  align-items: center;
+}
+
+.itemTitle {
+  font-weight: 600;
+  color: #1f2937;
+  text-align: left;
+  text-decoration: underline transparent;
+  text-decoration-thickness: 1.5px;
+  cursor: pointer;
+  transition: text-decoration-color 0.3s ease-in-out;
+
+  &:hover {
+    text-decoration-color: #22c55e;
+  }
+}
+
+.itemPositions,
+.itemDepartments,
+.itemType,
+.itemTime {
+  font-size: 0.9rem;
+  color: #1f2937;
+  font-weight: 500;
+  text-align: left;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit,
+.trash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+
+  svg {
+    transition: all 0.25s ease;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    border: 1px solid v.$color-border;
+  }
+
+  &.empty {
+    border: none;
+    height: 2px;
+  }
+}
+
+.edit {
+  color: #3e68ff;
+  &:hover {
+    background: v.$linear-edit-gradient;
+    border-color: v.$edit-border;
+    color: v.$hover-resend;
+
+    svg {
+      transform: rotate(-5deg);
+    }
+  }
+}
+
+.trash {
+  color: #dc2626;
+  &:hover {
+    background: v.$linear-trash-gradient;
+    border-color: v.$trash-border;
+    color: v.$color-mandatory;
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}

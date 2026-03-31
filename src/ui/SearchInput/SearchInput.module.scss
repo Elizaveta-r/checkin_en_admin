@@ -1,0 +1,64 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+
+.inputWrapper {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 16px;
+  background-color: v.$color-white;
+
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px v.$color-shadow-light;
+
+  transition: border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+
+  svg {
+    color: v.$color-text-light;
+    flex-shrink: 0;
+    transition: color 0.25s ease-in-out;
+  }
+
+  &:hover {
+    border-color: v.$color-border-hover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+    svg {
+      color: v.$color-text-main;
+    }
+  }
+
+  &:focus-within {
+    border-color: v.$color-primary;
+    box-shadow: 0 0 0 3px color.adjust(v.$color-primary, $lightness: 35%),
+      0 1px 3px rgba(0, 0, 0, 0.1);
+
+    svg {
+      color: v.$color-primary;
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  box-shadow: none;
+
+  font-size: 1rem;
+  line-height: 1.5;
+  color: v.$color-text-main;
+
+  &::placeholder {
+    color: v.$color-text-light;
+    opacity: 1;
+  }
+
+  padding: 0;
+}

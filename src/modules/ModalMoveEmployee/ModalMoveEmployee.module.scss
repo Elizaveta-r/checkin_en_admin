@@ -1,0 +1,53 @@
+@use "../../styles/variables" as v;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: v.$color-text-main;
+  text-align: left;
+}
+
+.checkbox {
+  margin-top: 10px;
+  align-items: flex-start;
+}
+
+.checkboxLabel {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.button {
+  width: 153px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 122%;
+}

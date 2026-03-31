@@ -1,0 +1,75 @@
+@use "../../styles/variables" as v;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  @media screen and (max-width: 1439px) {
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 1023px) {
+    gap: 16px;
+  }
+}
+
+.integrationBanners {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  display: grid;
+  grid-template-columns: 30px 1fr 2fr 165px;
+  gap: 10px;
+
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 20px 11px 20px;
+  border-radius: 0;
+  margin-bottom: 5px;
+  background-image: linear-gradient(45deg, #22c55e, #06b6d4);
+  background-clip: padding-box, border-box;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  @media screen and (max-width: 1100px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 920px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.empty {
+  color: v.$color-text-light;
+  padding: 80px 0;
+}

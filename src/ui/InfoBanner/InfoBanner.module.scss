@@ -1,0 +1,59 @@
+@use "../../styles/variables" as *;
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: $linear-badge-primary;
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: $color-text-light;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+  animation: fadeIn 0.4s ease;
+}
+
+.dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: $color-success;
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.8);
+  animation: pulse 1.8s infinite ease-in-out;
+}
+
+.text {
+  color: $color-text-secondary;
+  strong {
+    color: $color-primary;
+    font-weight: 600;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

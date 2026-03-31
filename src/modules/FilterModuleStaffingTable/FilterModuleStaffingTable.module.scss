@@ -1,0 +1,125 @@
+@use "../../styles/variables" as v;
+@use "sass:color";
+
+.calendarControls {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  @media screen and (max-width: 699px) {
+    width: 100%;
+  }
+}
+
+.filterButtonWrapper {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.filterButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: v.$color-primary;
+  background-color: v.$color-white;
+  border: 1px solid v.$color-primary;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: color.adjust(v.$color-primary, $lightness: 40%);
+  }
+}
+
+.resetButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  color: v.$color-reset-gray;
+  background-color: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: v.$color-text-main;
+    border-color: v.$color-text-main;
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 100%;
+  }
+}
+
+.calendarModal {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background-color: v.$color-white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+
+  :global(.rdrCalendarWrapper) {
+    box-shadow: none !important;
+    border-radius: 8px;
+  }
+
+  :global(.rdrDateRangeWrapper .rdrDateDisplayWrapper) {
+    display: none;
+  }
+}
+
+.applyFilterButton {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  background: linear-gradient(
+    90deg,
+    v.$color-accent-start,
+    v.$color-accent-end
+  );
+  font-size: 14px;
+  color: v.$color-white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.resetFilterButton {
+  width: 100%;
+  margin-top: 5px;
+  font-size: 14px;
+  padding: 8px;
+  background-color: v.$color-white;
+  color: v.$color-reset-gray;
+  border: 1px solid v.$color-border;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: v.$color-bg-light;
+    color: v.$color-text-main;
+  }
+}

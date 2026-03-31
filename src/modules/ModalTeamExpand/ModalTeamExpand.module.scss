@@ -1,0 +1,275 @@
+@use "../../styles/variables" as v;
+@use "sass:color";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tariffInfo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+    > :nth-child(3) {
+      grid-column: 1/-1;
+    }
+  }
+}
+
+.tariffInfoItem {
+  background: #f6fcf9;
+  border: 1px solid #daf4e4;
+  padding: 20px 14px;
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.tariffInfoTitle {
+  font-size: 12px;
+  color: #6c7180;
+  font-weight: 500;
+}
+
+.tariffInfoValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: v.$color-text-main;
+}
+
+//
+.employeeAdderControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.employeeButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid v.$color-border;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: v.$color-text-main;
+
+  &:hover:not(:disabled) {
+    background-color: v.$color-primary;
+    color: white;
+    border-color: v.$color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.employeeCount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: v.$color-text-main;
+  min-width: 40px;
+  text-align: center;
+}
+
+.totalEmployees {
+  font-size: 0.8125rem;
+  color: v.$color-text-secondary;
+  text-align: center;
+  margin: 0;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.sumItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:last-child {
+    border-top: 2px solid v.$color-border;
+    padding-top: 12px;
+  }
+
+  &:nth-child(3) {
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+  }
+}
+
+.sumTitle,
+.sumValue {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.sumValue {
+  color: v.$color-text-main;
+}
+
+.totalSumValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: v.$color-primary;
+}
+
+.warning {
+  position: relative;
+  font-size: 12px;
+  font-weight: 500;
+  background: linear-gradient(
+    135deg,
+    v.$color-yellow-50 0%,
+    color.adjust(v.$color-yellow-50, $lightness: 3%) 100%
+  );
+  border: 1px solid v.$color-alert;
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: v.$color-required;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(v.$color-alert, 0.15);
+  overflow: hidden;
+
+  // Анимация появления
+  animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+    pulse 2s ease-in-out 0.4s infinite;
+
+  // Эффект свечения границы
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(v.$color-alert, 0.3),
+      transparent
+    );
+    animation: shine 3s ease-in-out infinite;
+  }
+
+  // Иконка (опционально)
+  &::after {
+    content: "⚠";
+    margin-right: 6px;
+    font-size: 14px;
+  }
+}
+
+// Анимация появления сверху
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Мягкая пульсация
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(v.$color-alert, 0.15);
+  }
+  50% {
+    box-shadow: 0 2px 12px rgba(v.$color-alert, 0.25);
+  }
+}
+
+// Эффект бегущего света
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.btnGrid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.info {
+  padding: 20px 18px;
+  border-radius: 12px;
+  background: #f6faff;
+  border: 1px solid #d3e1ff;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  & svg {
+    flex-shrink: 0;
+
+    @media screen and (max-width: 500px) {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+.cancelBtn,
+.submitBtn {
+  @media screen and (max-width: 500px) {
+    width: 100% !important;
+  }
+}
+
+.infoText {
+  font-size: 0.875rem;
+  line-height: 140%;
+  color: #434d5c;
+  text-align: left;
+}

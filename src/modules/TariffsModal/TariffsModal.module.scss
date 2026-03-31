@@ -1,0 +1,540 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: v.$color-shadow-dark;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.2s ease;
+}
+
+.modalTariff {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  border-radius: 0 !important;
+
+  @media screen and (max-width: 500px) {
+    height: auto !important;
+    max-height: 100% !important;
+  }
+}
+
+.modal {
+  background: v.$color_white;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+
+  @media screen and (max-width: 767px) {
+    border-radius: 16px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.header {
+  width: 100%;
+  padding: 24px 32px;
+  border-bottom: 1px solid v.$color-border;
+  background: v.$linear-tariffs-gradient;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.headerTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: v.$color-text-main;
+  margin: 0;
+}
+
+.headerSubtitle {
+  font-size: 14px;
+  color: v.$color-text-light;
+  margin: 4px 0 0 0;
+}
+
+.closeButton {
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: v.$color-text-light;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: v.$color-bg-light;
+    color: v.$color-text-main;
+  }
+}
+
+.content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  // padding: 32px;
+}
+
+.tariffGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.tariffCard {
+  position: relative;
+  background: v.$color_white;
+  border: 2px solid v.$color-border;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  overflow: visible;
+
+  &:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: v.$color-accent-start;
+    transform: translateY(-4px);
+  }
+
+  &Current {
+    border-color: v.$color-success;
+    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.15);
+  }
+}
+
+.popularBadge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: v.$gradient-primary;
+  color: v.$color-white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  z-index: 10;
+}
+
+.currentBadge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(34, 197, 94, 0.1);
+  color: v.$color-success;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.tariffContent {
+  padding: 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tariffHeader {
+  margin-bottom: 20px;
+}
+
+.tariffName {
+  font-size: 20px;
+  font-weight: 700;
+  color: v.$color-text-main;
+  margin: 0 0 8px 0;
+}
+
+.tariffDescription {
+  font-size: 13px;
+  color: v.$color-text-light;
+  margin: 0;
+  min-height: 40px;
+  line-height: 1.5;
+}
+
+// ===== PRICE =====
+.tariffPrice {
+  margin-bottom: 20px;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: 700;
+  color: v.$color-text-main;
+}
+
+.period {
+  font-size: 14px;
+  color: v.$color-text-light;
+}
+
+.priceBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid v.$color-border;
+}
+
+.basePrice,
+.additionalPrice {
+  font-size: 0.75rem;
+  color: v.$color-text-light;
+}
+
+.additionalPrice {
+  color: v.$color-primary;
+  font-weight: 600;
+}
+
+// ===== EMPLOYEE ADDER =====
+.employeeAdder {
+  background-color: #f8fafc;
+  border: 1px solid v.$color-border;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.employeeAdderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.employeeAdderLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: v.$color-text-main;
+}
+
+.employeeAdderCost {
+  font-size: 0.75rem;
+  color: v.$color-text-light;
+  background-color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.employeeAdderControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.employeeButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid v.$color-border;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: v.$color-text-main;
+
+  &:hover:not(:disabled) {
+    background-color: v.$color-primary;
+    color: white;
+    border-color: v.$color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+.employeeCount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: v.$color-text-main;
+  min-width: 40px;
+  text-align: center;
+}
+
+.totalEmployees {
+  font-size: 0.8125rem;
+  color: v.$color-text-secondary;
+  text-align: center;
+  margin: 0;
+}
+
+// ===== FEATURES =====
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 auto 0;
+  flex: 1;
+  text-align: left;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.iconIncluded {
+  color: v.$color-success;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.iconExcluded {
+  color: v.$color-light-gray;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.featureIncluded {
+  color: v.$color-text-main;
+}
+
+.featureExcluded {
+  color: v.$color-text-light;
+}
+
+// ===== CTA BUTTON =====
+.ctaButton {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  margin-top: 20px;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.ctaButtonPrimary {
+  background: v.$gradient-primary;
+  color: v.$color-white;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+.ctaButtonSecondary {
+  background: v.$color-text-main;
+  color: v.$color-white;
+
+  &:hover {
+    background: color.adjust(v.$color-text-main, $lightness: 10%);
+    transform: translateY(-2px);
+  }
+}
+
+.ctaButtonDisabled {
+  background: v.$color-bg-light;
+  color: v.$color-text-light;
+  cursor: not-allowed;
+
+  &:hover {
+    transform: none;
+  }
+}
+
+// ===== INFO BOX =====
+.infoBox {
+  background: v.$color-green-50; // Светло-зеленый фон
+  border: 1px solid v.$color-border; // Мягкая граница
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.infoIcon {
+  color: v.$color-success;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.infoContent {
+  flex: 1;
+}
+
+.infoTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: v.$color-text-main;
+  margin: 0 0 10px 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+
+  .gridItem {
+    line-height: 1.4;
+    color: v.$color-text-secondary;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+
+    &::before {
+      content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2322c55e'%3E%3Ccircle cx='10' cy='10' r='3'/%3E%3C/svg%3E");
+      width: 16px;
+      height: 16px;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+  }
+
+  .fullWidthItem {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .infoGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  color: v.$color-text-main;
+  line-height: 1.8;
+  text-align: left;
+}
+
+// ===== RESPONSIVE =====
+@media screen and (max-width: 1024px) {
+  .tariffGrid {
+    grid-template-columns: repeat(2, 1fr);
+
+    > :nth-child(1) {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 20px;
+  }
+
+  .tariffGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .modal {
+    max-height: 95vh;
+    max-width: 95vw;
+  }
+
+  .employeeAdder {
+    padding: 12px;
+  }
+
+  .employeeAdderControls {
+    gap: 12px;
+  }
+
+  .employeeButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .employeeCount {
+    font-size: 1.125rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .overlay {
+    padding: 8px;
+  }
+
+  .headerTitle {
+    font-size: 20px;
+  }
+
+  .headerSubtitle {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .tariffContent {
+    padding: 20px;
+  }
+}

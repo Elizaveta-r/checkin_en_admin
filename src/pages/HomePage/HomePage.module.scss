@@ -1,0 +1,673 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+
+.dashboardPage {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  min-height: 100vh;
+
+  @media screen and (max-width: 1023px) {
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 767px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+  }
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.kpiCard {
+  background-color: v.$color-white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px v.$color-shadow-light;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s;
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.contentMobile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.kpiValue {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+
+  @media screen and (max-width: 320px) {
+    font-size: 1.8rem;
+  }
+}
+
+.kpiTitle {
+  font-size: 0.9rem;
+  color: v.$color-text-light;
+  margin-top: 5px;
+
+  @media screen and (max-width: 320px) {
+    font-size: 0.7rem;
+  }
+}
+
+.green {
+  .kpiValue {
+    color: v.$color-primary;
+  }
+  .iconWrapper {
+    background-color: color.adjust(v.$color-green-50, $lightness: -5%);
+    color: v.$color-primary;
+  }
+}
+
+.red {
+  .kpiValue {
+    color: v.$color-mandatory;
+  }
+
+  .iconWrapper {
+    background-color: v.$color-red-50;
+    color: v.$color-mandatory;
+  }
+
+  @media screen and (min-width: 400px) {
+    .kpiTitle {
+      white-space: nowrap;
+    }
+  }
+}
+
+.yellow {
+  .kpiValue {
+    color: v.$color-orange-50;
+  }
+  .iconWrapper {
+    background-color: v.$color-yellow-50;
+    color: v.$color-orange-50;
+  }
+}
+
+.gradient {
+  .kpiValue {
+    background: linear-gradient(
+      90deg,
+      v.$color-accent-start,
+      v.$color-accent-end
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.blue {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .kpiValue {
+    color: v.$hover-resend;
+  }
+  .kpiTitle {
+    align-self: center;
+  }
+  .content {
+    align-items: center;
+  }
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background-color: v.$color-bg-light;
+  border-radius: 4px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    v.$color-accent-start,
+    v.$color-accent-end
+  );
+  transition: width 0.5s ease-out;
+}
+
+.mainContentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+
+  @media screen and (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: v.$color-text-main;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid v.$color-border;
+}
+
+.problemTasksSection {
+  position: relative;
+  background-color: v.$color-white;
+  border-radius: 12px;
+  padding: 20px 20px 55px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.alertIcon {
+  color: v.$color-mandatory;
+}
+
+.tableWrapper {
+  position: relative;
+}
+
+// Sticky заголовок таблицы
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1.4fr 1.3fr 1.1fr;
+  gap: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: 600;
+  color: v.$color-text-light;
+  padding: 10px 0;
+  background-color: v.$color-white;
+  border-bottom: 2px solid v.$color-border;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  & > span {
+    padding: 0 6px;
+  }
+
+  @media (max-width: 710px) {
+    display: none; // Скрываем на мобильных
+  }
+}
+
+.tasksTable {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.95rem;
+  text-align: center;
+
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 6px;
+  padding-bottom: 8px;
+  scrollbar-gutter: stable;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE и Edge */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+
+  // Мобильная версия
+  @media (max-width: 710px) {
+    gap: 12px;
+    max-height: 64vh;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    text-align: left;
+
+    .taskRow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px;
+      border: 1px solid v.$color-border;
+      border-radius: 12px;
+      background: v.$color_white;
+      box-shadow: 0 1px 3px v.$color-shadow;
+      transition: box-shadow 0.2s ease;
+      align-items: flex-start;
+
+      &:hover {
+        box-shadow: 0 4px 12px v.$color-shadow;
+      }
+
+      & > span {
+        padding: 0;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: initial;
+        text-align: left;
+      }
+
+      .taskName,
+      .employeeName {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        border-bottom: none;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &::before {
+          content: attr(data-label);
+          display: block;
+          font-size: 0.75rem;
+          color: v.$color-text-light;
+          font-weight: 400;
+          margin-bottom: 4px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .taskName::before {
+        content: "Задача";
+      }
+
+      .employeeName::before {
+        content: "Сотрудник";
+      }
+
+      .statusCell {
+        justify-content: flex-start;
+        padding: 8px 12px;
+        font-size: 0.875rem;
+        align-self: flex-start;
+
+        &::before {
+          content: "Статус: ";
+          font-weight: 400;
+          margin-right: 4px;
+          color: v.$color-text-light;
+        }
+      }
+    }
+  }
+
+  .taskName,
+  .employeeName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .taskNameValue,
+  .employeeNameValue {
+    cursor: pointer;
+    width: max-content;
+    text-align: center;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-bottom: 1px solid v.$color-primary;
+    transition: color 0.3s ease-in;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+
+    &::before {
+      content: attr(data-label);
+      display: block;
+      font-size: 0.75rem;
+      color: v.$color-text-light;
+      font-weight: 400;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    &:hover {
+      color: v.$color-primary;
+    }
+  }
+
+  .statusCell {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 12px 10px;
+    line-height: 1;
+    gap: 4px;
+
+    &.not_on_time {
+      color: v.$color-orange-50;
+      background-color: v.$color-yellow-50;
+    }
+    &.not_done {
+      color: #b91c1c;
+      background-color: v.$color-red-50;
+    }
+    &.doubt {
+      color: v.$color-status-doubt;
+      background-color: v.$color-status-doubt-light;
+    }
+  }
+
+  // Для совсем маленьких экранов
+  @media screen and (min-width: 351px) and (max-width: 420px) {
+    .taskRow {
+      padding: 14px;
+      gap: 10px;
+
+      .taskName,
+      .employeeName {
+        font-size: 0.875rem;
+
+        &::before {
+          font-size: 0.6875rem;
+        }
+      }
+
+      .statusCell {
+        padding: 6px 10px;
+        font-size: 0.8125rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    .taskRow {
+      padding: 14px;
+      gap: 10px;
+
+      .taskName,
+      .employeeName {
+        font-size: 0.75rem !important;
+        flex-direction: column;
+        text-align: left;
+        align-items: flex-start;
+        border-bottom: none;
+
+        &::before {
+          font-size: 0.6875rem;
+        }
+
+        &Value {
+          &::before {
+            display: none;
+          }
+        }
+      }
+
+      .statusCell {
+        padding: 6px 10px;
+        font-size: 0.8125rem;
+      }
+    }
+  }
+}
+
+.taskRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1.3fr 1.1fr;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid color.adjust(v.$color-border, $lightness: 5%);
+  align-items: center;
+
+  & > span {
+    // padding: 0 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .taskRow {
+    padding: 14px;
+    gap: 10px;
+
+    .taskName,
+    .employeeName {
+      font-size: 0.75rem;
+
+      &::before {
+        font-size: 0.6875rem;
+      }
+    }
+
+    .statusCell {
+      padding: 6px 10px;
+      font-size: 0.8125rem;
+    }
+  }
+}
+
+.analyticsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.analyticsCard,
+.linksCard {
+  background-color: v.$color-white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px v.$color-shadow-light;
+  margin-bottom: 20px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.chartContainer {
+  width: 100%;
+  height: 220px;
+  padding-top: 10px;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quickLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: v.$color-bg-light;
+  border-radius: 8px;
+  color: v.$color-text-main;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: color.adjust(v.$color-bg-light, $lightness: -1%);
+    color: v.$color-primary;
+  }
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: v.$color-green-500;
+  color: white;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  animation: bounce 2s ease-in-out infinite;
+
+  &:hover {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.5);
+    animation: none;
+  }
+
+  &:active {
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  svg {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.scrollDown svg {
+    transform: rotate(0deg);
+  }
+
+  &.scrollUp svg {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 710px) {
+    width: 44px;
+    height: 44px;
+    bottom: 12px;
+    top: 100%;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 20px;
+  text-align: center;
+  color: v.$color-text-light;
+
+  svg {
+    color: v.$color-primary;
+  }
+
+  @media (max-width: 710px) {
+    padding: 40px 20px;
+
+    .emptyMessage {
+      font-size: 0.9375rem;
+    }
+
+    .emptyHint {
+      font-size: 0.8125rem;
+    }
+  }
+}
+
+.emptyMessage {
+  font-size: 1rem;
+  font-weight: 500;
+  color: v.$color-text-secondary;
+  line-height: 1.5;
+}
+
+.emptyHint {
+  font-size: 0.875rem;
+  color: v.$color-text-light;
+  max-width: 320px;
+}
+
+@media screen and (max-width: 500px) {
+  .tasksTable .taskNameValue,
+  .tasksTable .employeeNameValue {
+    width: auto;
+
+    text-decoration: underline v.$color-primary;
+    text-decoration-thickness: 1.5px;
+    transition: text-decoration-color 0.3s ease-in-out;
+
+    border-bottom: none;
+
+    transition: color 0.3s ease-in;
+    overflow: visible;
+    text-overflow: unset;
+    white-space: pre-line;
+  }
+}

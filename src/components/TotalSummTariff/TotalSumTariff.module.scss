@@ -1,0 +1,64 @@
+@use "../../styles/variables" as v;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.totalEmployees {
+  font-size: 0.8125rem;
+  color: v.$color-text-secondary;
+  text-align: center;
+  margin: 0;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+
+  @media screen and (max-width: 500px) {
+    padding: 0;
+  }
+}
+
+.sumItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:last-child {
+    border-top: 2px solid v.$color-border;
+    padding-top: 12px;
+  }
+
+  &:nth-child(3) {
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+  }
+}
+
+.sumTitle,
+.sumValue {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.sumValue {
+  color: v.$color-text-main;
+}
+
+.totalSumValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: v.$color-primary;
+}

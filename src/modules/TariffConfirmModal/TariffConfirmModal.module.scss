@@ -1,0 +1,514 @@
+@use "../../styles/variables" as v;
+
+.modal {
+  position: relative;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.1) 0%,
+    rgba(6, 182, 212, 0.15) 100%
+  );
+  margin-bottom: 1.25rem;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(
+      135deg,
+      v.$color-green-500,
+      v.$color-accent-end
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+  }
+
+  svg {
+    color: v.$color-green-500;
+    filter: drop-shadow(0 2px 4px rgba(34, 197, 94, 0.2));
+  }
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: v.$color-text-dark;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.03em;
+
+  @media (max-width: 450px) {
+    font-size: 1.5rem;
+  }
+}
+
+.subtitle {
+  color: v.$color-text-light;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.tariffName {
+  font-weight: 700;
+  background: v.$gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tariffCard {
+  background: v.$color_white;
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid v.$color-border;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border-color: v.$color-border-hover;
+  }
+
+  @media (max-width: 450px) {
+    padding: 1rem;
+  }
+}
+
+.tariffHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid v.$color-border;
+
+  @media (max-width: 450px) {
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+  }
+}
+
+.tariffInfo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1.5rem;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.tariffTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.tariffTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: v.$color-text-dark;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 0;
+
+  @media (max-width: 450px) {
+    font-size: 1.25rem;
+  }
+}
+
+.popularBadge {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: v.$color-primary-dark;
+  background: v.$color-lime-50;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  &::before {
+    content: "⭐";
+    font-size: 0.85em;
+  }
+}
+
+.tariffDescription {
+  font-size: 0.9rem;
+  color: v.$color-text-light;
+  margin: 0;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.priceBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
+  }
+}
+
+.price {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: v.$color-text-dark;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 450px) {
+    font-size: 1.875rem;
+  }
+}
+
+.period {
+  font-size: 0.875rem;
+  color: v.$color-text-light;
+  font-weight: 500;
+  text-align: right;
+
+  @media (max-width: 600px) {
+    text-align: left;
+  }
+}
+
+.features {
+  padding: 1.25rem 0;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: v.$color-bg-light;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.featureIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.included {
+    background: linear-gradient(
+      135deg,
+      v.$color-lime-50 0%,
+      rgba(34, 197, 94, 0.15) 100%
+    );
+    border: 1px solid rgba(22, 163, 74, 0.2);
+
+    svg {
+      color: v.$color-status-done;
+    }
+  }
+
+  &.excluded {
+    background: v.$color-disabled;
+    border: 1px solid v.$color-border;
+
+    svg {
+      color: v.$color-light-gray;
+    }
+  }
+}
+
+.featureText {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-weight: 500;
+  text-align: left;
+
+  &.included {
+    color: v.$color-text-dark;
+  }
+
+  &.excluded {
+    color: v.$color-text-light;
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+
+  @media screen and (max-width: 500px) {
+    font-size: 0.9rem;
+  }
+}
+
+.employeesFeature {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid v.$color-border;
+  background: linear-gradient(
+    135deg,
+    rgba(6, 182, 212, 0.05) 0%,
+    rgba(59, 130, 246, 0.05) 100%
+  );
+
+  .featureIcon {
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.15),
+      rgba(59, 130, 246, 0.15)
+    );
+    border: 1px solid rgba(6, 182, 212, 0.25);
+
+    svg {
+      color: v.$color-accent-end;
+    }
+  }
+
+  .featureText {
+    font-weight: 600;
+    color: v.$color-text-dark;
+  }
+}
+
+.addEmployeesContainer {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(249, 250, 251, 0.5) 0%,
+    rgba(243, 244, 246, 0.5) 100%
+  );
+  border-radius: 16px;
+  border: 1px dashed v.$color-border;
+}
+
+.titleHintContainer {
+  justify-content: center;
+}
+
+.warning {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(251, 146, 60, 0.08) 0%,
+    rgba(249, 115, 22, 0.08) 100%
+  );
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: 10px;
+  color: v.$color-attention;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+
+  &::before {
+    content: "⚠️ ";
+    margin-right: 4px;
+  }
+}
+
+.paymentInfo {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.06) 0%,
+    rgba(96, 165, 250, 0.06) 100%
+  );
+  border-radius: 16px;
+  padding: 1.25rem;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  margin-top: 1.5rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      v.$color-status-active,
+      v.$color-accent-end
+    );
+  }
+}
+
+.paymentText {
+  font-size: 0.9rem;
+  text-align: left;
+  color: #1e40af;
+  margin: 0;
+  line-height: 1.7;
+
+  strong {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: 450px) {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+}
+
+.button {
+  flex: 1;
+  padding: 1rem 1.75rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+  }
+
+  &:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.cancelButton {
+  color: v.$color-text-secondary;
+  background: v.$color-bg-light;
+  border: 2px solid v.$color-border;
+
+  &:hover:not(:disabled) {
+    background: v.$color-disabled;
+    border-color: v.$color-border-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+.confirmButton {
+  color: v.$color_white;
+  background: v.$gradient-primary;
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+  border: 2px solid transparent;
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 8px 28px rgba(34, 197, 94, 0.4);
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+  }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: v.$color_white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

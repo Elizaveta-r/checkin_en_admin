@@ -1,0 +1,72 @@
+@use "../../styles/variables" as v;
+
+.codeInput {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  width: 48px;
+  height: 48px;
+  border: 2px solid v.$color-border;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: v.$color-white;
+  transition: all 0.2s ease;
+  outline: none;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59 246 75 / 0.1);
+    background-color: v.$color-bg-light;
+  }
+
+  &:hover {
+    border-color: v.$color-reset-gray;
+  }
+
+  &.filled {
+    border-color: var(--color-primary);
+    background-color: v.$color-bg-light;
+    color: var(--color-primary);
+  }
+
+  &:disabled {
+    background-color: v.$color-disabled;
+    border-color: v.$color-border;
+    color: v.$color-reset-gray;
+    cursor: not-allowed;
+  }
+
+  &:focus,
+  &.filled {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .codeInput {
+    gap: 8px;
+  }
+
+  .input {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
